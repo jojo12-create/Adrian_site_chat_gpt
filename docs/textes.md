@@ -27,8 +27,6 @@ Ostéopathie
 tous âges
 11 avis 5★
 
-Découvrir
-
 - I À l’écoute Une prise en charge adaptée à vos besoins
 
 - II Explications claires Comprendre avant d’agir
@@ -197,7 +195,9 @@ Tous les avis
 
 Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
 
-Glissez pour faire tourner, touchez ou survolez une zone
+Explorer en 3D
+
+Choisissez une zone dans la liste
 
 Cervicales C1 – C7
 
@@ -434,7 +434,9 @@ Troubles digestifs Inconforts digestifs fonctionnels, ballonnements, ventre tend
 
 Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
 
-Glissez pour faire tourner, touchez ou survolez une zone
+Explorer en 3D
+
+Choisissez une zone dans la liste
 
 Cervicales C1 – C7
 

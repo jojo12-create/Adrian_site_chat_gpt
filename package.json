@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Site d'Adrian Rodriguez, ostéopathe à Villefontaine (38090) : HTML/CSS/JS statique, Vite, GSAP, Lenis.",
+  "description": "Site d'Adrian Rodriguez, ostéopathe à Villefontaine (38090) : HTML/CSS/JS statique, Vite.",
   "scripts": {
     "images": "node scripts/images.mjs",
     "symbols": "node scripts/symbols.mjs",
@@ -16,10 +16,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.2.6",
     "@fontsource-variable/manrope": "^5.2.6",
-    "gsap": "^3.13.0",
-    "lenis": "^1.3.4",
     "three": "^0.171.0"
   },
   "devDependencies": {

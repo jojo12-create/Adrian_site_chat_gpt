@@ -77,9 +77,9 @@ export const frTypo = (html) => {
 
 /* --- Boutons --- */
 export const rdv = (label = 'Prendre rendez-vous', cls = 'btn btn-primary') =>
-  `<a class="${cls}" href="${site.links.doctolib}" target="_blank" rel="noopener" data-magnetic data-cursor="RDV"><span class="btn-label">${label}</span>${icon('arrow')}<span class="sr-only"> sur Doctolib (nouvel onglet)</span></a>`;
+  `<a class="${cls}" href="${site.links.doctolib}" target="_blank" rel="noopener"><span class="btn-label">${label}</span>${icon('arrow')}<span class="sr-only"> sur Doctolib (nouvel onglet)</span></a>`;
 export const call = (cls = 'btn btn-ghost') =>
-  `<a class="${cls}" href="${site.phone.href}" data-magnetic>${icon('phone')}<span class="btn-label">${site.phone.display}</span></a>`;
+  `<a class="${cls}" href="${site.phone.href}">${icon('phone')}<span class="btn-label">${site.phone.display}</span></a>`;
 
 /* --- FAQ accessible --- */
 export const faq = (items, title = 'Questions fréquentes', id = 'faq') => `
@@ -206,7 +206,7 @@ export function render(p) {
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="stylesheet" href="/src/css/main.css">
 <script type="application/ld+json">${jsonLd(p)}</script>
-<script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/scripts/main.js"></script>
 </head>
 <body data-page="${p.id}"${DEMO ? ' data-demo' : ''}>
 <a class="skip" href="#contenu">Aller au contenu</a>
@@ -264,7 +264,6 @@ ${DEMO ? '<p class="demo-badge">Maquette · version de démonstration</p>' : ''}
   <a class="fab-call" href="${site.phone.href}" aria-label="Appeler le ${site.phone.display}">${icon('phone')}</a>
   ${rdv('Prendre RDV', 'btn btn-primary fab-rdv')}
 </aside>
-<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
 </body>
 </html>
 `;

@@ -69,7 +69,8 @@ const spineSection = (h = 'h2') => `
     </div>
     <div class="spine-stage" data-spine-stage>
       <div class="spine-canvas" data-spine-canvas role="img" aria-label="Modèle 3D interactif de la colonne vertébrale : cervicales, dorsales, lombaires, sacrum, coccyx et bassin. Les zones sont aussi accessibles par les boutons ci-contre.">${spineFallback()}</div>
-      <p class="spine-hint" aria-hidden="true">${icon('arrow')} Glissez pour faire tourner, touchez ou survolez une zone</p>
+      <button class="btn btn-light btn-sm spine-load" type="button" data-spine-load hidden><span class="btn-label">Explorer en 3D</span>${icon('arrow')}</button>
+      <p class="spine-hint" aria-hidden="true" data-spine-hint>Choisissez une zone dans la liste</p>
     </div>
     <div class="spine-panels">
       ${spineZones.map((z, i) => `<div class="spine-panel" role="tabpanel" id="sp-${z.id}" aria-labelledby="sz-${z.id}" tabindex="0"${i === 2 ? '' : ' hidden'}>
@@ -102,7 +103,7 @@ const pageHome = {
 <section class="hero" aria-labelledby="h1" data-hero>
   <div class="hero-depth" aria-hidden="true">
     <span class="orb orb-1" data-depth="0.15"></span><span class="orb orb-2" data-depth="0.3"></span>
-    <svg class="hero-shape" data-depth="0.25" viewBox="0 0 600 600"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs><path data-morph d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
+    <svg class="hero-shape" data-depth="0.25" viewBox="0 0 600 600"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs><path d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
   </div>
   <div class="wrap hero-grid">
     <div class="hero-text" data-hero-text>
@@ -123,7 +124,6 @@ const pageHome = {
       <div class="hero-chip" data-depth="1.2">${stars()}<span>${reviewCount} avis 5★</span></div>
     </div>
   </div>
-  <a class="scroll-hint" href="#promesses"><span>Découvrir</span><i aria-hidden="true"></i></a>
 </section>
 
 <section class="trust" id="promesses" aria-label="Trois engagements">
@@ -151,7 +151,7 @@ ${catSection()}
     <h2 id="avis-t" data-reveal>Ils en parlent <em>mieux que moi</em></h2>
     <button class="marquee-toggle" type="button" aria-pressed="false" data-marquee-toggle>${icon('pause', 'ico i-pause')}${icon('play', 'ico i-play')}<span>Mettre en pause</span></button>
   </div>
-  <div class="marquee" data-marquee>
+  <div class="marquee" data-marquee data-live>
     ${[0, 1].map((row) => { const list = row ? reviews.slice(4).concat(reviews.slice(0, 4)) : reviews; return `<div class="marquee-row${row ? ' reverse' : ''}"><ul class="marquee-track">${list.map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul><ul class="marquee-track" aria-hidden="true">${list.map((r) => `<li class="review"><p>« ${esc(r.t)} »</p><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul></div>`; }).join('')}
   </div>
   <p class="wrap marquee-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
@@ -160,6 +160,7 @@ ${catSection()}
 ${spineSection()}
 
 <section class="steps-sec" aria-labelledby="steps-t" data-pin-steps>
+  <div class="steps-sticky">
   <div class="steps-head wrap">
     <h2 id="steps-t" data-reveal>Une séance <em>en quatre temps</em></h2>
     <p data-reveal>Pas de mystère : vous savez ce qui se passe, et pourquoi.</p>
@@ -170,6 +171,7 @@ ${spineSection()}
     <li class="step"><div class="step-media">${pic('soin-bassin', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">03</span><h3>Le traitement</h3><p>Des techniques manuelles adaptées à votre âge et à votre confort, toujours expliquées. Vous pouvez refuser un geste ou interrompre la séance.</p></div></li>
     <li class="step"><div class="step-media">${pic('adrian-ecoute', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">04</span><h3>Les conseils</h3><p>Des gestes simples pour la suite, et un avis honnête sur l'utilité d'une nouvelle séance.</p></div></li>
   </ol>
+  </div>
 </section>
 
 <section class="section sport-band" aria-labelledby="sport-t">
@@ -179,7 +181,7 @@ ${spineSection()}
       <h2 id="sport-t" data-reveal>Votre pratique évolue. <em>Votre corps aussi.</em></h2>
       <p data-reveal>Course à pied, sports collectifs, musculation ou boxe : chaque discipline impose ses contraintes. Adrian travaille notamment avec les boxeurs Jordan Rodriguez et Yanis Meha et participe au suivi des boxeurs du Ring Berjallien.</p>
       <ol class="season" data-reveal><li><strong>Avant l’effort</strong><span>Mobilité et objectifs</span></li><li><strong>Au fil de la saison</strong><span>Charge et contraintes</span></li><li><strong>En récupération</strong><span>Une séance adaptée à votre état</span></li></ol>
-      <a class="btn btn-gold" href="/osteopathie/sportifs/" data-magnetic><span class="btn-label">Ostéopathie du sport</span>${icon('arrow')}</a>
+      <a class="btn btn-gold" href="/osteopathie/sportifs/"><span class="btn-label">Ostéopathie du sport</span>${icon('arrow')}</a>
     </div>
   </div>
 </section>
@@ -188,8 +190,8 @@ ${spineSection()}
   <div class="wrap">
     <h2 id="num-t" class="sr-only">Le cabinet en chiffres</h2>
     <ul class="num-list">
-      <li data-reveal><strong><span data-count="${reviewCount}">${reviewCount}</span></strong><span>avis Google 5 étoiles publiés</span></li>
-      <li data-reveal><strong><span data-count="${patients.length}">${patients.length}</span></strong><span>profils accompagnés, du nouveau-né au senior</span></li>
+      <li data-reveal><strong>${reviewCount}</strong><span>avis Google 5 étoiles publiés</span></li>
+      <li data-reveal><strong>${patients.length}</strong><span>profils accompagnés, du nouveau-né au senior</span></li>
       <li data-reveal><strong>${tbc(T.years)}</strong><span>années d'expérience</span></li>
     </ul>
   </div>
@@ -222,7 +224,7 @@ ${spineSection()}
       <p class="lead">Aux Ravinelles, à Villefontaine. Parking gratuit, entrée de plain-pied.</p>
       <ul class="travel">${site.nearby.map((n) => `<li><span>${n.name}</span><span>${tbc(n.time)}</span></li>`).join('')}</ul>
       <p class="addr">${icon('pin')} <span>${A.street}, ${A.area}<br>${A.postalCode} ${A.city}</span></p>
-      <div class="actions"><a class="btn btn-ghost" href="${L.directions}" target="_blank" rel="noopener" data-magnetic>${icon('pin')}<span class="btn-label">Itinéraire</span></a>${rdv()}</div>
+      <div class="actions"><a class="btn btn-ghost" href="${L.directions}" target="_blank" rel="noopener">${icon('pin')}<span class="btn-label">Itinéraire</span></a>${rdv()}</div>
     </div>
     ${mapCard()}
   </div>
@@ -406,7 +408,7 @@ const pageAvis = {
   body: `
 <section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Leurs mots <em>comptent le plus</em>')}</h1><p class="lead" data-reveal>Des avis laissés sur Google par des patients du cabinet (extraits).</p></div></section>
 <section class="section"><div class="wrap"><div class="mosaic">${reviews.map((r, i) => `<figure class="quote" data-tilt data-reveal style="--d:${i % 3}"><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
-<div class="actions"><a class="btn btn-ghost" href="${L.google}" target="_blank" rel="noopener" data-magnetic><span class="btn-label">Lire et laisser un avis sur Google</span>${icon('arrow')}</a>${rdv()}</div></div></section>
+<div class="actions"><a class="btn btn-ghost" href="${L.google}" target="_blank" rel="noopener"><span class="btn-label">Lire et laisser un avis sur Google</span>${icon('arrow')}</a>${rdv()}</div></div></section>
 ${ctaFinal()}`,
 };
 
@@ -468,7 +470,7 @@ const pageCabinet = {
     <div data-reveal>
       <h2>Sur Instagram</h2>
       <p>Conseils pratiques et vie du cabinet sur <a href="${L.instagram}" target="_blank" rel="noopener">@adrianosteo</a>.</p>
-      <a class="btn btn-ghost" href="${L.instagram}" target="_blank" rel="noopener" data-magnetic>${icon('insta')}<span class="btn-label">Suivre @adrianosteo</span></a>
+      <a class="btn btn-ghost" href="${L.instagram}" target="_blank" rel="noopener">${icon('insta')}<span class="btn-label">Suivre @adrianosteo</span></a>
     </div>
   </div>
 </section>
@@ -563,7 +565,7 @@ const pageTarifs = {
       </ul>
       <h3>Temps de trajet</h3>
       <ul class="travel">${site.nearby.map((n) => `<li><span>${n.name}</span><span>${tbc(n.time)}</span></li>`).join('')}</ul>
-      <div class="actions"><a class="btn btn-ghost" href="${L.directions}" target="_blank" rel="noopener" data-magnetic>${icon('pin')}<span class="btn-label">Itinéraire</span></a></div>
+      <div class="actions"><a class="btn btn-ghost" href="${L.directions}" target="_blank" rel="noopener">${icon('pin')}<span class="btn-label">Itinéraire</span></a></div>
     </div>
     ${mapCard()}
   </div>
@@ -618,7 +620,7 @@ const pageContact = {
         <div class="hp" aria-hidden="true"><label for="f-web">Site web</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="t" value="" data-time>
         <div class="field check"><input id="f-ok" name="consent" type="checkbox" value="1" required aria-describedby="e-consent"><label for="f-ok">J'accepte que mes coordonnées soient utilisées pour me recontacter (<a href="/confidentialite/">confidentialité</a>).</label><p class="err" id="e-consent" hidden></p></div>
-        <button class="btn btn-primary" type="submit" data-magnetic><span class="btn-label">Envoyer ma demande</span>${icon('arrow')}</button>
+        <button class="btn btn-primary" type="submit"><span class="btn-label">Envoyer ma demande</span>${icon('arrow')}</button>
         <p class="form-status" role="status" aria-live="polite" data-status></p>
         <p class="form-status ok form-fallback" id="envoye">Merci, votre demande est bien envoyée. Je vous recontacte dès que possible.</p>
         <p class="form-status ko form-fallback" id="erreur">L'envoi n'a pas abouti. Vérifiez les champs, ou appelez le ${site.phone.display}.</p>

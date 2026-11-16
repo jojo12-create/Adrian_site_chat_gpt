@@ -267,8 +267,8 @@ export function createSpine(container, { reduced = false, mobile = false, initia
   new ResizeObserver(resize).observe(container);
 
   /* ---------- Boucle : seulement quand la section est visible ---------- */
-  let visible = true, raf = 0, needs = true, t0 = performance.now();
-  function requestRender() { needs = true; if (reduced && !raf) raf = requestAnimationFrame(frame); }
+  let visible = true, raf = 0, t0 = performance.now();
+  function requestRender() { if (reduced && !raf) raf = requestAnimationFrame(frame); }
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(frame); }).observe(container);
   document.addEventListener('visibilitychange', () => { if (!document.hidden && visible && !raf) raf = requestAnimationFrame(frame); });
 
@@ -289,7 +289,6 @@ export function createSpine(container, { reduced = false, mobile = false, initia
       mat.hi.emissiveIntensity = pulse; mat.discHi.emissiveIntensity = pulse + 0.3;
     }
     renderer.render(scene, camera);
-    needs = false;
     if (!reduced && visible && !document.hidden) raf = requestAnimationFrame(frame);
   }
 

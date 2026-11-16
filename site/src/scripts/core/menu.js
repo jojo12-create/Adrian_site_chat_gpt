@@ -1,39 +1,7 @@
-/* En-tête et menu mobile */
-
-/* En-tête : fond au défilement, masqué en descendant, réaffiché en remontant.
-   Le bouton flottant mobile se cache quand le pied de page (qui a son propre CTA) est visible. */
-export function initHeader() {
-  const header = document.querySelector('[data-header]');
-  const fab = document.querySelector('.fab');
-  const footer = document.querySelector('.footer');
-  let last = 0;
-  const onScroll = () => {
-    const y = window.scrollY;
-    header.classList.toggle('is-solid', y > 24);
-    const menuOpen = document.body.classList.contains('menu-open') || !!document.querySelector('.has-menu.is-open');
-    header.classList.toggle('is-hidden', !menuOpen && y > 400 && y > last + 4);
-    if (y < last - 4) header.classList.remove('is-hidden');
-    last = y;
-  };
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  // Le header reste visible quand un élément y reçoit le focus clavier
-  header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
-  if (fab && 'IntersectionObserver' in window) {
-    // Caché tant que les boutons du haut de page ou le pied de page (qui ont leur propre RDV) sont visibles
-    const watched = [document.querySelector('main .actions'), footer].filter(Boolean);
-    const visible = new Set();
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
-      fab.classList.toggle('is-hidden', visible.size > 0);
-      fab.inert = visible.size > 0; // caché = ni focus clavier ni lecture d'écran
-    });
-    watched.forEach((el) => io.observe(el));
-  }
-}
+/* Menu mobile et menus déroulants */
 
 /* Menu mobile : ouverture en cercle (CSS), état annoncé, Échap, focus piégé */
-export function initMenu(lenis) {
+export function initMenu() {
   const btn = document.querySelector('[data-burger]');
   const nav = document.getElementById('nav');
   if (!btn || !nav) return;
@@ -45,9 +13,8 @@ export function initMenu(lenis) {
     label.textContent = open ? 'Fermer le menu' : 'Ouvrir le menu';
     nav.classList.toggle('is-open', open);
     document.body.classList.toggle('menu-open', open);
-    open ? lenis?.stop() : lenis?.start();
     if (!open) closeMegas();
-    if (open) setTimeout(() => nav.querySelector('a')?.focus(), 350);
+    if (open) nav.querySelector('a')?.focus({ preventScroll: true });
   };
   btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
   document.addEventListener('keydown', (e) => {
@@ -81,7 +48,6 @@ export function initMegaMenus() {
   items().forEach((li) => {
     const btn = li.querySelector('.nav-more');
     const preview = li.querySelector('[data-mega-preview]');
-    li.querySelectorAll('.mega-group li').forEach((x, k) => x.style.setProperty('--k', k));
     btn.addEventListener('click', () => {
       const open = !li.classList.contains('is-open');
       if (desktop.matches) closeMegas(li);
