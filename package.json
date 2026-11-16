@@ -1,0 +1,26 @@
+{
+  "name": "osteo-villefontaine",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Site d'Adrian Rodriguez, ostéopathe à Villefontaine (38090) : HTML/CSS/JS statique, Vite.",
+  "scripts": {
+    "images": "node scripts/images.mjs",
+    "symbols": "node scripts/symbols.mjs",
+    "pages": "node scripts/build-pages.mjs",
+    "dev": "npm run pages && vite site --host 127.0.0.1",
+    "build": "npm run pages && vite build site --emptyOutDir",
+    "preview": "vite preview site --host 127.0.0.1 --port 4173",
+    "test": "node scripts/qa.mjs",
+    "build:demo": "DEMO=1 BASE=/Adrianosteo/ DEMO_URL=https://jojo12-create.github.io/Adrianosteo npm run build"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.2",
+    "sharp": "^0.34.2",
+    "vite": "^6.3.5"
+  }
+}
