@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+site/**/*.html
+!site/vite.config.js
+qa-shots/
+
+# Skills Claude (copiés depuis jojo12-create/skills, non versionnés ici)
+.claude/skills/
+
+# Fichiers générés par scripts/build-pages.mjs (différents en mode démo : ne jamais les versionner)
+site/public/robots.txt
+site/public/sitemap.xml
+site/public/site.webmanifest
