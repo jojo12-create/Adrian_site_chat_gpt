@@ -3,5 +3,9 @@
 /* ---------- Mise en page ---------- */
 .wrap { width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section); }
+/* Deux sections qui se suivent sur le même fond (papier) : une seule marge entre elles, pas deux.
+   Les sections à fond propre (.tint, .sport-band, .alert-sec…) gardent leurs deux marges. */
+.section:not(.tint, .sport-band, .alert-sec) + .section:not(.tint, .sport-band, .alert-sec),
+:is(.page-hero, .cat-hero, .about-hero) + .section:not(.tint, .sport-band, .alert-sec) { padding-top: 0; }
 .tint { background: var(--white); }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }

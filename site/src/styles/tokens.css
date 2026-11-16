@@ -54,7 +54,7 @@
   --shadow-s: 0 10px 24px -16px rgba(22, 21, 21, .35);
 
   --gutter: 20px;
-  --section: clamp(4.5rem, 2.829rem + 6.857vw, 9rem); /* 72 → 144 */
+  --section: clamp(3.5rem, 2.386rem + 4.571vw, 6.5rem); /* 56 → 104 : marge haute et basse d'une section */
   --header: 72px;
 }
 @media (min-width: 768px) { :root { --gutter: 32px; } }

@@ -16,12 +16,12 @@
   .header .nav { z-index: 10; padding-bottom: max(36px, env(safe-area-inset-bottom)); transition:
     clip-path .34s cubic-bezier(.32,.72,0,1),
     visibility 0s .34s,
-    background-color .28s ease;
+    background-color .5s var(--ease-out);
   }
   .header .nav.is-open { transition:
     clip-path .46s cubic-bezier(.32,.72,0,1),
     visibility 0s,
-    background-color .28s ease;
+    background-color .5s var(--ease-out);
   }
   .header .nav.has-expanded { background: var(--paper); }
   .nav.has-expanded .nav-top > li { border-bottom-color: var(--line); }
@@ -41,8 +41,16 @@
   .nav-extra a, .nav-link, .mega-title, .mega-group a, .mega-all,
   .nav-more, .brand, .brand small, .burger, .burger i {
     transition-property: color, background-color, border-color, transform;
-    transition-duration: .26s;
+    transition-duration: .45s;
+    transition-timing-function: var(--ease-out);
   }
+  /* Volet d'une rubrique (Ostéopathie, Le cabinet) : il se déplie posément, sans à-coup,
+     et se replie un peu plus vite. Le fond et les couleurs suivent le même rythme. */
+  .header .mega { transition: grid-template-rows .38s var(--ease-in-out), visibility 0s .38s; }
+  .header .has-menu.is-open .mega { transition: grid-template-rows .6s var(--ease-drawer); }
+  .header .mega-in { opacity: 0; transition: opacity .25s var(--ease-out); }
+  .header .has-menu.is-open .mega-in { opacity: 1; transition: opacity .5s var(--ease-out) .12s; }
+  .header .nav-more .ico { transition: transform .5s var(--ease-drawer); }
 
   /* Le bandeau « maquette » reste présent mais ne masque ni les avis ni les titres. */
   body[data-demo] .demo-badge {
@@ -100,7 +108,10 @@
   .steps-sec.is-pinned .steps-head h2 { font-size:clamp(1.65rem,6.4vw,2.5rem); line-height:1.1; }
   .steps-sec.is-pinned .steps-head p { margin-top:8px; font-size:clamp(.87rem,3.6vw,1rem); }
   .steps-sec.is-pinned .steps-track { display:flex; flex:none; align-items:stretch; gap:clamp(15px,4vw,28px);
-    width:max-content; margin:0; padding:0 14vw 0 var(--gutter); will-change:transform; }
+    width:max-content; margin:0; padding:0 14vw 0 var(--gutter); }
+  /* La couche graphique n'est réservée que lorsque la section est à l'écran (classe posée par le script) */
+  .steps-sec.is-pinned.is-near .steps-track { will-change:transform; }
+  .steps-sec.is-pinned .step-media img { content-visibility:auto; }
   .steps-sec.is-pinned .step { width: min(calc(100vw - 2 * var(--gutter)), 430px);
     max-width:none; flex:none; display:flex; flex-direction:column; gap:12px; }
   .steps-sec.is-pinned .step-media { flex:none; width:100%; max-width:none; height:clamp(154px,29svh,280px); aspect-ratio:auto; border-radius:20px; }

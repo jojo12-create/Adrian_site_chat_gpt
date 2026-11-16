@@ -41,7 +41,8 @@
   /* Épinglage en CSS : la section réserve la distance à parcourir, son contenu reste collé à l'écran */
   .steps-sec.is-pinned { padding-block: 0; height: calc(100vh + var(--pin-dist, 0px)); height: calc(100svh + var(--pin-dist, 0px)); }
   .steps-sec.is-pinned .steps-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-  .steps-sec.is-pinned .steps-track { display: flex; will-change: transform; gap: 6vw; width: max-content; padding-right: 20vw; padding-left: max(var(--gutter), calc((100vw - 1320px) / 2 + var(--gutter))); }
+  .steps-sec.is-pinned .steps-track { display: flex; gap: 6vw; width: max-content; padding-right: 20vw; padding-left: max(var(--gutter), calc((100vw - 1320px) / 2 + var(--gutter))); }
+  .steps-sec.is-pinned.is-near .steps-track { will-change: transform; }
   .steps-sec.is-pinned .step { width: 62vw; max-width: 980px; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 56px; }
   .steps-sec.is-pinned .step-media { max-width: none; height: 58vh; aspect-ratio: auto; }
   .steps-track:not(:has(.step:nth-child(2))) { display: grid; }
@@ -59,7 +60,7 @@
 .season span { color: var(--muted); font-size: var(--fs-sm); }
 
 /* ---------- Chiffres ---------- */
-.numbers { padding-block: calc(var(--section) * .55); }
+.numbers { padding-block: calc(var(--section) * .6); }
 .num-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px 24px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 .num-list li { border-top: 1px solid var(--line); padding-top: 24px; }
 .num-list strong { display: block; font: 400 var(--fs-display)/1 var(--f-title); color: var(--forest); letter-spacing: -.03em; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
@@ -135,7 +136,7 @@
 .faq-a > div { padding: 0 56px 24px 0; color: var(--muted); }
 
 /* ---------- Bandeau final (dégradé animé) ---------- */
-.cta-final { position: relative; overflow: hidden; color: #fff; padding-block: clamp(96px, 13vw, 180px); text-align: center; isolation: isolate; }
+.cta-final { position: relative; overflow: hidden; color: #fff; padding-block: clamp(72px, 10vw, 136px); text-align: center; isolation: isolate; }
 .cta-bg { position: absolute; inset: -20%; z-index: -1; background: radial-gradient(40% 50% at 20% 30%, #3e5e42 0%, transparent 70%), radial-gradient(45% 55% at 80% 70%, #5f5e34 0%, transparent 70%), radial-gradient(35% 45% at 60% 20%, rgba(190,155,78,.45) 0%, transparent 70%), var(--forest); }
 .cta-final h2 { color: #fff; max-width: 14ch; margin-inline: auto; }
 .cta-final h2 em { color: var(--gold-2); }

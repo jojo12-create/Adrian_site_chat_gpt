@@ -1,7 +1,7 @@
 /* Pied de page, bouton flottant, badge de démo */
 
 /* ---------- Pied de page ---------- */
-.footer { background: var(--forest-2); color: rgba(255,255,255,.75); padding-top: clamp(64px, 9vw, 120px); }
+.footer { background: var(--forest-2); color: rgba(255,255,255,.75); padding-top: clamp(56px, 7vw, 96px); }
 .footer a:not(.btn) { color: #fff; text-decoration-color: rgba(255,255,255,.3); overflow-wrap: anywhere; }
 @media (hover: hover) { .footer a:not(.btn):hover { color: var(--gold-2); } }
 .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 32px; padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,.12); }
