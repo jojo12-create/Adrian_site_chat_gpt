@@ -26,6 +26,9 @@ for (const p of pages) {
   if (BASE !== '/') html = html
     .replace(/(href|src|action)="\/(?!\/|src\/)/g, `$1="${BASE}`)
     .replace(/srcset="([^"]*)"/g, (m, v) => `srcset="${v.replace(/(^|, )\/images\//g, `$1${BASE}images/`)}"`);
+  // Maquette : l'adresse canonique, les balises de partage et les données structurées pointent vers la maquette
+  // elle-même (sinon « Partager » renvoie vers le site officiel). La page reste en noindex.
+  if (DEMO && process.env.DEMO_URL) html = html.replaceAll(site.url, process.env.DEMO_URL.replace(/\/$/, ''));
   if (len(p.title) > 60) errors.push(`${p.path} : title ${len(p.title)} car.`);
   if (len(p.description) > 155) errors.push(`${p.path} : description ${len(p.description)} car.`);
   if (titles.has(p.title) || descs.has(p.description)) errors.push(`${p.path} : title ou description en double`);

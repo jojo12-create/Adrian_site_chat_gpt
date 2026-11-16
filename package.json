@@ -12,7 +12,7 @@
     "build": "npm run pages && vite build site --emptyOutDir",
     "preview": "vite preview site --host 127.0.0.1 --port 4173",
     "test": "node scripts/qa.mjs",
-    "build:demo": "DEMO=1 BASE=/Adrianosteo/ npm run build"
+    "build:demo": "DEMO=1 BASE=/Adrianosteo/ DEMO_URL=https://jojo12-create.github.io/Adrianosteo npm run build"
   },
   "license": "UNLICENSED",
   "dependencies": {
