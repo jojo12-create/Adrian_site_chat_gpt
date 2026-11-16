@@ -31,5 +31,6 @@ export function initStepsPin() {
   addEventListener('resize', () => { if (on) { measure(); request(); } });
   addEventListener('scroll', request, { passive: true });
   addEventListener('load', () => on && measure());
+  document.fonts?.ready.then(() => { if (on) { measure(); request(); } }); // la police change la largeur des étapes
   set();
 }

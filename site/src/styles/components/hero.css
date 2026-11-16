@@ -5,7 +5,8 @@
 .split .w > span { display: inline-block; }
 /* Desktop uniquement : sur mobile, le titre s'affiche immédiatement (meilleur LCP) */
 @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
-  .split .w > span { animation: word-up var(--dur-enter) var(--ease-out) both; animation-delay: calc(var(--i) * .03s); }
+  /* Le titre mène : mots en vague, délais qui se resserrent (0, 27, 53… 200 ms) */
+  .split .w > span { animation: word-up var(--dur-enter) var(--ease-out) both; animation-delay: calc(var(--i) * 28ms - var(--i) * var(--i) * .8ms); }
 }
 @keyframes word-up { from { transform: translateY(105%); } }
 
@@ -34,33 +35,30 @@
 }
 @media (max-width: 1023px) { .hero { min-height: auto; } .hero-visual { width: min(86%, 440px); } }
 @media (prefers-reduced-motion: no-preference) {
-  /* Titre d'abord, puis le texte et les boutons dans le même élan ; le décor ne fait qu'apparaître */
-  .hero-lead, .hero-actions, .hero-proof { animation: fade-up var(--dur-enter) var(--ease-out) both; }
-  .hero-lead { animation-delay: .18s; } .hero-actions { animation-delay: .24s; } .hero-proof { animation-delay: .32s; }
-  .hero-visual .arch { animation: arch-in .9s var(--ease-out) .1s both; }
-  .hero-badge, .hero-chip { animation: fade-in var(--dur-slow) var(--ease-out) .5s both; }
+  /* Le texte et les boutons suivent dans le même élan ; la photo arrive avec le titre ; le décor ne fait qu'apparaître */
+  .hero-lead, .hero-actions { animation: fade-up .5s var(--ease-out) .12s both; }
+  .hero-proof { animation: fade-in var(--dur-slow) var(--ease-out) .18s both; }
+  .hero-visual .arch { animation: arch-in var(--dur-enter) var(--ease-out) 60ms both; }
+  .hero-badge, .hero-chip, .hero-rings { animation: fade-in var(--dur-slow) var(--ease-out) .3s both; }
 }
-@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px); } }
 @keyframes fade-in { from { opacity: 0; } }
-@keyframes arch-in { from { clip-path: inset(100% 0 0 0 round 999px 999px 30px 30px); } to { clip-path: inset(0 0 0 0 round 999px 999px 30px 30px); } }
+@keyframes arch-in { from { opacity: 0; transform: scale(.98); } }
 
 /* ---------- Hero en profondeur ---------- */
 .hero-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; will-change: transform; }
-.orb-1 { width: 46vw; height: 46vw; max-width: 640px; max-height: 640px; right: -8vw; top: -10vh; background: radial-gradient(circle, rgba(62, 94, 66, .45), transparent 65%); }
-.orb-2 { width: 32vw; height: 32vw; max-width: 460px; max-height: 460px; left: -10vw; bottom: -8vh; background: radial-gradient(circle, rgba(190, 155, 78, .4), transparent 65%); }
+.orb { position: absolute; border-radius: 50%; opacity: .5; } /* le dégradé radial suffit : pas de flou à calculer */
+.orb-1 { width: 46vw; height: 46vw; max-width: 640px; max-height: 640px; right: -8vw; top: -10vh; background: radial-gradient(circle, rgba(62, 94, 66, .45), transparent 72%); }
+.orb-2 { width: 32vw; height: 32vw; max-width: 460px; max-height: 460px; left: -10vw; bottom: -8vh; background: radial-gradient(circle, rgba(190, 155, 78, .4), transparent 72%); }
 .hero-depth .hero-shape { position: absolute; right: -14vw; top: 8vh; width: min(88vw, 960px); height: auto; aspect-ratio: 1; opacity: .09; }
 .hero-visual { perspective: 1200px; }
 .hero-visual .arch { transform-style: preserve-3d; }
 .hero-rings { position: absolute; z-index: -1; left: -14%; top: 8%; width: 128%; height: auto; overflow: visible; }
 .hero-rings ellipse { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: .55; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-rings ellipse { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ring-draw 1.2s var(--ease-out) .35s forwards; }
-  .hero-rings ellipse + ellipse { animation-delay: .5s; }
 }
-@keyframes ring-draw { to { stroke-dashoffset: 0; } }
 .hero-chip { position: absolute; right: -4%; top: 14%; display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: var(--r-pill); background: rgba(255, 255, 255, .75); backdrop-filter: blur(12px); box-shadow: var(--shadow-s); font-weight: 650; font-size: var(--fs-sm); color: var(--ink); }
-@media (max-width: 1023px) { .hero-chip { right: 0; top: 4%; } .orb { filter: blur(40px); } }
+@media (max-width: 1023px) { .hero-chip { right: 0; top: 4%; } }
 
 /* ---------- Hero des pages intérieures ---------- */
 .page-hero { padding: 40px 0 var(--section); }

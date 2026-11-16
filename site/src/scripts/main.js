@@ -2,7 +2,7 @@
    Point d'entrée. Le site fonctionne sans JS ; le JS ajoute confort et mouvement.
    Noyau (toutes les pages) : en-tête, menus, apparitions, progression.
    Le reste est chargé à la demande, seulement si la page contient l'élément :
-     formulaire, carte, défilant d'avis, colonne vertébrale, séance épinglée.
+     formulaire, carte, colonne vertébrale, séance épinglée.
    Aucune bibliothèque d'animation : transitions CSS + un peu de JS natif.
    ========================================================================== */
 import { initHeader } from './core/header.js';
@@ -11,6 +11,8 @@ import { initReveals } from './core/reveal.js';
 
 const has = (sel) => document.querySelector(sel);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Si le réglage change en cours de visite, on repart d'un état propre
+matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => location.reload());
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 initHeader();
@@ -22,7 +24,6 @@ document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new 
 /* --- Modules à la demande --- */
 if (has('[data-form]')) import('./components/form.js').then((m) => m.initForm());
 if (has('[data-map]')) import('./components/map.js').then((m) => m.initMap());
-if (has('[data-marquee]')) import('./components/marquee.js').then((m) => m.initMarquee());
 if (has('[data-spine-section]')) import('./components/spine.js').then((m) => m.initSpine(reduced));
 
 /* --- Mouvement : seulement si autorisé --- */

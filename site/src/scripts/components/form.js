@@ -1,6 +1,6 @@
 /* Formulaire « Être rappelé » : validation claire, erreurs sous chaque champ,
    envoi vers /api/contact.php (PHP, gratuit, présent chez la plupart des hébergeurs).
-   Sans JS, le formulaire s'envoie normalement et le PHP redirige vers /contact/?envoye=1. */
+   Sans JS, le formulaire s'envoie normalement et le PHP redirige vers /contact/#envoye ou #erreur. */
 
 const rules = {
   name: (v) => (v.trim().length >= 2 ? '' : 'Indiquez votre nom et prénom.'),
@@ -33,8 +33,11 @@ export function initForm() {
   const check = (name) => { const el = form.elements[name]; const msg = rules[name](el.value, el); show(name, msg); return !msg; };
   Object.keys(rules).forEach((n) => {
     const el = form.elements[n];
-    el.addEventListener('blur', () => el.hasAttribute('aria-invalid') && check(n));
-    el.addEventListener('change', () => el.getAttribute('aria-invalid') === 'true' && check(n));
+    // Une erreur affichée disparaît dès que la saisie devient valide (pendant la frappe), pas à la sortie du champ :
+    // sinon la page remonte au moment où l'on clique sur l'élément suivant, et le clic tombe à côté.
+    const recheck = () => el.getAttribute('aria-invalid') === 'true' && check(n);
+    el.addEventListener('input', recheck);
+    el.addEventListener('change', recheck);
   });
 
   form.addEventListener('submit', async (e) => {

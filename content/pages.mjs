@@ -102,8 +102,8 @@ const pageHome = {
   body: `
 <section class="hero" aria-labelledby="h1" data-hero>
   <div class="hero-depth" aria-hidden="true">
-    <span class="orb orb-1" data-depth="0.15"></span><span class="orb orb-2" data-depth="0.3"></span>
-    <svg class="hero-shape" data-depth="0.25" viewBox="0 0 600 600"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs><path d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
+    <span class="orb orb-1"></span><span class="orb orb-2"></span>
+    <svg class="hero-shape" viewBox="0 0 600 600"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs><path d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
   </div>
   <div class="wrap hero-grid">
     <div class="hero-text" data-hero-text>
@@ -118,7 +118,7 @@ const pageHome = {
       </ul>
     </div>
     <div class="hero-visual" data-hero-visual>
-      <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true" data-depth="0.6"><ellipse cx="200" cy="200" rx="190" ry="70" pathLength="1"/><ellipse cx="200" cy="200" rx="170" ry="60" pathLength="1" transform="rotate(-24 200 200)"/></svg>
+      <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true"><ellipse cx="200" cy="200" rx="190" ry="70"/><ellipse cx="200" cy="200" rx="170" ry="60" transform="rotate(-24 200 200)"/></svg>
       <div class="arch" data-tilt-hero>${pic('adrian-bureau', { eager: true, sizes: '(min-width: 1024px) 38vw, 90vw' })}</div>
       <div class="hero-badge" data-depth="0.9"><img src="/images/logo-160.webp" width="80" height="80" alt=""><span>Ostéopathie<br><em>tous âges</em></span></div>
       <div class="hero-chip" data-depth="1.2">${stars()}<span>${reviewCount} avis 5★</span></div>
@@ -146,15 +146,14 @@ const pageHome = {
 
 ${catSection()}
 
-<section class="marquee-sec" id="avis" aria-labelledby="avis-t">
-  <div class="wrap marquee-head">
+<section class="reviews-sec" id="avis" aria-labelledby="avis-t">
+  <div class="wrap">
     <h2 id="avis-t" data-reveal>Ils en parlent <em>mieux que moi</em></h2>
-    <button class="marquee-toggle" type="button" aria-pressed="false" data-marquee-toggle>${icon('pause', 'ico i-pause')}${icon('play', 'ico i-play')}<span>Mettre en pause</span></button>
   </div>
-  <div class="marquee" data-marquee data-live>
-    ${[0, 1].map((row) => { const list = row ? reviews.slice(4).concat(reviews.slice(0, 4)) : reviews; return `<div class="marquee-row${row ? ' reverse' : ''}"><ul class="marquee-track">${list.map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul><ul class="marquee-track" aria-hidden="true">${list.map((r) => `<li class="review"><p>« ${esc(r.t)} »</p><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul></div>`; }).join('')}
-  </div>
-  <p class="wrap marquee-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
+  <ul class="reviews" tabindex="0" aria-label="Avis de patients, faites défiler horizontalement">
+    ${reviews.map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}
+  </ul>
+  <p class="wrap reviews-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
 </section>
 
 ${spineSection()}
@@ -204,7 +203,7 @@ ${spineSection()}
       <p class="lead">Une facture vous est remise pour votre mutuelle, qui rembourse souvent une partie de la séance.</p>
       <a class="link" href="/tarifs/">Tous les tarifs et infos pratiques ${icon('arrow')}</a>
     </div>
-    <div class="price-card" data-tilt data-reveal>
+    <div class="price-card" data-reveal>
       <p class="price-label">Consultation adulte</p>
       <p class="price">${tbc(T.price)}</p>
       <ul class="price-incl">
@@ -233,7 +232,7 @@ ${spineSection()}
 <section class="section conseils-teaser" aria-labelledby="ct-t">
   <div class="wrap">
     <h2 id="ct-t" data-reveal>Comprendre votre santé <em>et vos mouvements</em></h2>
-    <ul class="article-list">${articles.map((a, i) => `<li data-reveal data-tilt style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul>
+    <ul class="article-list">${articles.map((a, i) => `<li data-reveal style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul>
   </div>
 </section>
 
@@ -331,7 +330,7 @@ const categoryPages = categories.map((c) => {
 <section class="section cases" aria-labelledby="cases-t">
   <div class="wrap">
     <h2 id="cases-t" data-reveal>Vous vous <em>reconnaissez ?</em></h2>
-    <ul class="case-list">${c.cases.map((x, i) => `<li data-tilt data-reveal><span class="case-n" aria-hidden="true">${['I', 'II', 'III'][i]}</span><p>${x}</p></li>`).join('')}</ul>
+    <ul class="case-list">${c.cases.map((x, i) => `<li data-reveal><span class="case-n" aria-hidden="true">${['I', 'II', 'III'][i]}</span><p>${x}</p></li>`).join('')}</ul>
   </div>
 </section>
 
@@ -379,7 +378,7 @@ const pageConseils = {
   crumbs: [home, conseilsCrumb],
   body: `
 <section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Comprendre son corps, <em>un article à la fois</em>')}</h1><p class="lead" data-reveal>Des repères généraux sur la consultation, le dos et le sport. Ils ne remplacent pas un avis médical.</p></div></section>
-<section class="section"><div class="wrap"><ul class="article-list">${articles.map((a, i) => `<li data-reveal data-tilt style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul></div></section>
+<section class="section"><div class="wrap"><ul class="article-list">${articles.map((a, i) => `<li data-reveal style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul></div></section>
 ${ctaFinal()}`,
 };
 const articlePages = articles.map((a) => ({
@@ -407,7 +406,7 @@ const pageAvis = {
   crumbs: [home, { href: '/avis/', label: 'Avis' }],
   body: `
 <section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Leurs mots <em>comptent le plus</em>')}</h1><p class="lead" data-reveal>Des avis laissés sur Google par des patients du cabinet (extraits).</p></div></section>
-<section class="section"><div class="wrap"><div class="mosaic">${reviews.map((r, i) => `<figure class="quote" data-tilt data-reveal style="--d:${i % 3}"><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
+<section class="section"><div class="wrap"><div class="mosaic">${reviews.map((r, i) => `<figure class="quote" data-reveal style="--d:${i % 3}"><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
 <div class="actions"><a class="btn btn-ghost" href="${L.google}" target="_blank" rel="noopener"><span class="btn-label">Lire et laisser un avis sur Google</span>${icon('arrow')}</a>${rdv()}</div></div></section>
 ${ctaFinal()}`,
 };
@@ -478,7 +477,7 @@ const pageCabinet = {
 <section class="section quotes" aria-labelledby="q-t">
   <div class="wrap">
     <h2 id="q-t" data-reveal>Ce que les patients <em>retiennent</em></h2>
-    <div class="quote-grid">${[reviews[0], reviews[1], reviews[3]].map((r) => `<figure class="quote" data-tilt data-reveal><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
+    <div class="quote-grid">${[reviews[0], reviews[1], reviews[3]].map((r) => `<figure class="quote" data-reveal><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
   </div>
 </section>
 ${ctaFinal('Faisons le point <em>ensemble</em>')}
@@ -600,9 +599,9 @@ const pageContact = {
 
 <section class="section ways-sec" aria-label="Moyens de prise de rendez-vous">
   <div class="wrap ways">
-    <a class="way way-main" href="${L.doctolib}" target="_blank" rel="noopener" data-tilt data-reveal><span class="way-ico">${icon('cal')}</span><span class="way-title">En ligne, 24 h/24</span><span class="way-text">Créneaux en temps réel sur Doctolib</span><span class="way-go">Réserver ${icon('arrow')}</span></a>
-    <a class="way" href="${site.phone.href}" data-tilt data-reveal><span class="way-ico">${icon('phone')}</span><span class="way-title">Par téléphone</span><span class="way-text">${site.phone.display}</span><span class="way-go">Appeler ${icon('arrow')}</span></a>
-    <a class="way" href="${L.whatsapp}" target="_blank" rel="noopener" data-tilt data-reveal><span class="way-ico">${icon('chat')}</span><span class="way-title">Par WhatsApp</span><span class="way-text">Écrivez quand vous voulez</span><span class="way-go">Envoyer un message ${icon('arrow')}</span></a>
+    <a class="way way-main" href="${L.doctolib}" target="_blank" rel="noopener" data-reveal><span class="way-ico">${icon('cal')}</span><span class="way-title">En ligne, 24 h/24</span><span class="way-text">Créneaux en temps réel sur Doctolib</span><span class="way-go">Réserver ${icon('arrow')}</span></a>
+    <a class="way" href="${site.phone.href}" data-reveal><span class="way-ico">${icon('phone')}</span><span class="way-title">Par téléphone</span><span class="way-text">${site.phone.display}</span><span class="way-go">Appeler ${icon('arrow')}</span></a>
+    <a class="way" href="${L.whatsapp}" target="_blank" rel="noopener" data-reveal><span class="way-ico">${icon('chat')}</span><span class="way-title">Par WhatsApp</span><span class="way-text">Écrivez quand vous voulez</span><span class="way-go">Envoyer un message ${icon('arrow')}</span></a>
   </div>
 </section>
 

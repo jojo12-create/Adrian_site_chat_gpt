@@ -1,7 +1,7 @@
 /* Profondeur à la souris (souris uniquement, jamais au toucher) :
-   - cartes [data-tilt] : inclinaison légère (4° max) et reflet qui suit la souris
+   - cartes de catégories [data-tilt] : inclinaison légère (4° max)
    - symboles en relief : la scène se tourne vers la souris
-   - hero : le portrait s'incline, les calques décoratifs se décalent un peu
+   - hero : le portrait s'incline un peu, le badge et la pastille d'avis se décalent
    Les transforms sont écrits directement sur l'élément (pas de variable CSS héritée),
    une fois par image au plus ; le lissage est une transition CSS, donc interruptible. */
 const clamp = (v) => Math.max(0, Math.min(1, v));
@@ -17,8 +17,6 @@ export function initPointerDepth() {
       const r = el.getBoundingClientRect();
       const px = clamp((ev.clientX - r.left) / r.width), py = clamp((ev.clientY - r.top) / r.height);
       el.style.transform = `perspective(900px) rotateX(${((0.5 - py) * 8).toFixed(2)}deg) rotateY(${((px - 0.5) * 8).toFixed(2)}deg)`;
-      el.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
-      el.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
       if (stage) stage.style.transform = stageTransform(px, py);
     };
     el.addEventListener('pointermove', (e) => { ev = e; if (!raf) raf = requestAnimationFrame(apply); });

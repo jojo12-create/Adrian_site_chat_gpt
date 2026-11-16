@@ -14,34 +14,19 @@
 .intro-grid { display: grid; gap: 32px; align-items: end; }
 @media (min-width: 1024px) { .intro-grid { grid-template-columns: 1.1fr .9fr; gap: 96px; } }
 
-/* ---------- Défilant d'avis ---------- */
-.marquee-sec { padding-block: var(--section) calc(var(--section) * .6); background: var(--forest); color: #fff; overflow: hidden; }
-.marquee-sec h2 { color: #fff; margin: 0; }
-.marquee-sec h2 em { color: var(--gold-2); }
-.marquee-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 56px; }
-.marquee-toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: var(--r-pill); border: 1.5px solid rgba(255,255,255,.35); background: transparent; color: #fff; font: 600 .9rem/1 var(--f-text); cursor: pointer; }
-@media (hover: hover) { .marquee-toggle:hover { border-color: var(--gold-2); } }
-.marquee-toggle .i-play, .marquee-toggle[aria-pressed="true"] .i-pause { display: none; }
-.marquee-toggle[aria-pressed="true"] .i-play { display: block; }
-.marquee { display: grid; gap: 20px; }
-.marquee-row { display: flex; width: max-content; }
-.marquee-track { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0 20px 0 0; animation: marquee 70s linear infinite; }
-.marquee-row.reverse .marquee-track { animation-direction: reverse; animation-duration: 80s; }
-.marquee.is-paused .marquee-track, .js .marquee:not(.is-live) .marquee-track { animation-play-state: paused; }
-@media (hover: hover) { .marquee:hover .marquee-track { animation-play-state: paused; } }
-@keyframes marquee { to { transform: translateX(-100%); } }
-.review { flex: none; width: min(78vw, 420px); padding: 28px; border-radius: var(--r-m); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+/* ---------- Avis : rangée que l'on fait défiler soi-même, grille sur grand écran ---------- */
+.reviews-sec { padding-block: var(--section); background: var(--forest); color: #fff; }
+.reviews-sec h2 { color: #fff; }
+.reviews-sec h2 em { color: var(--gold-2); }
+.reviews { list-style: none; margin: 0; padding: 4px var(--gutter) 12px; display: grid; grid-auto-flow: column; grid-auto-columns: min(82vw, 400px); gap: var(--sp-4); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.3) transparent; }
+.review { scroll-snap-align: start; padding: 28px; border-radius: var(--r-m); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
 .review blockquote { margin: 0; }
-.review p { margin: 0; font: 400 var(--fs-lead)/1.5 var(--f-text); color: #fff; }
-.review .review-by { display: flex; align-items: center; gap: 10px; font: 500 .9rem/1 var(--f-text); color: rgba(255,255,255,.75); }
-.marquee-foot { margin-top: 40px; }
-.marquee-foot .link { color: var(--gold-2); }
-@media (prefers-reduced-motion: reduce) {
-  /* Mouvement réduit : avis en grille statique, sans doublons */
-  .marquee-row { width: auto; padding-inline: var(--gutter); }
-  .marquee-row.reverse, .marquee-track[aria-hidden="true"], .marquee-toggle { display: none; }
-  .marquee-track { animation: none; flex-wrap: wrap; padding: 0; }
-  .review { width: min(100%, 400px); }
+.review p { margin: 0; font: 400 var(--fs-body)/1.55 var(--f-text); color: #fff; }
+.review .review-by { display: flex; align-items: center; gap: 10px; font: 500 var(--fs-sm)/1 var(--f-text); color: rgba(255,255,255,.75); }
+.reviews-foot { margin-top: var(--sp-6); }
+.reviews-foot .link { color: var(--gold-2); }
+@media (min-width: 1024px) {
+  .reviews { max-width: 1320px; margin-inline: auto; grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
 }
 
 /* ---------- Séance en 4 temps (épinglée en horizontal sur grand écran) ---------- */
@@ -86,7 +71,6 @@
 .offer-grid { display: grid; gap: 48px; align-items: center; }
 @media (min-width: 1024px) { .offer-grid { grid-template-columns: 1.1fr .9fr; gap: 96px; } }
 .price-card { position: relative; padding: clamp(28px, 4vw, 48px); border-radius: var(--r-l); background: var(--forest); color: #fff; box-shadow: var(--shadow); transform-style: preserve-3d; overflow: hidden; }
-.price-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 80%) var(--my, 0%), rgba(212, 181, 108, .14), transparent 55%); pointer-events: none; transition: opacity var(--dur-base); }
 .price-label { font-weight: 600; color: var(--gold-2); letter-spacing: .02em; margin-bottom: 8px; }
 .price { font: 400 var(--fs-display)/1 var(--f-title); margin-bottom: 28px; }
 .price mark.tbc { font-size: var(--fs-body); background: rgba(212,181,108,.15); color: var(--gold-2); outline-color: var(--gold-2); }

@@ -37,7 +37,7 @@ export function initSpine(reduced) {
   const capable = !reduced
     && matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches
     && (navigator.hardwareConcurrency || 8) > 2
-    && (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } })();
+    && (() => { try { const gl = document.createElement('canvas').getContext('webgl2') || document.createElement('canvas').getContext('webgl'); gl?.getExtension('WEBGL_lose_context')?.loseContext(); return !!gl; } catch { return false; } })();
   if (!capable) return;
   const btn = sec.querySelector('[data-spine-load]');
   const hint = sec.querySelector('[data-spine-hint]');

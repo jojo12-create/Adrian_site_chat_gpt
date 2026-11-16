@@ -104,8 +104,6 @@ Troubles digestifs Inconforts digestifs fonctionnels, ballonnements, ventre tend
 
 ### Ils en parlent mieux que moi
 
-Mettre en pause
-
 -
 
 « Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro. »
@@ -146,46 +144,6 @@ Théo Reynard
 « Super praticien, à l'écoute et efficace ! »
 
 Chloé de Fraiteur
--
-
-« Il est à l'écoute et prend le temps pour ses patients ! Je recommande à 1000 % Adrian ! »
-
-Nozzha Hamouda
--
-
-« Première fois qu'un ostéopathe me garde aussi longtemps ! Adrian est super tant humainement que professionnellement ! »
-
-Quentin Vivancos
--
-
-« Très bonne expérience, ostéo à l'écoute et qui met à l'aise, je recommande. »
-
-Théo Reynard
--
-
-« Super praticien, à l'écoute et efficace ! »
-
-Chloé de Fraiteur
--
-
-« Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro. »
-
-Elodie Haon
--
-
-« Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. »
-
-Flavie Beal
--
-
-« Séance au top comme à chaque fois : déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation. »
-
-Martin Jzql
--
-
-« Merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux, un ostéopathe vraiment sympathique qui sait vous mettre à l'aise. »
-
-Ophélie Robert
 
 Tous les avis
 

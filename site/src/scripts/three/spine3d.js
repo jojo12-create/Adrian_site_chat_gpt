@@ -5,7 +5,7 @@
    - 7 cervicales, 12 dorsales, 5 lombaires (corps, arc, épineuse, transverses)
    - disques intervertébraux, sacrum, coccyx, bassin, base du crâne
    - cage thoracique et poussière holographique (desktop seulement)
-   - rotation : défilement + glisser (souris/doigt) ; zones survolables/cliquables
+   - rotation au glisser (souris/doigt), zones survolables/cliquables ; rendu à la demande
    ========================================================================== */
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, MeshStandardMaterial, MeshBasicMaterial,
@@ -19,8 +19,8 @@ const C = { bone: 0xe9e2cf, gold: 0xbe9b4e, gold2: 0xd4b56c, green: 0x3e5e42, fo
 
 export function createSpine(container, { reduced = false, mobile = false, initialZone = 'lombaires', onZone } = {}) {
   /* ---------- Rendu ---------- */
-  const renderer = new WebGLRenderer({ antialias: !mobile, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
+  const renderer = new WebGLRenderer({ antialias: !mobile, alpha: true, powerPreference: 'default' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);
   renderer.domElement.setAttribute('aria-hidden', 'true');
@@ -219,14 +219,18 @@ export function createSpine(container, { reduced = false, mobile = false, initia
       focus.position.copy(zb.getCenter(new Vector3())).add(new Vector3(0, 0, 2.2));
       focus.intensity = 6;
     } else focus.intensity = 0;
-    requestRender();
+    invalidate();
   }
   const setZone = (z) => { selected = z; paint(); };
 
-  /* ---------- Interaction : glisser + survol + clic ---------- */
+  /* ---------- Interaction : glisser + survol + clic ----------
+     Le modèle suit le doigt 1:1 (aucun lissage pendant qu'on le tient). Au relâcher,
+     l'élan vient de la vitesse réelle des 100 dernières millisecondes (rad/ms) : pas
+     d'élan fantôme si l'on s'est arrêté avant de lâcher. Un seul doigt pilote. */
   const el = renderer.domElement;
   const ray = new Raycaster(), ptr = new Vector2();
-  let drag = 0, tilt = 0, velocity = 0, down = null, moved = false;
+  let drag = 0, tilt = 0, tiltRaw = 0, velocity = 0, down = null, moved = false, pid = null, hist = [];
+  const rubber = (v, lim, c = 0.55) => { const o = Math.abs(v) - lim; return o <= 0 ? v : Math.sign(v) * (lim + (o * lim * c) / (lim + c * o)); };
   const pick = (e) => {
     const r = el.getBoundingClientRect();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
@@ -234,24 +238,39 @@ export function createSpine(container, { reduced = false, mobile = false, initia
     const hit = ray.intersectObjects(pickables, false)[0];
     return hit ? hit.object.userData.zone : null;
   };
-  el.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY }; moved = false; el.setPointerCapture(e.pointerId); });
-  el.addEventListener('pointermove', (e) => {
-    if (down) {
-      const dx = e.clientX - down.x, dy = e.clientY - down.y;
-      if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-      velocity = dx * 0.006; drag += velocity; tilt = MathUtils.clamp(tilt + dy * 0.003, -0.35, 0.35);
-      down = { x: e.clientX, y: e.clientY }; requestRender();
-    } else if (e.pointerType === 'mouse') {
-      const z = pick(e);
-      if (z !== hovered) { hovered = z; el.style.cursor = z ? 'pointer' : 'grab'; paint(); }
-    }
+  el.addEventListener('pointerdown', (e) => {
+    if (pid !== null) return;
+    pid = e.pointerId; el.setPointerCapture(pid);
+    down = { x: e.clientX, y: e.clientY }; moved = false; velocity = 0;
+    hist = [{ x: e.clientX, t: e.timeStamp }];
   });
-  const end = (e) => {
-    if (down && !moved) { const z = pick(e); if (z) { selected = z; paint(); onZone?.(z); } }
-    down = null;
+  el.addEventListener('pointermove', (e) => {
+    if (pid === null) {
+      if (e.pointerType === 'mouse') { const z = pick(e); if (z !== hovered) { hovered = z; el.style.cursor = z ? 'pointer' : 'grab'; paint(); } }
+      return;
+    }
+    if (e.pointerId !== pid) return;
+    const dx = e.clientX - down.x, dy = e.clientY - down.y;
+    if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+    drag += dx * 0.006;
+    tiltRaw += dy * 0.003; tilt = rubber(tiltRaw, 0.35);
+    down = { x: e.clientX, y: e.clientY };
+    hist.push({ x: e.clientX, t: e.timeStamp });
+    while (hist.length > 2 && e.timeStamp - hist[0].t > 100) hist.shift();
+    invalidate();
+  });
+  const release = (e) => {
+    if (e.pointerId !== pid) return;
+    const a = hist[0], b = hist[hist.length - 1], dt = b.t - a.t;
+    velocity = (e.timeStamp - b.t > 50 || dt < 8 || reduced) ? 0 : ((b.x - a.x) * 0.006) / dt;
+    tiltRaw = tilt = MathUtils.clamp(tilt, -0.35, 0.35);
+    pid = null; down = null; invalidate();
   };
-  el.addEventListener('pointerup', end);
-  el.addEventListener('pointercancel', () => { down = null; });
+  el.addEventListener('pointerup', (e) => {
+    if (e.pointerId === pid && !moved) { const z = pick(e); if (z) { selected = z; paint(); onZone?.(z); } }
+    release(e);
+  });
+  el.addEventListener('pointercancel', release);
   el.addEventListener('pointerleave', () => { if (hovered) { hovered = null; paint(); } });
 
   /* ---------- Taille ---------- */
@@ -262,38 +281,48 @@ export function createSpine(container, { reduced = false, mobile = false, initia
     const fit = (height / 2 + 0.6) / Math.tan(MathUtils.degToRad(camera.fov / 2));
     camera.position.set(0, 0, Math.max(fit, (2.6 / camera.aspect) / Math.tan(MathUtils.degToRad(camera.fov / 2))));
     camera.updateProjectionMatrix();
-    requestRender();
+    invalidate();
   }
   new ResizeObserver(resize).observe(container);
 
-  /* ---------- Boucle : seulement quand la section est visible ---------- */
-  let visible = true, raf = 0, t0 = performance.now();
-  function requestRender() { if (reduced && !raf) raf = requestAnimationFrame(frame); }
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(frame); }).observe(container);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden && visible && !raf) raf = requestAnimationFrame(frame); });
+  /* ---------- Rendu à la demande ----------
+     Une image n'est calculée que si quelque chose a changé : glisser, élan, zone,
+     survol, défilement, taille. Immobile, la colonne ne consomme rien. */
+  let visible = true, raf = 0, dirty = true, last = performance.now(), lastP = -1;
+  function invalidate() { dirty = true; if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame); }
+  const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) invalidate(); });
+  io.observe(container);
+  const onShow = () => { if (!document.hidden) invalidate(); };
+  const onScroll = () => { if (visible) invalidate(); };
+  document.addEventListener('visibilitychange', onShow);
+  addEventListener('scroll', onScroll, { passive: true });
 
   function frame(now) {
     raf = 0;
-    const t = (now - t0) / 1000;
-    // rotation pilotée par le défilement de la section
+    const dt = Math.min(now - last, 50); last = now;
     const r = container.getBoundingClientRect();
     const p = MathUtils.clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1);
-    if (!down) { velocity *= 0.92; drag += velocity; }
-    const idle = reduced ? 0 : t * 0.12;
-    root.rotation.y = (reduced ? 0.5 : (p - 0.5) * Math.PI * 1.6) + drag + idle;
+    let moving = false;
+    if (!down && Math.abs(velocity) > 1e-5) { drag += velocity * dt; velocity *= Math.pow(0.995, dt); moving = true; }
+    if (p !== lastP) { lastP = p; dirty = true; }
+    // Le défilement ne fait qu'entrouvrir le relief (± 17°) : le modèle se manipule au glisser
+    root.rotation.y = 0.5 + (reduced ? 0 : (p - 0.5) * 0.6) + drag;
     root.rotation.x = tilt;
-    if (!reduced) {
-      root.position.y = -center.y + Math.sin(t * 0.8) * 0.06;  // légère flottaison
-      if (dust) dust.rotation.y = t * 0.04;
-      const pulse = 0.5 + Math.sin(t * 2.4) * 0.18;
-      mat.hi.emissiveIntensity = pulse; mat.discHi.emissiveIntensity = pulse + 0.3;
-    }
-    renderer.render(scene, camera);
-    if (!reduced && visible && !document.hidden) raf = requestAnimationFrame(frame);
+    if (dirty || moving) { renderer.render(scene, camera); dirty = false; }
+    if (moving) invalidate();
   }
+
+  /* ---------- Libération (page quittée ou mise en cache) ---------- */
+  addEventListener('pagehide', () => {
+    cancelAnimationFrame(raf); io.disconnect();
+    document.removeEventListener('visibilitychange', onShow); removeEventListener('scroll', onScroll);
+    scene.traverse((o) => o.geometry?.dispose());
+    Object.values(mat).forEach((m) => m.dispose?.());
+    renderer.dispose(); renderer.forceContextLoss();
+  }, { once: true });
 
   resize();
   setZone(initialZone);
-  raf = requestAnimationFrame(frame);
+  invalidate();
   return { setZone };
 }

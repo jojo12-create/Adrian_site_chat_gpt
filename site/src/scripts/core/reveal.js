@@ -1,9 +1,8 @@
 /* Apparitions au défilement, sans bibliothèque (IntersectionObserver + transitions CSS).
    - [data-reveal] : fondu + légère montée, une seule fois. Seuls les éléments sous
      la ligne de flottaison sont préparés : rien de visible au chargement ne clignote.
-   - [data-illu] : le symbole est « peint » à l'entrée (.is-in) et ne bouge
-     que tant qu'il est à l'écran (.is-live).
-   - [data-live] : animations CSS continues (défilant d'avis) en pause hors écran.
+   - grand symbole (.illu-xl) : « peint » à l'entrée (.is-in), en mouvement
+     seulement tant qu'il est à l'écran (.is-live).
    Mouvement réduit : tout est affiché d'emblée, immobile. */
 export function initReveals(reduced) {
   const illus = document.querySelectorAll('[data-illu]');
@@ -12,9 +11,9 @@ export function initReveals(reduced) {
   const below = [...document.querySelectorAll('[data-reveal]')].filter((el) => el.getBoundingClientRect().top > innerHeight * 0.92);
   below.forEach((el) => el.classList.add('reveal'));
   const enter = new IntersectionObserver((entries) => {
-    // Éléments entrés ensemble : léger décalage (60 ms, 4 au plus), jamais une file d'attente
+    // Éléments entrés ensemble : délais qui se resserrent (0, 50, 90, 120, 140 ms), jamais une file d'attente
     entries.filter((e) => e.isIntersecting).forEach((e, i) => {
-      e.target.style.transitionDelay = `${Math.min(i, 4) * 60}ms`;
+      e.target.style.transitionDelay = `${[0, 50, 90, 120, 140][Math.min(i, 4)]}ms`;
       e.target.classList.add('is-in');
       enter.unobserve(e.target);
     });
@@ -29,5 +28,5 @@ export function initReveals(reduced) {
   document.addEventListener('focusin', (e) => e.target.closest?.('.reveal:not(.is-in)')?.classList.add('is-in'));
 
   const live = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-live', e.isIntersecting)));
-  document.querySelectorAll('[data-illu], [data-live]').forEach((el) => live.observe(el));
+  document.querySelectorAll('.illu-xl').forEach((el) => live.observe(el));
 }

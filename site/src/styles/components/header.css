@@ -47,8 +47,8 @@
 /* Menu mobile : cercle qui s'ouvre depuis le bouton */
 @media (max-width: 1023px) {
   .nav { position: fixed; inset: 0; z-index: 1; background: var(--forest); padding: calc(var(--header) + 32px) var(--gutter) 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; overflow-y: auto; overscroll-behavior: contain;
-    clip-path: circle(0 at calc(100% - var(--gutter) - 24px) calc(var(--header) / 2)); visibility: hidden; transition: clip-path .3s var(--ease-in-out), visibility 0s .3s; }
-  .nav.is-open { clip-path: circle(150% at calc(100% - var(--gutter) - 24px) calc(var(--header) / 2)); visibility: visible; transition: clip-path var(--dur-slow) var(--ease-in-out); }
+    clip-path: circle(0 at calc(100% - var(--gutter) - 24px) calc(var(--header) / 2)); visibility: hidden; transition: clip-path var(--dur-base) var(--ease-out), visibility 0s var(--dur-base); }
+  .nav.is-open { clip-path: circle(150% at calc(100% - var(--gutter) - 24px) calc(var(--header) / 2)); visibility: visible; transition: clip-path var(--dur-slow) var(--ease-drawer); }
   .nav-top > li { overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.12); }
   .nav-row { justify-content: space-between; gap: 16px; }
   .nav-top > li > .nav-link { display: block; }
@@ -97,7 +97,7 @@
     opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), visibility 0s var(--dur-fast); }
   .has-menu.is-open .mega { opacity: 1; visibility: visible; transform: none; transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
   .mega-in { position: relative; overflow: hidden; border-radius: var(--r-l); background: var(--paper); box-shadow: 0 40px 80px -40px rgba(27, 46, 36, .45), 0 0 0 1px var(--line); }
-  /* Filet doré qui se trace à l'ouverture */
+  /* Filet doré en tête du panneau */
   .mega-in::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-2) 60%, transparent); }
   .mega-grid { display: grid; grid-template-columns: .9fr 1.2fr 1.2fr; grid-template-rows: 1fr auto; column-gap: clamp(28px, 3.5vw, 56px); row-gap: 8px; padding: 34px clamp(28px, 3.5vw, 48px) 26px; }
   .mega-intro { grid-row: 1 / span 2; display: flex; flex-direction: column; padding-right: clamp(20px, 2.5vw, 40px); border-right: 1px solid var(--line); }

@@ -5,8 +5,8 @@
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-enter) var(--ease-out), transform var(--dur-enter) var(--ease-out); }
 .reveal.is-in { opacity: 1; transform: none; }
 /* Cartes inclinables et calques du hero : lissage du suivi de la souris */
-[data-tilt]:not(.reveal) { transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
-[data-depth], [data-tilt-hero] { transition: transform .4s var(--ease-out); }
+[data-tilt]:not(.reveal) { transition: transform var(--dur-base) var(--ease-out); }
+[data-depth], [data-tilt-hero] { transition: transform var(--dur-slow) var(--ease-out); }
 /* Photos en léger décalage au défilement : animation pilotée par le défilement, en CSS, là où elle existe */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
@@ -15,8 +15,10 @@
 }
 @keyframes parallax { from { transform: scale(1.08) translateY(-3%); } to { transform: scale(1.08) translateY(3%); } }
 
-/* ---------- Mouvement réduit : tout est immobile et visible ---------- */
+/* ---------- Mouvement réduit : plus de déplacement, mais les fondus courts restent (ils aident à comprendre) ---------- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition-property: opacity, color, background-color, border-color, visibility !important; transition-duration: var(--dur-fast) !important; transition-delay: 0s !important; }
+  .nav { clip-path: none !important; opacity: 0; }
+  .nav.is-open { opacity: 1; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }

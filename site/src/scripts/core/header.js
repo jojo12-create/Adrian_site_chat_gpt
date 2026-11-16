@@ -9,6 +9,12 @@ export function initHeader() {
   const vertical = matchMedia('(min-width: 1200px)');
   let last = 0, ticking = false;
 
+  // Hauteur de page mise en cache : aucune lecture de mise en page pendant le défilement
+  let max = 0;
+  const measure = () => { max = document.documentElement.scrollHeight - innerHeight; };
+  new ResizeObserver(measure).observe(document.body);
+  measure();
+
   const update = () => {
     ticking = false;
     const y = scrollY;
@@ -18,14 +24,13 @@ export function initHeader() {
     else if (!open && y > 400 && y > last + 4) header.classList.add('is-hidden');
     last = y;
     if (bar) {
-      const max = document.documentElement.scrollHeight - innerHeight;
       const p = max > 0 ? Math.min(1, y / max) : 0;
       bar.style.transform = vertical.matches ? `scaleY(${p})` : `scaleX(${p})`;
     }
   };
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   addEventListener('scroll', request, { passive: true });
-  addEventListener('resize', request);
+  addEventListener('resize', () => { measure(); request(); });
   update();
 
   // L'en-tête reste visible quand un élément y reçoit le focus clavier
