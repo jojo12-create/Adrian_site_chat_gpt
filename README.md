@@ -12,6 +12,7 @@ npm run build        # version de production dans dist/
 node scripts/serve.mjs 4173   # sert dist/ comme l'hébergeur (gzip, vraie 404)
 npm test             # tests réels : Playwright desktop/mobile, axe, LCP, formulaire PHP
 npm run images       # ré-optimise les photos (assets/raw → site/public/images)
+npm run symbols      # regroupe les 14 symboles (assets/raw/symboles → site/public/images/symboles.svg)
 ```
 
 Pour tester le formulaire en local : `php -S 127.0.0.1:8000 -t dist`.
@@ -30,6 +31,8 @@ content/pages.mjs       textes de toutes les pages (+ mots-clés SEO en commenta
 content/layout.mjs      <head> SEO, JSON-LD, en-tête, pied de page, composants
 scripts/build-pages.mjs génère site/…/index.html, sitemap.xml, robots.txt, docs/textes.md (+ contrôles SEO)
 scripts/images.mjs      AVIF/WebP responsive, favicons, image Open Graph
+scripts/symbols.mjs     symboles des 14 catégories (un seul fichier SVG)
+content/illustrations.mjs  symbole en relief : calques empilés en profondeur
 scripts/qa.mjs          tests en conditions réelles
 scripts/serve.mjs       serveur local de production
 site/src/css/main.css   styles (tokens, composants, animations CSS)

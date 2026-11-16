@@ -42,7 +42,7 @@ initMarquee();
 initFaq(reduced);
 initMap();
 initForm();
-initIllus(reduced);   // illustrations : tracé + vie (statiques si mouvement réduit)
+initIllus(reduced);   // symboles en relief : entrée + rotation lente (immobiles si mouvement réduit)
 initSpine(reduced);   // colonne 3D chargée en différé (statique si mouvement réduit)
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 

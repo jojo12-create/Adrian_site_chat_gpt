@@ -19,7 +19,7 @@ const osteo = { href: '/osteopathie/', label: 'Ostéopathie' };
 const catHref = (c) => `/osteopathie/${c.slug}/`;
 const bySlug = Object.fromEntries(categories.map((c) => [c.slug, c]));
 
-/* Carte catégorie : illustration animée, inclinaison 3D, reflet lumineux, zoom doux */
+/* Carte catégorie : symbole au pinceau en relief, inclinaison 3D, reflet lumineux, zoom doux */
 const catCard = (c, i = 0) => `<li class="cat-card" data-tilt data-reveal style="--d:${i % 4}"><a href="${catHref(c)}">
   ${illu(c.slug, { tone: c.tone })}
   <span class="cat-body"><span class="cat-label">${c.label}</span><span class="cat-short">${c.short}</span><span class="cat-go">Découvrir ${icon('arrow')}</span></span>

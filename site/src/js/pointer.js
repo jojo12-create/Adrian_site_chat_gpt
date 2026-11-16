@@ -44,7 +44,8 @@ export function initPointer() {
       const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
       ry((px - 0.5) * 12); rx((0.5 - py) * 12);
       el.style.setProperty('--mx', `${px * 100}%`); el.style.setProperty('--my', `${py * 100}%`);
+      el.style.setProperty('--px', px.toFixed(3)); el.style.setProperty('--py', py.toFixed(3)); // symbole en relief : il se tourne vers la souris
     });
-    el.addEventListener('pointerleave', () => { rx(0); ry(0); });
+    el.addEventListener('pointerleave', () => { rx(0); ry(0); el.style.removeProperty('--px'); el.style.removeProperty('--py'); });
   });
 }

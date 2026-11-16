@@ -54,10 +54,10 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 - [x] Vraie 404 (`node scripts/serve.mjs` et `.htaccess`)
 
 ## V3 : catégories, illustrations, 3D
-- [x] 7 catégories patients + 7 troubles : 14 pages, **14 illustrations animées** (tracé, flottaison, scintillement, fond qui se transforme), style unique
+- [x] 7 catégories patients + 7 troubles : 14 pages, **14 symboles au pinceau fournis, mis en relief en 3D** (calques en profondeur, coup de pinceau à l'entrée, rotation lente, suivi de la souris), tracés d'origine non retouchés
 - [x] Cartes : inclinaison 3D, reflet doré, zoom doux ; 14 cartes sur l'accueil et le hub
 - [x] Colonne 3D Three.js procédurale : zones cervicales, dorsales, lombaires, sacrum ; synchronisée avec des onglets HTML accessibles ; chargée en différé (128 Ko gzip)
-- [x] Mouvement réduit : 3D statique, illustrations immobiles, navigation clavier testée
+- [x] Mouvement réduit : 3D statique, symboles immobiles, navigation clavier testée
 - [x] Mobile : 3D allégée, titre sans délai, 2 colonnes de cartes, aucun débordement à 320 px
 
 ## Contenus et déontologie

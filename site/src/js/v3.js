@@ -3,14 +3,33 @@
    ========================================================================== */
 import { gsap } from 'gsap';
 
-/* Illustrations : tracé + vie déclenchés à l'entrée dans l'écran (une fois) */
+/* Symboles en relief : entrée (une fois) puis rotation lente, en pause hors écran */
 export function initIllus(reduced) {
   const els = document.querySelectorAll('[data-illu]');
   if (reduced || !('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('is-in')); return; }
-  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-    if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+  const enter = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.add('is-in'); enter.unobserve(en.target); }
   }), { rootMargin: '0px 0px -8% 0px' });
-  els.forEach((e) => io.observe(e));
+  const live = new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-live', en.isIntersecting)));
+  els.forEach((e) => { enter.observe(e); live.observe(e); });
+
+  // Grand symbole des pages catégorie et article : il se tourne vers la souris, où qu'elle soit
+  const big = [...document.querySelectorAll('.illu-xl')];
+  if (!big.length || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  let raf = 0;
+  addEventListener('pointermove', (e) => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      big.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        const clamp = (v) => Math.max(0, Math.min(1, v)).toFixed(3);
+        el.style.setProperty('--px', clamp(0.5 + (e.clientX - r.left - r.width / 2) / innerWidth));
+        el.style.setProperty('--py', clamp(0.5 + (e.clientY - r.top - r.height / 2) / innerHeight));
+      });
+    });
+  }, { passive: true });
 }
 
 /* Hero : profondeur à la souris (calques data-depth), inclinaison 3D du portrait,

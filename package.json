@@ -6,6 +6,7 @@
   "description": "Site d'Adrian Rodriguez, ostéopathe à Villefontaine (38090) : HTML/CSS/JS statique, Vite, GSAP, Lenis.",
   "scripts": {
     "images": "node scripts/images.mjs",
+    "symbols": "node scripts/symbols.mjs",
     "pages": "node scripts/build-pages.mjs",
     "dev": "npm run pages && vite site --host 127.0.0.1",
     "build": "npm run pages && vite build site --emptyOutDir",

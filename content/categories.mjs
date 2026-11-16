@@ -1,6 +1,6 @@
 /* ==========================================================================
    CATÉGORIES : 7 profils de patients (inventaire de la démo) + 7 troubles
-   (site officiel et démo). Une page, une illustration animée par catégorie.
+   (site officiel et démo). Une page, un symbole en relief par catégorie.
    Ton prudent (repris de la démo) : pas de promesse de résultat,
    l'ostéopathie complète le suivi médical.
    ========================================================================== */
