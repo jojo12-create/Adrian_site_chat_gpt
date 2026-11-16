@@ -17,7 +17,7 @@ const preloadFonts = () => ({
   name: 'preload-fonts',
   transformIndexHtml: { order: 'post', handler(html, ctx) {
     if (!ctx.bundle) return html;
-    const files = Object.keys(ctx.bundle).filter((f) => /(fraunces-latin-wght-normal|fraunces-latin-wght-italic|manrope-latin-wght-normal)-.*\.woff2$/.test(f));
+    const files = Object.keys(ctx.bundle).filter((f) => /(fraunces-latin-wght-normal|fraunces-latin-wght-italic)-.*\.woff2$/.test(f));
     return { html, tags: files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: (process.env.BASE || '/') + f, crossorigin: '' }, injectTo: 'head-prepend' })) };
   } },
 });

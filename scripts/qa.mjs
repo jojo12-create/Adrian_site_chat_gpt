@@ -24,7 +24,7 @@ writeFileSync(mailLog, '');
 const php = spawn('php', ['-d', `sendmail_path=tee -a ${mailLog} > /dev/null`, '-S', `127.0.0.1:${PORT}`, '-t', join(root, 'dist')], { stdio: 'ignore' });
 await new Promise((r) => setTimeout(r, 800));
 
-const pages = ['/', '/osteopathie/', '/osteopathie/mal-de-dos/', '/osteopathie/bebe-enfant/', '/cabinet/', '/tarifs/', '/contact/', '/mentions-legales/', '/confidentialite/'];
+const pages = ['/', '/osteopathie/', '/osteopathie/nourrissons/', '/osteopathie/lombalgie/', '/osteopathie/mobilite-equilibre/', '/cabinet/', '/tarifs/', '/contact/', '/avis/', '/conseils/mal-de-dos/', '/mentions-legales/'];
 const axeSrc = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const browser = await chromium.launch();
 const report = [];
@@ -60,7 +60,7 @@ for (const pr of profiles) {
     await page.goto(base + p, { waitUntil: 'load' });
     const r = await page.evaluate(probe);
     report.push({ vp: pr.n, p, ...r });
-    if (pr.n !== 'small' && ['/', '/osteopathie/', '/contact/', '/osteopathie/mal-de-dos/'].includes(p)) {
+    if (pr.n !== 'small' && ['/', '/osteopathie/', '/contact/', '/osteopathie/lombalgie/'].includes(p)) {
       await page.screenshot({ path: join(shots, `${pr.n}${p.replace(/\//g, '_')}fold.png`) });
       for (let y = 0; y < 30; y++) { await page.mouse.wheel(0, 500); await page.waitForTimeout(120); }
       await page.waitForTimeout(800);

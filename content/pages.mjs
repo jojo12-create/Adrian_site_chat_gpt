@@ -6,161 +6,118 @@
    ========================================================================== */
 import { site, reviews, reviewCount, TBC } from './site.mjs';
 import { pic, rdv, call, faq, ctaFinal, icon, stars, tbc, splitWords, esc } from './layout.mjs';
+import { patients, troubles, categories, spineZones } from './categories.mjs';
+import { illu } from './illustrations.mjs';
 
 const T = site.tbc, A = site.address, L = site.links;
 const home = { href: '/', label: 'Accueil' };
 const osteo = { href: '/osteopathie/', label: 'Ostéopathie' };
 
 /* =====================================================================
-   MOTIFS DE CONSULTATION (6 pages)
+   CATÉGORIES (7 patients + 7 troubles) : composants partagés
    ===================================================================== */
-export const motifs = [
-  {
-    slug: 'mal-de-dos', label: 'Mal de dos', photo: 'soin-dos-table',
-    // SEO : « ostéopathe mal de dos Villefontaine » · lombalgie, sciatique, dos bloqué, travail assis
-    title: 'Ostéopathe mal de dos à Villefontaine | Lombalgie',
-    description: "Lombalgie, dos bloqué, sciatique, raideurs du travail assis : une prise en charge ostéopathique attentive à Villefontaine. Rendez-vous sur Doctolib.",
-    h1: 'Mal de dos : retrouver un dos plus libre',
-    lead: "Travail assis, port de charges, gestes répétés, stress : le dos encaisse beaucoup. La séance cherche d'où vient la gêne, pas seulement là où elle se fait sentir.",
-    cases: ["Vous passez la journée sur un écran et le bas du dos tire chaque soir.", "Un faux mouvement en portant un carton, et le dos s'est « bloqué ».", "Une douleur qui descend dans la fesse ou la jambe depuis quelques jours."],
-    when: ['Lombalgies, dos bloqué, raideurs au réveil', 'Douleurs entre les omoplates, haut du dos tendu', 'Sciatique ou cruralgie, après avis médical si la douleur est forte', 'Reprise après une période sédentaire ou une blessure'],
-    session: "Nous parlons de votre poste de travail, de votre sommeil et de votre activité. Les techniques sont choisies selon votre confort, et vous repartez avec des conseils simples pour la suite.",
-    note: "Douleur avec fièvre, perte de force, fourmillements importants ou troubles urinaires : consultez un médecin sans attendre.",
-    faq: [
-      { q: 'Faut-il attendre que la douleur passe pour consulter ?', a: "Non. Vous pouvez consulter pendant une crise : les techniques sont alors très douces et adaptées à votre douleur." },
-      { q: 'Je ne veux pas de « craquements », est-ce possible ?', a: "Oui. Il existe de nombreuses techniques douces, et rien n'est fait sans votre accord." },
-    ],
-  },
-  {
-    slug: 'nuque-cervicales', label: 'Nuque & épaules', photo: 'soin-nuque',
-    // SEO : « ostéopathe cervicales Villefontaine » · torticolis, nuque raide, maux de tête de tension, épaules
-    title: 'Ostéopathe nuque et cervicales à Villefontaine',
-    description: "Nuque raide, torticolis, épaules tendues, maux de tête de tension : l'ostéopathie à Villefontaine pour retrouver de la mobilité. Rendez-vous en ligne.",
-    h1: 'Nuque, cervicales et épaules : relâcher les tensions',
-    lead: "Écran trop bas, nuit sur un mauvais oreiller, stress qui se loge dans les épaules : la nuque se raidit vite. Une séance aide à redonner de la mobilité au cou et au haut du dos.",
-    cases: ["Vous vous réveillez avec un torticolis, impossible de tourner la tête.", "Les épaules remontent vers les oreilles en fin de journée.", "Des maux de tête qui partent de la nuque quand vous êtes tendu."],
-    when: ['Torticolis, nuque raide, cervicalgies', 'Épaules tendues, douleur entre les omoplates', 'Maux de tête de tension, après avis médical', 'Gêne après un « coup du lapin », une fois le bilan médical fait'],
-    session: "J'observe la mobilité du cou, des épaules et du haut du dos, qui fonctionnent ensemble. Les gestes au niveau de la nuque sont toujours expliqués avant d'être faits.",
-    note: "Maux de tête brutaux et inhabituels, vertiges importants ou troubles de la vision : consultez un médecin en priorité.",
-    faq: [
-      { q: 'Les manipulations du cou sont-elles risquées ?', a: "Elles ne sont jamais systématiques. Je les propose seulement si elles sont indiquées, après un bilan, et avec votre accord. Des techniques douces existent." },
-      { q: 'Combien de temps après un torticolis consulter ?', a: "Dès les premiers jours si la gêne persiste. La séance s'adapte à la douleur du moment." },
-    ],
-  },
-  {
-    slug: 'sportifs', label: 'Sportifs', photo: 'soin-dos',
-    // SEO : « ostéopathe du sport Villefontaine » · récupération, prévention blessures, préparation compétition, Nord-Isère
-    title: 'Ostéopathe du sport à Villefontaine',
-    description: "Ostéopathie du sport à Villefontaine : prévention des blessures, récupération après l'effort, préparation d'une compétition. Amateurs et confirmés.",
-    h1: 'Ostéopathie du sport : prévenir, récupérer, progresser',
-    lead: "Passionné de sport, j'accompagne les sportifs amateurs comme confirmés. L'objectif : un corps mobile et équilibré pour encaisser l'entraînement, et une récupération mieux gérée.",
-    cases: ["Vous préparez un trail ou un semi et une gêne au genou revient à chaque sortie.", "Après chaque match, le dos ou les adducteurs mettent des jours à récupérer.", "Vous reprenez le sport après une entorse et vous n'osez plus forcer."],
-    when: ['Douleurs liées à la pratique, après avis médical si besoin', "Préparation d'une compétition ou d'un objectif", 'Récupération après un entraînement intensif', 'Recherche de souplesse et de mobilité'],
-    session: "Nous parlons de votre discipline, de votre charge d'entraînement et de votre calendrier. La séance est construite autour de vos objectifs.",
-    note: "Après un choc, une chute ou un craquement entendu, faites d'abord un bilan médical pour écarter une lésion.",
-    faq: [
-      { q: 'Quand consulter avant une compétition ?', a: "Idéalement quelques jours avant, pour laisser le corps s'adapter. Évitez la veille d'un effort important." },
-      { q: 'Faut-il venir en tenue de sport ?', a: 'Une tenue souple est idéale : short, legging ou brassière.' },
-    ],
-  },
-  {
-    slug: 'bebe-enfant', label: 'Bébé & enfant', photo: null,
-    // SEO : « ostéopathe bébé Villefontaine » · nourrisson, torticolis bébé, enfant, croissance
-    title: 'Ostéopathe bébé et enfant à Villefontaine',
-    description: "Ostéopathie douce pour nourrissons et enfants à Villefontaine : naissance difficile, torticolis, inconfort digestif, croissance, posture.",
-    h1: 'Bébés et enfants : une ostéopathie toute en douceur',
-    lead: "Des premières semaines à l'adolescence, le corps change vite. Une consultation douce aide à repérer les tensions qui peuvent gêner le confort de votre enfant, en lien avec votre pédiatre.",
-    cases: ["Votre bébé tourne toujours la tête du même côté.", "La naissance a été longue, avec ventouse ou forceps.", "Votre ado grandit vite, a mal au dos et enchaîne les entraînements."],
-    when: ['Naissance difficile, torticolis, tête toujours tournée du même côté', 'Coliques, reflux, inconfort digestif, sommeil agité', 'Douleurs de croissance, posture, cartable lourd', 'Jeune sportif : prévention et récupération'],
-    session: "Bébé reste dans vos bras ou sur la table, à son rythme : pause, câlin ou tétée quand il le faut. Un parent est toujours présent pour les mineurs.",
-    note: "<strong>Avant 6 mois</strong>, la réglementation impose une attestation de votre médecin ou pédiatre indiquant l'absence de contre-indication (décret n° 2007-435). Pensez à l'apporter.",
-    faq: [
-      { q: 'À partir de quel âge peut-on consulter ?', a: "Dès les premières semaines. Avant 6 mois, l'attestation médicale de non contre-indication est obligatoire." },
-      { q: 'Que faut-il apporter ?', a: "Le carnet de santé de l'enfant et, avant 6 mois, l'attestation du médecin." },
-    ],
-  },
-  {
-    slug: 'femme-enceinte', label: 'Grossesse', photo: null,
-    // SEO : « ostéopathe femme enceinte Villefontaine » · sciatique grossesse, bassin, après accouchement
-    title: 'Ostéopathe femme enceinte à Villefontaine',
-    description: "Ostéopathie pendant la grossesse à Villefontaine : dos, sciatique, bassin, jambes lourdes, préparation à l'accouchement et suivi après la naissance.",
-    h1: "Grossesse : accompagner un corps qui change",
-    lead: "En neuf mois, le dos et le bassin s'adaptent beaucoup. L'ostéopathie accompagne ces transformations pour aider à soulager certains inconforts et préparer la mobilité du bassin.",
-    cases: ["Le bas du dos tire dès que vous restez debout.", "Une douleur part dans la fesse et descend dans la jambe.", "Après l'accouchement, vous voulez faire le point sur votre dos et votre bassin."],
-    when: ['Douleurs lombaires, sciatiques ou pelviennes', 'Fatigue, sommeil difficile, tensions liées au stress', "Préparation de la mobilité du bassin avant l'accouchement", "Après la naissance : dos, bassin, portage"],
-    session: "Les positions sont adaptées à chaque trimestre : sur le côté, assise, avec des coussins. Vous pouvez demander une pause à tout moment.",
-    note: "L'ostéopathie complète le suivi de votre sage-femme ou de votre gynécologue, sans le remplacer. Au moindre signe inhabituel, contactez-les en priorité.",
-    faq: [
-      { q: 'À quel moment de la grossesse consulter ?', a: "À tout moment, dès qu'une gêne apparaît. Beaucoup de futures mamans consultent aussi en fin de grossesse, puis après l'accouchement." },
-      { q: 'Peut-on venir avec bébé après la naissance ?', a: "Oui, et une séance pour bébé peut avoir lieu le même jour." },
-    ],
-  },
-  {
-    slug: 'seniors', label: 'Seniors', photo: 'soin-epaule',
-    // SEO : « ostéopathe senior Villefontaine » · arthrose, mobilité, équilibre, raideurs
-    title: 'Ostéopathe pour seniors à Villefontaine',
-    description: "Ostéopathie douce pour les seniors à Villefontaine : raideurs, arthrose, mobilité, équilibre. Cabinet de plain-pied avec parking gratuit.",
-    h1: 'Seniors : garder sa mobilité au quotidien',
-    lead: "Avec les années, les raideurs gagnent du terrain et les gestes simples deviennent moins faciles. Des techniques douces, adaptées à l'âge, aident à préserver la souplesse et l'autonomie.",
-    cases: ["Se baisser pour lacer ses chaussures devient difficile.", "Les épaules ou les hanches sont raides le matin.", "Vous voulez garder de l'assurance dans vos déplacements."],
-    when: ["Raideurs, douleurs articulaires liées à l'arthrose", 'Difficulté à se baisser, à tourner la tête', "Envie de garder de l'équilibre et de l'assurance", 'Fatigue générale et tensions'],
-    session: "Le rythme est calme et les techniques toujours douces. Le cabinet est de plain-pied, avec un parking gratuit à proximité.",
-    note: "Apportez la liste de vos traitements et vos derniers examens : ils permettent d'adapter la séance.",
-    faq: [
-      { q: "Est-ce adapté en cas d'ostéoporose ?", a: "Oui, en adaptant les techniques. Signalez-la à la prise de rendez-vous : seules des techniques douces seront utilisées." },
-      { q: 'Peut-on venir accompagné ?', a: 'Bien sûr, un proche peut assister à la séance.' },
-    ],
-  },
-];
+const catHref = (c) => `/osteopathie/${c.slug}/`;
+const bySlug = Object.fromEntries(categories.map((c) => [c.slug, c]));
 
-/* Silhouette « vertébrale » interactive de l'accueil : zone → motif */
-const zones = [
-  { id: 'nuque', label: 'Nuque', motif: 'nuque-cervicales', range: [0, 6], text: "Torticolis, nuque raide, maux de tête de tension après une journée d'écran." },
-  { id: 'epaules', label: 'Épaules', motif: 'nuque-cervicales', range: [4, 9], text: "Épaules qui remontent, douleur entre les omoplates, bras lourd." },
-  { id: 'dos', label: 'Bas du dos', motif: 'mal-de-dos', range: [15, 20], text: "Lombalgie, dos bloqué après un faux mouvement, raideur du matin." },
-  { id: 'bassin', label: 'Bassin', motif: 'mal-de-dos', range: [19, 23], text: "Sciatique, douleur de hanche ou de fesse, gêne en position assise." },
-  { id: 'sport', label: 'Sport', motif: 'sportifs', range: [0, 23], text: "Préparer un objectif, mieux récupérer, reprendre après une blessure." },
-  { id: 'bebe', label: 'Bébé & enfant', motif: 'bebe-enfant', range: [0, 23], text: "Naissance difficile, torticolis du nourrisson, croissance, posture." },
-  { id: 'grossesse', label: 'Grossesse', motif: 'femme-enceinte', range: [14, 23], text: "Dos et bassin qui tirent, sciatique, préparation à l'accouchement." },
-  { id: 'senior', label: 'Senior', motif: 'seniors', range: [0, 23], text: "Raideurs, arthrose, mobilité et équilibre au quotidien." },
-];
-const spineSvg = () => {
-  // 24 vertèbres : colonne en S douce, rappel du bonsaï-colonne du logo
+/* Carte catégorie : illustration animée, inclinaison 3D, reflet lumineux, zoom doux */
+const catCard = (c, i = 0) => `<li class="cat-card" data-tilt data-reveal style="--d:${i % 4}"><a href="${catHref(c)}">
+  ${illu(c.slug, { tone: c.tone })}
+  <span class="cat-body"><span class="cat-label">${c.label}</span><span class="cat-short">${c.short}</span><span class="cat-go">Découvrir ${icon('arrow')}</span></span>
+</a></li>`;
+const catGrid = (list, id) => `<ul class="cat-grid" id="${id}">${list.map(catCard).join('')}</ul>`;
+
+/* Section catégories (accueil et hub) : deux familles */
+const catSection = (h = 'h2') => `
+<section class="section cats" aria-labelledby="cats-t">
+  <div class="wrap">
+    <div class="cats-head">
+      <${h} id="cats-t" data-reveal>Un accompagnement <em>pour chacun</em></${h}>
+      <p class="lead" data-reveal>À chaque âge et à chaque étape de vie, une histoire différente à écouter. Choisissez votre profil ou ce qui vous gêne.</p>
+    </div>
+    <h3 class="cats-sub" data-reveal>Pour qui ?</h3>
+    ${catGrid(patients.map((c) => ({ ...c })), 'grid-patients')}
+    <h3 class="cats-sub" data-reveal>Pour quoi ?</h3>
+    ${catGrid(troubles, 'grid-troubles')}
+  </div>
+</section>`;
+
+/* =====================================================================
+   COLONNE VERTÉBRALE 3D (Three.js, chargée en différé)
+   Le texte (zones, troubles, liens) est en HTML : indexable et accessible.
+   ===================================================================== */
+const spineFallback = () => {
   let v = '';
   for (let i = 0; i < 24; i++) {
-    const y = 18 + i * 19.5;
-    const x = 110 + Math.sin((i / 23) * Math.PI * 2) * 14;
-    const w = 26 + Math.min(i, 18) * 1.6;
-    v += `<rect class="vert" data-v="${i}" x="${(x - w / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="14" rx="7"/>`;
+    const y = 18 + i * 19.5, x = 110 + Math.sin((i / 23) * Math.PI * 2) * 14, w = 26 + Math.min(i, 18) * 1.6;
+    const zone = i < 7 ? 'cervicales' : i < 19 ? 'dorsales' : 'lombaires';
+    v += `<rect class="vert" data-zone="${zone}" x="${(x - w / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="14" rx="7"/>`;
   }
-  return `<svg class="spine-svg" viewBox="0 0 220 500" aria-hidden="true"><path class="spine-cord" d="M110 10 C 128 120, 92 250, 110 380 S 104 470, 110 495"/>${v}</svg>`;
+  v += `<path class="vert" data-zone="sacrum" d="M86 492 Q110 470 134 492 L120 540 Q110 552 100 540 Z"/>`;
+  return `<svg class="spine-fallback" viewBox="0 0 220 560" aria-hidden="true"><path class="spine-cord" d="M110 10 C 128 120, 92 250, 110 380 S 104 470, 110 540"/>${v}</svg>`;
 };
+const spineSection = (h = 'h2') => `
+<section class="spine-sec" id="colonne" aria-labelledby="spine-t" data-spine-section>
+  <div class="spine-glow" aria-hidden="true"></div>
+  <div class="wrap spine-grid">
+    <div class="spine-intro">
+      <${h} id="spine-t" data-reveal>Votre colonne, <em>vertèbre par vertèbre</em></${h}>
+      <p class="lead" data-reveal>24 vertèbres mobiles, des disques, le sacrum et le bassin : faites tourner la colonne et choisissez une zone pour voir les troubles qui s'y rattachent.</p>
+      <div class="spine-tabs" role="tablist" aria-label="Zones de la colonne vertébrale" data-spine-tabs>
+        ${spineZones.map((z, i) => `<button role="tab" type="button" id="sz-${z.id}" aria-controls="sp-${z.id}" aria-selected="${i === 2}" tabindex="${i === 2 ? 0 : -1}" data-zone="${z.id}"><span>${z.label}</span><small>${z.range}</small></button>`).join('')}
+      </div>
+    </div>
+    <div class="spine-stage" data-spine-stage>
+      <div class="spine-canvas" data-spine-canvas role="img" aria-label="Modèle 3D interactif de la colonne vertébrale : cervicales, dorsales, lombaires, sacrum, coccyx et bassin. Les zones sont aussi accessibles par les boutons ci-contre.">${spineFallback()}</div>
+      <p class="spine-hint" aria-hidden="true">${icon('arrow')} Glissez pour faire tourner · survolez une zone</p>
+    </div>
+    <div class="spine-panels">
+      ${spineZones.map((z, i) => `<div class="spine-panel" role="tabpanel" id="sp-${z.id}" aria-labelledby="sz-${z.id}" tabindex="0"${i === 2 ? '' : ' hidden'}>
+        <p class="spine-panel-title">${z.label} <small>${z.range}</small></p>
+        <p>${z.text}</p>
+        <ul class="spine-troubles">${z.troubles.map((s) => `<li><a href="${catHref(bySlug[s])}">${bySlug[s].label} ${icon('arrow')}</a></li>`).join('')}${z.extra.map((e) => `<li><span>${e}</span></li>`).join('')}</ul>
+      </div>`).join('')}
+    </div>
+  </div>
+</section>`;
+
+/* Articles conseils (utilisés par l'accueil et la page Conseils) */
+const articles = [
+  { slug: 'premiere-consultation', illu: 'adultes', h1: 'Première consultation : le temps de se rencontrer',
+    title: "Première consultation chez l'ostéopathe : déroulé", description: "Comment se passe une première consultation chez l'ostéopathe à Villefontaine : entretien, examen, gestes expliqués, droit de refuser.",
+    points: ["Le rendez-vous commence par un entretien sur vos symptômes, antécédents et attentes.", "Le praticien peut ensuite proposer un examen et discuter des techniques envisagées.", "Vous pouvez refuser un geste ou interrompre la séance à tout moment.", "Une orientation médicale est proposée lorsque les signes le justifient."] },
+  { slug: 'mal-de-dos', illu: 'lombalgie', h1: "Mal de dos : comprendre avant d'agir",
+    title: 'Mal de dos : quand consulter, quels signes surveiller', description: "Mal de dos : rester actif, signes d'alerte qui imposent un avis médical rapide, et place de l'ostéopathie. Conseils généraux d'un ostéopathe.",
+    points: ["Le mal de dos a de nombreuses causes ; la prise en charge dépend du contexte.", "Rester actif dans la mesure du possible est souvent conseillé.", "Consultez rapidement en cas de faiblesse, de troubles urinaires ou intestinaux, de fièvre, de traumatisme important ou de douleur inhabituelle."] },
+  { slug: 'sport-recuperation', illu: 'sportifs', h1: "La récupération fait aussi partie de l'entraînement",
+    title: 'Sport et récupération : les fondamentaux', description: "Sommeil, progression des charges, jours de repos, alimentation : les bases de la récupération sportive, et ce que l'ostéopathie peut (ou non) apporter.",
+    points: ["Le sommeil, la progression des charges, les jours de récupération et une alimentation adaptée sont les bases de la récupération.", "L'ostéopathie peut s'intégrer à une démarche globale de confort et de mobilité.", "Elle ne remplace ni une rééducation indiquée ni une évaluation médicale après blessure."] },
+];
 
 /* =====================================================================
    ACCUEIL
    ===================================================================== */
 const homeFaq = [
   { q: "Ai-je vraiment besoin d'une séance ?", a: `Si une gêne revient, limite vos mouvements ou s'installe depuis plusieurs jours, une séance peut aider. En cas de doute, <a href="/contact/">décrivez votre situation</a> : si l'ostéopathie n'est pas adaptée, je vous oriente vers votre médecin.` },
-  { q: "Je n'habite pas Villefontaine, est-ce loin ?", a: `Le cabinet est aux Ravinelles, avec un parking gratuit et une entrée de plain-pied. Il est proche de L'Isle-d'Abeau, Bourgoin-Jallieu, Saint-Quentin-Fallavier et La Verpillière. <a href="/tarifs/#acces">Voir l'accès</a>.` },
+  { q: "Je n'habite pas Villefontaine, est-ce loin ?", a: `Le cabinet est aux Ravinelles, avec un parking gratuit et une entrée de plain-pied, près de L'Isle-d'Abeau, Bourgoin-Jallieu, Saint-Quentin-Fallavier et La Verpillière. <a href="/tarifs/#acces">Voir l'accès</a>.` },
   { q: 'Combien coûte une séance ?', a: `Tarif adulte : ${tbc(T.price)}. Tous les tarifs sont sur la page <a href="/tarifs/">Tarifs & infos</a>.` },
   { q: 'Est-ce remboursé par la mutuelle ?', a: "L'Assurance maladie ne rembourse pas l'ostéopathie, mais beaucoup de mutuelles prennent en charge une partie des séances selon votre contrat. Une facture vous est remise." },
-  { q: 'Comment se déroule une séance ?', a: "Un échange sur votre histoire, des tests de mobilité, un traitement manuel adapté et expliqué, puis des conseils pour la suite. Rien n'est fait sans votre accord." },
+  { q: 'Comment se déroule une séance ?', a: "Un échange sur votre histoire, des tests de mobilité, un traitement manuel adapté et expliqué, puis des conseils pour la suite. Vous pouvez refuser un geste ou interrompre la séance." },
 ];
 
 const pageHome = {
   id: 'accueil', path: '/', file: 'index.html',
   // SEO : « ostéopathe Villefontaine » · ostéopathe Nord-Isère · ostéopathe L'Isle-d'Abeau · cabinet ostéopathie 38090 · ostéopathe Bourgoin-Jallieu
   title: 'Ostéopathe à Villefontaine (38090) | Adrian Rodriguez',
-  description: "Adrian Rodriguez, ostéopathe diplômé de l'ATSA à Villefontaine : dos, nuque, sportifs, bébés, grossesse, seniors. Rendez-vous en ligne sur Doctolib.",
+  description: "Adrian Rodriguez, ostéopathe diplômé de l'ATSA à Villefontaine : bébés, enfants, grossesse, adultes, seniors, sportifs. Rendez-vous sur Doctolib.",
   faq: homeFaq,
   body: `
-<section class="hero" aria-labelledby="h1">
-  <div class="hero-shape" aria-hidden="true">
-    <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs>
-    <path data-morph d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
+<section class="hero" aria-labelledby="h1" data-hero>
+  <div class="hero-depth" aria-hidden="true">
+    <span class="orb orb-1" data-depth="0.15"></span><span class="orb orb-2" data-depth="0.3"></span>
+    <svg class="hero-shape" data-depth="0.25" viewBox="0 0 600 600"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e5e42"/><stop offset="1" stop-color="#243c2f"/></linearGradient></defs><path data-morph d="M421,317Q401,384,343,424Q285,464,214,438Q143,412,121,341Q99,270,140,206Q181,142,254,121Q327,100,384,149Q441,198,441,257.5Q441,317,421,317Z" fill="url(#g-hero)"/></svg>
   </div>
   <div class="wrap hero-grid">
-    <div class="hero-text">
+    <div class="hero-text" data-hero-text>
       <p class="hero-place">${icon('pin')} Villefontaine · Nord-Isère</p>
       <h1 id="h1" class="split">${splitWords('Ostéopathe à Villefontaine, <em>pour que votre corps</em> retrouve son axe')}</h1>
       <p class="lead hero-lead">Mal de dos, nuque raide, grossesse, sport ou premiers mois de bébé : j'écoute, j'explique chaque geste et je n'agis qu'avec votre accord.</p>
@@ -171,13 +128,35 @@ const pageHome = {
         <li>${icon('car')} Parking gratuit</li>
       </ul>
     </div>
-    <div class="hero-visual">
-      <div class="arch" data-parallax="-8">${pic('adrian-bureau', { eager: true, sizes: '(min-width: 1024px) 38vw, 90vw' })}</div>
-      <div class="hero-badge" data-parallax="10"><img src="/images/logo-160.webp" width="80" height="80" alt=""><span>Ostéopathie<br><em>tous âges</em></span></div>
+    <div class="hero-visual" data-hero-visual>
+      <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true" data-depth="0.6"><ellipse cx="200" cy="200" rx="190" ry="70" pathLength="1"/><ellipse cx="200" cy="200" rx="170" ry="60" pathLength="1" transform="rotate(-24 200 200)"/></svg>
+      <div class="arch" data-tilt-hero>${pic('adrian-bureau', { eager: true, sizes: '(min-width: 1024px) 38vw, 90vw' })}</div>
+      <div class="hero-badge" data-depth="0.9"><img src="/images/logo-160.webp" width="80" height="80" alt=""><span>Ostéopathie<br><em>tous âges</em></span></div>
+      <div class="hero-chip" data-depth="1.2">${stars()}<span>${reviewCount} avis 5★</span></div>
     </div>
   </div>
-  <a class="scroll-hint" href="#avis"><span>Découvrir</span><i aria-hidden="true"></i></a>
+  <a class="scroll-hint" href="#promesses"><span>Découvrir</span><i aria-hidden="true"></i></a>
 </section>
+
+<section class="trust" id="promesses" aria-label="Trois engagements">
+  <ul class="wrap trust-list">
+    <li data-reveal><span class="trust-n" aria-hidden="true">I</span><strong>À l’écoute</strong><span>Une prise en charge adaptée à vos besoins</span></li>
+    <li data-reveal><span class="trust-n" aria-hidden="true">II</span><strong>Explications claires</strong><span>Comprendre avant d’agir</span></li>
+    <li data-reveal><span class="trust-n" aria-hidden="true">III</span><strong>Du quotidien au sport</strong><span>Un accompagnement individualisé</span></li>
+  </ul>
+</section>
+
+<section class="section intro" aria-labelledby="intro-t">
+  <div class="wrap intro-grid">
+    <h2 id="intro-t" data-reveal>Votre corps a son histoire. <em>Votre accompagnement aussi.</em></h2>
+    <div data-reveal>
+      <p class="lead">Je suis Adrian Rodriguez, ostéopathe diplômé de l'école ATSA. Au cabinet de Villefontaine, je prends le temps d'écouter votre histoire, de comprendre ce qui vous gêne et de discuter avec vous d'une approche adaptée à votre situation.</p>
+      <a class="link" href="/cabinet/">Découvrir mon approche ${icon('arrow')}</a>
+    </div>
+  </div>
+</section>
+
+${catSection()}
 
 <section class="marquee-sec" id="avis" aria-labelledby="avis-t">
   <div class="wrap marquee-head">
@@ -185,26 +164,12 @@ const pageHome = {
     <button class="marquee-toggle" type="button" aria-pressed="false" data-marquee-toggle>${icon('pause', 'ico i-pause')}${icon('play', 'ico i-play')}<span>Mettre en pause</span></button>
   </div>
   <div class="marquee" data-marquee>
-    ${[0, 1].map((row) => `<div class="marquee-row${row ? ' reverse' : ''}"><ul class="marquee-track">${(row ? reviews.slice(4).concat(reviews.slice(0, 4)) : reviews).map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul><ul class="marquee-track" aria-hidden="true">${(row ? reviews.slice(4).concat(reviews.slice(0, 4)) : reviews).map((r) => `<li class="review"><p>« ${esc(r.t)} »</p><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul></div>`).join('')}
+    ${[0, 1].map((row) => { const list = row ? reviews.slice(4).concat(reviews.slice(0, 4)) : reviews; return `<div class="marquee-row${row ? ' reverse' : ''}"><ul class="marquee-track">${list.map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul><ul class="marquee-track" aria-hidden="true">${list.map((r) => `<li class="review"><p>« ${esc(r.t)} »</p><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}</ul></div>`; }).join('')}
   </div>
-  <p class="wrap marquee-foot"><a class="link" href="${L.google}" target="_blank" rel="noopener">Lire les avis sur Google ${icon('arrow')}</a></p>
+  <p class="wrap marquee-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
 </section>
 
-<section class="section where" aria-labelledby="where-t">
-  <div class="wrap where-grid">
-    <div class="where-intro" data-reveal>
-      <h2 id="where-t">Où est-ce que <em>ça coince ?</em></h2>
-      <p class="lead">Choisissez une zone ou une situation : vous saurez si une séance peut vous aider, et comment elle se passe.</p>
-    </div>
-    <div class="where-tabs" role="tablist" aria-label="Zones et situations" data-tabs>
-      ${zones.map((z, i) => `<button role="tab" type="button" id="tab-${z.id}" aria-controls="panel-${z.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-range="${z.range.join(',')}">${z.label}</button>`).join('')}
-    </div>
-    <div class="where-spine" data-spine>${spineSvg()}</div>
-    <div class="where-panels">
-      ${zones.map((z, i) => `<div class="where-panel" role="tabpanel" id="panel-${z.id}" aria-labelledby="tab-${z.id}" tabindex="0"${i ? ' hidden' : ''}><p class="where-kicker">${z.label}</p><p class="where-text">${z.text}</p><a class="link" href="/osteopathie/${z.motif}/">Comment je vous accompagne ${icon('arrow')}</a></div>`).join('')}
-    </div>
-  </div>
-</section>
+${spineSection()}
 
 <section class="steps-sec" aria-labelledby="steps-t" data-pin-steps>
   <div class="steps-head wrap">
@@ -214,9 +179,21 @@ const pageHome = {
   <ol class="steps-track">
     <li class="step"><div class="step-media">${pic('adrian-echange', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">01</span><h3>L'échange</h3><p>Vos symptômes, votre histoire, votre quotidien, vos traitements. C'est le moment de tout dire et de poser vos questions.</p></div></li>
     <li class="step"><div class="step-media">${pic('soin-nuque', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">02</span><h3>Les tests</h3><p>J'observe votre posture et la mobilité de chaque région pour repérer les zones de tension.</p></div></li>
-    <li class="step"><div class="step-media">${pic('soin-bassin', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">03</span><h3>Le traitement</h3><p>Des techniques manuelles adaptées à votre âge et à votre confort, toujours expliquées avant d'être faites.</p></div></li>
+    <li class="step"><div class="step-media">${pic('soin-bassin', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">03</span><h3>Le traitement</h3><p>Des techniques manuelles adaptées à votre âge et à votre confort, toujours expliquées. Vous pouvez refuser un geste ou interrompre la séance.</p></div></li>
     <li class="step"><div class="step-media">${pic('adrian-ecoute', { sizes: '(min-width: 1024px) 30vw, 90vw' })}</div><div class="step-body"><span class="step-n" aria-hidden="true">04</span><h3>Les conseils</h3><p>Des gestes simples pour la suite, et un avis honnête sur l'utilité d'une nouvelle séance.</p></div></li>
   </ol>
+</section>
+
+<section class="section sport-band" aria-labelledby="sport-t">
+  <div class="wrap sport-grid">
+    <div class="sport-media" data-parallax="-6">${pic('soin-dos', { sizes: '(min-width: 1024px) 45vw, 90vw' })}</div>
+    <div class="sport-text">
+      <h2 id="sport-t" data-reveal>Votre pratique évolue. <em>Votre corps aussi.</em></h2>
+      <p data-reveal>Course à pied, sports collectifs, musculation ou boxe : chaque discipline impose ses contraintes. Adrian travaille notamment avec les boxeurs Jordan Rodriguez et Yanis Meha et participe au suivi des boxeurs du Ring Berjallien.</p>
+      <ol class="season" data-reveal><li><strong>Avant l’effort</strong><span>Mobilité et objectifs</span></li><li><strong>Au fil de la saison</strong><span>Charge et contraintes</span></li><li><strong>En récupération</strong><span>Une séance adaptée à votre état</span></li></ol>
+      <a class="btn btn-gold" href="/osteopathie/sportifs/" data-magnetic><span class="btn-label">Ostéopathie du sport</span>${icon('arrow')}</a>
+    </div>
+  </div>
 </section>
 
 <section class="section numbers" aria-labelledby="num-t">
@@ -224,9 +201,9 @@ const pageHome = {
     <h2 id="num-t" class="sr-only">Le cabinet en chiffres</h2>
     <ul class="num-list">
       <li data-reveal><strong><span data-count="${reviewCount}">${reviewCount}</span></strong><span>avis Google 5 étoiles publiés</span></li>
-      <li data-reveal><strong><span data-count="6">6</span></strong><span>profils accompagnés, du bébé au senior</span></li>
+      <li data-reveal><strong><span data-count="${patients.length}">${patients.length}</span></strong><span>profils accompagnés, du nouveau-né au senior</span></li>
+      <li data-reveal><strong><span data-count="24">24</span></strong><span>vertèbres mobiles, une approche globale</span></li>
       <li data-reveal><strong>${tbc(T.years)}</strong><span>années d'expérience</span></li>
-      <li data-reveal><strong>0</strong><span>geste sans votre accord</span></li>
     </ul>
   </div>
 </section>
@@ -264,6 +241,13 @@ const pageHome = {
   </div>
 </section>
 
+<section class="section conseils-teaser" aria-labelledby="ct-t">
+  <div class="wrap">
+    <h2 id="ct-t" data-reveal>Comprendre votre santé <em>et vos mouvements</em></h2>
+    <ul class="article-list">${articles.map((a, i) => `<li data-reveal data-tilt style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul>
+  </div>
+</section>
+
 ${faq(homeFaq)}
 ${ctaFinal()}
 `,
@@ -288,7 +272,7 @@ function mapCard() {
    ===================================================================== */
 const osteoFaq = [
   { q: "Qu'est-ce que l'ostéopathie ?", a: "Une approche manuelle qui recherche les pertes de mobilité (articulations, muscles, tissus) pouvant entretenir une gêne, et cherche à les relâcher avec les mains." },
-  { q: 'Quelle différence avec un kinésithérapeute ?', a: "Le kinésithérapeute rééduque, souvent sur prescription, avec des exercices et des séances rapprochées. L'ostéopathe travaille avec les mains sur l'origine des tensions, en séances plus espacées. Les deux se complètent." },
+  { q: 'Quelle différence avec un kinésithérapeute ?', a: "Le kinésithérapeute rééduque, souvent sur prescription, avec des exercices. L'ostéopathe travaille avec les mains sur l'origine des tensions, en séances plus espacées. Les deux se complètent." },
   { q: 'Combien de séances faut-il ?', a: "Il n'y a pas de nombre fixe. À la fin de chaque séance, je vous dis franchement si un suivi est utile." },
   { q: "Quand faut-il voir un médecin plutôt qu'un ostéopathe ?", a: "En cas de fièvre, de douleur après un choc important, de perte de force, de douleur dans la poitrine ou de troubles urinaires : consultez un médecin ou appelez le 15." },
 ];
@@ -296,8 +280,8 @@ const osteoFaq = [
 const pageOsteo = {
   id: 'osteopathie', path: '/osteopathie/', file: 'osteopathie/index.html',
   // SEO : « ostéopathie Villefontaine » · motifs de consultation ostéopathe · quand consulter un ostéopathe · ostéopathe Nord-Isère
-  title: 'Ostéopathie à Villefontaine : motifs de consultation',
-  description: "Dos, nuque, sport, bébé, grossesse, seniors : quand consulter un ostéopathe à Villefontaine et comment se déroule la prise en charge.",
+  title: 'Ostéopathie à Villefontaine : patients et motifs',
+  description: "Nouveau-nés, enfants, grossesse, adultes, seniors, sportifs ; lombalgie, cervicalgie, sciatique : quand consulter un ostéopathe à Villefontaine.",
   crumbs: [home, osteo], faq: osteoFaq,
   body: `
 <section class="page-hero" aria-labelledby="h1">
@@ -309,17 +293,8 @@ const pageOsteo = {
     </div>
   </div>
 </section>
-
-<section class="section motifs-sec" aria-labelledby="motifs-t">
-  <div class="wrap">
-    <h2 id="motifs-t" data-reveal>Six motifs <em>de consultation</em></h2>
-    <ul class="motif-index" data-hover-preview>
-      ${motifs.map((m, i) => `<li data-reveal><a href="/osteopathie/${m.slug}/" data-preview="${m.photo || 'carte-cabinet'}"><span class="mi-n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span class="mi-title">${m.label}</span><span class="mi-text">${m.cases[0]}</span>${icon('arrow', 'ico mi-go')}</a></li>`).join('')}
-    </ul>
-    <div class="hover-preview" aria-hidden="true">${motifs.map((m) => (m.photo ? pic(m.photo, { sizes: '320px', alt: '' }).replace('<picture class="', `<picture data-for="${m.photo}" class="`) : '')).join('')}${pic('carte-cabinet', { sizes: '320px', alt: '' }).replace('<picture class="', '<picture data-for="carte-cabinet" class="')}</div>
-  </div>
-</section>
-
+${catSection()}
+${spineSection()}
 <section class="section alert-sec" aria-labelledby="alert-t">
   <div class="wrap alert-grid">
     <h2 id="alert-t" data-reveal>Quand voir <em>d'abord un médecin</em></h2>
@@ -340,31 +315,34 @@ ${ctaFinal()}
 };
 
 /* =====================================================================
-   PAGES MOTIF
+   PAGES CATÉGORIE (14)
    ===================================================================== */
-const babyArt = (label) => `<div class="art-panel" aria-hidden="true"><svg viewBox="0 0 400 500"><path class="art-line" d="M200 470 C 230 380, 170 300, 200 220 S 190 90, 200 30"/>${Array.from({ length: 14 }, (_, i) => `<rect x="${186 - i * 0.4}" y="${440 - i * 29}" width="${28 + i * 0.8}" height="12" rx="6"/>`).join('')}<circle cx="200" cy="30" r="58" class="art-sun"/></svg><span>${label}</span></div>`;
-
-const motifPages = motifs.map((m) => ({
-  id: 'motif', path: `/osteopathie/${m.slug}/`, file: `osteopathie/${m.slug}/index.html`,
-  title: m.title, description: m.description,
-  crumbs: [home, osteo, { href: `/osteopathie/${m.slug}/`, label: m.label }],
-  faq: m.faq, service: { name: `Ostéopathie : ${m.label.toLowerCase()}`, description: m.lead },
-  body: `
-<section class="motif-hero" aria-labelledby="h1">
-  <div class="wrap motif-hero-grid">
+const categoryPages = categories.map((c) => {
+  const famLabel = c.family === 'patients' ? 'Pour qui ?' : 'Pour quoi ?';
+  const others = categories.filter((o) => o.family === c.family && o.slug !== c.slug).slice(0, 3);
+  const otherFam = categories.filter((o) => o.family !== c.family).slice(0, 3);
+  return {
+    id: 'categorie', path: catHref(c), file: `osteopathie/${c.slug}/index.html`,
+    title: c.title, description: c.description,
+    crumbs: [home, osteo, { href: catHref(c), label: c.label }],
+    faq: c.faq, service: { name: `Ostéopathie : ${c.label.toLowerCase()}`, description: c.lead },
+    body: `
+<section class="cat-hero" aria-labelledby="h1">
+  <div class="wrap cat-hero-grid">
     <div>
-      <h1 id="h1" class="split">${splitWords(m.h1.replace(/ : (.*)$/, ' : <em>$1</em>'))}</h1>
-      <p class="lead" data-reveal>${m.lead}</p>
+      <p class="cat-family">${famLabel}</p>
+      <h1 id="h1" class="split">${splitWords(c.h1.replace(/ : (.*)$/, ' : <em>$1</em>'))}</h1>
+      <p class="lead" data-reveal>${c.lead}</p>
       <div class="actions" data-reveal>${rdv()}${call()}</div>
     </div>
-    <div class="motif-visual" data-reveal>${m.photo ? `<div class="arch arch-sm" data-parallax="-6">${pic(m.photo, { eager: true, sizes: '(min-width: 1024px) 34vw, 90vw' })}</div>` : babyArt(m.label)}</div>
+    <div class="cat-hero-visual" data-reveal>${illu(c.slug, { tone: c.tone, size: 'illu-xl' })}</div>
   </div>
 </section>
 
 <section class="section cases" aria-labelledby="cases-t">
   <div class="wrap">
     <h2 id="cases-t" data-reveal>Vous vous <em>reconnaissez ?</em></h2>
-    <ul class="case-list">${m.cases.map((c, i) => `<li data-tilt data-reveal><span class="case-n" aria-hidden="true">${['I', 'II', 'III'][i]}</span><p>${c}</p></li>`).join('')}</ul>
+    <ul class="case-list">${c.cases.map((x, i) => `<li data-tilt data-reveal><span class="case-n" aria-hidden="true">${['I', 'II', 'III'][i]}</span><p>${x}</p></li>`).join('')}</ul>
   </div>
 </section>
 
@@ -372,26 +350,78 @@ const motifPages = motifs.map((m) => ({
   <div class="wrap detail-grid">
     <div data-reveal>
       <h2 id="quand-t">Quand consulter</h2>
-      <ul class="checks">${m.when.map((w) => `<li>${icon('check')}<span>${w}</span></li>`).join('')}</ul>
+      <ul class="checks">${c.when.map((w) => `<li>${icon('check')}<span>${w}</span></li>`).join('')}</ul>
+      ${c.photo ? `<div class="detail-photo" data-parallax="-5">${pic(c.photo, { sizes: '(min-width: 1024px) 40vw, 90vw' })}</div>` : ''}
     </div>
     <div data-reveal>
       <h2>Comment ça se passe</h2>
-      <p>${m.session}</p>
-      <p class="note">${m.note}</p>
+      <p>${c.session}</p>
+      ${c.note ? `<p class="note">${c.note}</p>` : ''}
+      ${c.terrain ? `<h3>Sur le terrain</h3><p>${c.terrain}</p>` : ''}
+      <h3>Ce que l'ostéopathie peut apporter, et ses limites</h3>
+      <p>${c.limits}</p>
+      <div class="medical"><h3>Quand privilégier un avis médical</h3><p>${c.medical}</p></div>
       <p class="price-inline">Séance : <strong>${tbc(T.price)}</strong> · Durée : <strong>${tbc(T.duration)}</strong> · <a href="/tarifs/">Tarifs et remboursement</a></p>
     </div>
   </div>
 </section>
-${faq(m.faq)}
+${faq(c.faq)}
 <section class="section others" aria-labelledby="others-t">
   <div class="wrap">
-    <h2 id="others-t" class="h3">Les autres motifs de consultation</h2>
-    <ul class="chips">${motifs.filter((o) => o.slug !== m.slug).map((o) => `<li><a href="/osteopathie/${o.slug}/" data-magnetic>${o.label}</a></li>`).join('')}<li><a href="/osteopathie/" data-magnetic>Tous les motifs</a></li></ul>
+    <h2 id="others-t" data-reveal>À découvrir <em>aussi</em></h2>
+    <ul class="cat-grid cat-grid-3">${[...others, ...otherFam].slice(0, 6).map(catCard).join('')}</ul>
+    <p><a class="link" href="/osteopathie/">Toutes les catégories ${icon('arrow')}</a></p>
   </div>
 </section>
 ${ctaFinal()}
 `,
+  };
+});
+
+/* =====================================================================
+   CONSEILS (3 articles de la démo, enrichis)
+   ===================================================================== */
+const conseilsCrumb = { href: '/conseils/', label: 'Conseils' };
+const pageConseils = {
+  id: 'conseils', path: '/conseils/', file: 'conseils/index.html',
+  // SEO : « conseils ostéopathe » · mal de dos · première consultation · récupération sportive
+  title: 'Conseils santé et mouvement | Ostéopathe Villefontaine',
+  description: "Conseils pratiques d'un ostéopathe à Villefontaine : première consultation, mal de dos, récupération sportive. Des repères simples et prudents.",
+  crumbs: [home, conseilsCrumb],
+  body: `
+<section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Comprendre son corps, <em>un article à la fois</em>')}</h1><p class="lead" data-reveal>Des repères généraux sur la consultation, le dos et le sport. Ils ne remplacent pas un avis médical.</p></div></section>
+<section class="section"><div class="wrap"><ul class="article-list">${articles.map((a, i) => `<li data-reveal data-tilt style="--d:${i}"><a href="/conseils/${a.slug}/">${illu(a.illu, { tone: i % 2 ? 'green' : 'gold', size: 'illu-sm' })}<span class="art-title">${a.h1}</span><span class="cat-go">Lire ${icon('arrow')}</span></a></li>`).join('')}</ul></div></section>
+${ctaFinal()}`,
+};
+const articlePages = articles.map((a) => ({
+  id: 'article', path: `/conseils/${a.slug}/`, file: `conseils/${a.slug}/index.html`, title: a.title, description: a.description,
+  crumbs: [home, conseilsCrumb, { href: `/conseils/${a.slug}/`, label: a.h1.split(' :')[0] }],
+  body: `
+<article class="section article" aria-labelledby="h1"><div class="wrap article-grid">
+  <div><h1 id="h1" class="split">${splitWords(a.h1.replace(/ : (.*)$/, ' : <em>$1</em>'))}</h1>
+  <h2>Les points essentiels</h2><ul class="checks">${a.points.map((p) => `<li>${icon('check')}<span>${p}</span></li>`).join('')}</ul>
+  <p class="note">Ces informations sont générales et ne remplacent pas un avis médical. Pour aller plus loin : <a href="https://www.ameli.fr" target="_blank" rel="noopener">ameli.fr</a>.</p>
+  <div class="actions">${rdv()}</div></div>
+  <div class="article-visual">${illu(a.illu, { size: 'illu-xl' })}</div>
+</div></article>
+${ctaFinal()}`,
 }));
+
+/* =====================================================================
+   AVIS
+   ===================================================================== */
+const pageAvis = {
+  id: 'avis', path: '/avis/', file: 'avis/index.html',
+  // SEO : « avis ostéopathe Villefontaine » · avis Adrian Rodriguez · témoignages patients
+  title: 'Avis patients | Adrian Rodriguez, ostéopathe Villefontaine',
+  description: "Avis Google de patients d'Adrian Rodriguez, ostéopathe à Villefontaine : écoute, explications, bienveillance. Lisez leurs retours et laissez le vôtre.",
+  crumbs: [home, { href: '/avis/', label: 'Avis' }],
+  body: `
+<section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Leurs mots <em>comptent le plus</em>')}</h1><p class="lead" data-reveal>Des avis laissés sur Google par des patients du cabinet (extraits).</p></div></section>
+<section class="section"><div class="wrap"><div class="mosaic">${reviews.map((r, i) => `<figure class="quote" data-tilt data-reveal style="--d:${i % 3}"><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
+<div class="actions"><a class="btn btn-ghost" href="${L.google}" target="_blank" rel="noopener" data-magnetic><span class="btn-label">Lire et laisser un avis sur Google</span>${icon('arrow')}</a>${rdv()}</div></div></section>
+${ctaFinal()}`,
+};
 
 /* =====================================================================
    LE CABINET / À PROPOS
@@ -656,4 +686,4 @@ const page404 = {
   body: `<section class="page-hero"><div class="wrap"><h1 id="h1" class="display">Cette page <em>s'est égarée</em></h1><p class="lead">Le site a été refait : l'adresse a peut-être changé.</p><ul class="chips"><li><a href="/">Accueil</a></li><li><a href="/osteopathie/">Ostéopathie</a></li><li><a href="/tarifs/">Tarifs</a></li><li><a href="/contact/">Contact</a></li></ul><div class="actions">${rdv()}</div></div></section>`,
 };
 
-export const pages = [pageHome, pageOsteo, ...motifPages, pageCabinet, pageTarifs, pageContact, pageLegal, pagePrivacy, page404];
+export const pages = [pageHome, pageOsteo, ...categoryPages, pageCabinet, pageTarifs, pageContact, pageAvis, pageConseils, ...articlePages, pageLegal, pagePrivacy, page404];

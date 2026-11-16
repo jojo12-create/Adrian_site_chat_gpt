@@ -1,4 +1,4 @@
-# Checklist finale (vérifiée le 16/11/2026)
+# Checklist finale V3 (vérifiée le 16/11/2026)
 
 **Outils :** `npm test` (Playwright, Chromium, desktop 1440×900, iPhone 13 et 320×640, axe-core WCAG 2.1 AA) et Lighthouse 12.6 (mobile bridé, servi avec gzip comme en production).
 
@@ -6,18 +6,19 @@
 
 | Page | Performance | Accessibilité | Bonnes pratiques | SEO | LCP | CLS | TBT |
 |---|---|---|---|---|---|---|---|
-| `/` | 98 | 100 | 100 | 100 | 2,3 s | 0 | 50 ms |
-| `/cabinet/` | 98 | 100 | 100 | 100 | 2,2 s | 0 | 10 ms |
-| `/osteopathie/` | 99 | 100 | 100 | 100 | 2,0 s | 0 | 40 ms |
+| `/` | 97–98 | 100 | 100 | 100 | 2,39–2,44 s | 0,003 | 30–80 ms |
+| `/osteopathie/` | 99 | 100 | 100 | 100 | 1,96 s | 0,012 | 30 ms |
+| `/osteopathie/lombalgie/` | 99 | 100 | 100 | 100 | 2,13 s | 0,015 | 0 ms |
+| `/contact/` | 99 | 100 | 100 | 100 | 1,87 s | 0,004 | 0 ms |
 
 Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htaccess` active la compression sur l'hébergeur.
 
 ## SEO
-- [x] 13 pages indexables + 404 : title de 35 à 57 caractères, description de 129 à 150, toutes uniques (contrôlé à chaque build)
+- [x] 26 pages indexables + 404 : title ≤ 60, description ≤ 155, toutes uniques (contrôlé à chaque build)
 - [x] Un seul H1 par page, hiérarchie H2/H3 logique, HTML sémantique (header, nav, main, section, footer, address, figure)
 - [x] URL propres, fil d'Ariane visible et balisé, maillage : accueil → motifs, motifs ↔ motifs, CTA vers tarifs et contact
 - [x] JSON-LD : MedicalBusiness + LocalBusiness, Person, WebPage, BreadcrumbList, FAQPage (10 pages : accueil, ostéopathie, tarifs, contact + 6 motifs), Service (6 motifs)
-- [x] Open Graph (image 1200×630), Twitter Card, canonical, `sitemap.xml` (13 URL), `robots.txt`, `site.webmanifest`
+- [x] Open Graph (image 1200×630), Twitter Card, canonical, `sitemap.xml` (26 URL), `robots.txt`, `site.webmanifest`
 - [x] Alt descriptif et width/height sur toutes les images (contrôlé au build)
 - [x] SEO local : NAP identique partout, `geo.*`, `areaServed`, carte Google (au clic), lien vers la fiche Google, communes voisines
 - [x] Redirections 301 des 8 anciennes URL (`.htaccess`)
@@ -31,7 +32,7 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 - [x] Carte Google chargée seulement au clic
 
 ## Accessibilité
-- [x] axe-core : **0 violation** sur 9 pages × 2 formats (desktop, mobile)
+- [x] axe-core : **0 violation** sur 11 pages × 2 formats (22 tests)
 - [x] Contraste AA (l'or n'est jamais du texte sur fond clair)
 - [x] Lien d'évitement, focus visible, menu mobile (`aria-expanded`, Échap, focus piégé), onglets ARIA au clavier (flèches, Début, Fin)
 - [x] Défilant d'avis : bouton pause, pause au survol et au focus
@@ -51,6 +52,13 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 - [x] Formulaire sans JS : envoi classique, puis redirection vers `/contact/?envoye=1`
 - [x] Aucune erreur JavaScript en console
 - [x] Vraie 404 (`node scripts/serve.mjs` et `.htaccess`)
+
+## V3 : catégories, illustrations, 3D
+- [x] 7 catégories patients + 7 troubles : 14 pages, **14 illustrations animées** (tracé, flottaison, scintillement, fond qui se transforme), style unique
+- [x] Cartes : inclinaison 3D, reflet doré, zoom doux ; 14 cartes sur l'accueil et le hub
+- [x] Colonne 3D Three.js procédurale : zones cervicales, dorsales, lombaires, sacrum ; synchronisée avec des onglets HTML accessibles ; chargée en différé (128 Ko gzip)
+- [x] Mouvement réduit : 3D statique, illustrations immobiles, navigation clavier testée
+- [x] Mobile : 3D allégée, titre sans délai, 2 colonnes de cartes, aucun débordement à 320 px
 
 ## Contenus et déontologie
 - [x] Aucune promesse de guérison ; l'ostéopathie est présentée en complément du médecin, avec les signes d'alerte

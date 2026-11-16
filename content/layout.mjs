@@ -183,8 +183,8 @@ ${p.body}
       <ul>${nav.map((n) => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}</ul>
     </div>
     <div>
-      <p class="f-title">Suivre</p>
-      <ul><li><a href="${site.links.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links.linkedin}" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="${site.links.doctolib}" target="_blank" rel="noopener">Doctolib</a></li></ul>
+      <p class="f-title">Ressources</p>
+      <ul><li><a href="/avis/">Avis patients</a></li><li><a href="/conseils/">Conseils</a></li><li><a href="${site.links.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links.linkedin}" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="${site.links.doctolib}" target="_blank" rel="noopener">Doctolib</a></li></ul>
     </div>
   </div>
   <div class="wrap footer-legal">

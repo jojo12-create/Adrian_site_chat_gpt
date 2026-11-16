@@ -11,6 +11,7 @@ import { initPointer } from './js/pointer.js';
 import { initReveals, initParallax, initCounters, initMorph, initStepsPin, initProgress } from './js/scroll.js';
 import { initTabs, initMarquee, initFaq, initMap, initHoverPreview } from './js/ui.js';
 import { initForm } from './js/form.js';
+import { initIllus, initHeroDepth, initSpine } from './js/v3.js';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,6 +42,8 @@ initMarquee();
 initFaq(reduced);
 initMap();
 initForm();
+initIllus(reduced);   // illustrations : tracé + vie (statiques si mouvement réduit)
+initSpine(reduced);   // colonne 3D chargée en différé (statique si mouvement réduit)
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
 /* --- Mouvement : seulement si autorisé --- */
@@ -50,6 +53,7 @@ if (!reduced) {
   initCounters();
   initMorph();
   initStepsPin();
+  initHeroDepth();    // hero : profondeur à la souris, parallaxe de sortie
   initPointer();      // curseur, boutons magnétiques, inclinaison (souris uniquement)
   initHoverPreview(); // aperçu photo des motifs (souris uniquement)
 }

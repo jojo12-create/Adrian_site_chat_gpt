@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 185" role="img" aria-labelledby="stampTitle">
+<title id="stampTitle">N°1 ostéopathe à Villefontaine</title>
+<defs><filter id="ink-edge" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" seed="7" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale=".65" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+<path d="M26 16 Q130 7 234 16 L244 37 Q240 92 244 148 L232 166 Q130 177 28 166 L16 148 Q20 92 16 37 Z" fill="none" stroke="#9a6b34" stroke-width="4" stroke-linejoin="round" filter="url(#ink-edge)" opacity=".87"/>
+<g fill="#873a30" text-anchor="middle" opacity=".95">
+<text x="130" y="49" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="700" letter-spacing="3">OSTÉOPATHE</text>
+<text x="130" y="119" font-family="Georgia, 'Times New Roman', serif" font-size="73" font-weight="700" letter-spacing="-4">N°1</text>
+<text x="130" y="151" font-family="Georgia, 'Times New Roman', serif" font-size="15.5" font-weight="700" letter-spacing="2.1">VILLEFONTAINE</text>
+</g>
+</svg>
