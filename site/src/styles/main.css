@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Adrian Rodriguez, ostéopathe : DA « L'axe »
+   Palette reprise du site officiel et du logo (bonsaï-colonne vertébrale) :
+     forêt #243c2f (logo) · vert #3e5e42 · or #be9b4e · olive #5f5e34 · encre #161515
+   Contrastes AA vérifiés : blanc/vert 7,3 · blanc/forêt 11,4 · encre/or 6,9 ·
+   or clair/forêt 6,8 · vert/papier 6,9 · olive/papier 6,4 · texte/papier 13,8.
+   L'or n'est jamais utilisé en texte sur fond clair (2,5:1).
+   ========================================================================== */
+
+/* Ordre des couches : une règle d'une couche placée plus loin l'emporte toujours,
+   quelle que soit la spécificité du sélecteur. motion.css reste hors couche. */
+@layer tokens, base, layout, components;
+
+@import './fonts.css';
+@import './tokens.css' layer(tokens);
+@import './base.css' layer(base);
+@import './layout.css' layer(layout);
+@import './components/buttons.css' layer(components);
+@import './components/header.css' layer(components);
+@import './components/hero.css' layer(components);
+@import './components/symbols.css' layer(components);
+@import './components/spine.css' layer(components);
+@import './components/sections.css' layer(components);
+@import './components/pages.css' layer(components);
+@import './components/footer.css' layer(components);
+@import './motion.css';

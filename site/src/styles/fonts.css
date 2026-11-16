@@ -1,0 +1,12 @@
+/* Polices auto-hébergées et polices de secours ajustées (hors couche : @font-face) */
+
+/* Polices auto-hébergées, variables, réduites au français (latin + accents, espaces insécables, chiffres tabulaires).
+   Titres : Source Serif 4 (coupe d'affichage, graisses 400–560). Texte : Figtree (400–700).
+   Seules la serif droite et Figtree sont préchargées ; l'italique arrive ensuite (quelques mots). */
+@font-face { font-family: 'Source Serif 4'; font-style: normal; font-display: swap; font-weight: 400 560; src: url('../fonts/source-serif-4-normal-fr.woff2') format('woff2'); }
+@font-face { font-family: 'Source Serif 4'; font-style: italic; font-display: swap; font-weight: 400 560; src: url('../fonts/source-serif-4-italic-fr.woff2') format('woff2'); }
+@font-face { font-family: 'Figtree'; font-style: normal; font-display: swap; font-weight: 400 700; src: url('../fonts/figtree-fr.woff2') format('woff2'); }
+
+/* Polices de secours aux métriques ajustées : pas de décalage quand la vraie police arrive */
+@font-face { font-family: 'Serif Fallback'; src: local('Times New Roman'), local('Liberation Serif'), local('DejaVu Serif'); size-adjust: 104.7%; ascent-override: 98.9%; descent-override: 32%; line-gap-override: 0%; }
+@font-face { font-family: 'Sans Fallback'; src: local('Arial'), local('Helvetica'), local('Liberation Sans'), local('DejaVu Sans'); size-adjust: 100.1%; ascent-override: 94.9%; descent-override: 25%; line-gap-override: 0%; }

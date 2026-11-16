@@ -1,0 +1,73 @@
+/* Symboles en relief et cartes de catégories */
+
+/* ---------- Symboles en relief (pinceau, 3D en CSS) ----------
+   Calques empilés en profondeur (--z = 1 unité) : ombre, tranche, encre, accent.
+   .illu-stage se tourne vers la souris (transform écrit par animations/tilt.js). */
+.illu { --z: 1px; --ink: #1d3526; --ink-edge: #0f1e15; --accent: #b35941; position: relative; width: 144px; aspect-ratio: 1; flex: none; perspective: 560px; }
+.illu-sm { width: 120px; }
+.illu-xl { --z: 2.6px; width: min(100%, 440px); margin-inline: auto; perspective: 1400px; }
+.illu-xl .illu-l { inset: 9%; width: 82%; height: 82%; }
+/* Fond : papier teinté, filet doré, lumière venue du haut */
+.illu-bg { position: absolute; inset: 4%; border-radius: 46% 54% 52% 48% / 50% 46% 54% 50%; background: radial-gradient(120% 120% at 30% 18%, #fffdf7 0%, var(--gold-tint) 58%, #ead9b6 100%); box-shadow: inset 0 0 0 1px rgba(190, 155, 78, .32), inset 0 -10px 22px -14px rgba(95, 94, 52, .35); transition: transform var(--dur-base) var(--ease-out); }
+.illu[data-tone="green"] .illu-bg { background: radial-gradient(120% 120% at 30% 18%, #fbfcf8 0%, #e6ecdf 58%, #d3dccb 100%); box-shadow: inset 0 0 0 1px rgba(62, 94, 66, .22), inset 0 -10px 22px -14px rgba(36, 60, 47, .35); }
+.illu-stage, .illu-sway { position: absolute; inset: 0; display: block; transform-style: preserve-3d; }
+.illu-stage { transition: transform .4s var(--ease-out); }
+.illu-l { position: absolute; inset: 12%; width: 76%; height: 76%; overflow: visible; fill: currentColor; backface-visibility: hidden; }
+.illu-shadow { color: #1b2e24; opacity: .2; filter: blur(calc(var(--z) * 3)); transform: translate3d(calc(var(--z) * 3), calc(var(--z) * 7), 0); }
+.illu-edge { color: var(--ink-edge); }
+.illu-edge-1 { transform: translateZ(calc(var(--z) * 10)); }
+.illu-edge-2 { transform: translateZ(calc(var(--z) * 13)); }
+.illu-ink { color: var(--ink); transform: translateZ(calc(var(--z) * 16)); }
+.illu-accent-shadow { color: #5c2416; opacity: .22; filter: blur(calc(var(--z) * 1.6)); transform: translate3d(calc(var(--z) * 1.5), calc(var(--z) * 4), calc(var(--z) * 17)); }
+.illu-accent { color: var(--accent); transform: translateZ(calc(var(--z) * 34)); }
+/* Entrée et vie : réservées au grand symbole des pages catégorie et article (un par page).
+   Dans les cartes, le symbole est déjà là quand la carte apparaît : une seule entrée par conteneur. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .illu-xl .illu-ink, .js .illu-xl .illu-edge { -webkit-mask: linear-gradient(105deg, #000 42%, transparent 58%) 100% 0 / 320% 100% no-repeat; mask: linear-gradient(105deg, #000 42%, transparent 58%) 100% 0 / 320% 100% no-repeat; transition: -webkit-mask-position .9s var(--ease-in-out), mask-position .9s var(--ease-in-out); }
+  .js .illu-xl.is-in .illu-ink, .js .illu-xl.is-in .illu-edge { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  .js .illu-xl .illu-accent { opacity: 0; transition: opacity var(--dur-slow) var(--ease-out) .4s; }
+  .js .illu-xl.is-in .illu-accent { opacity: 1; }
+  /* Rotation lente du grand symbole, en pause hors écran */
+  .illu-xl.is-in .illu-sway { animation: illu-sway 12s var(--ease-in-out) infinite alternate; animation-play-state: paused; }
+  .illu-xl.is-in.is-live .illu-sway { animation-play-state: running; }
+}
+@keyframes illu-sway {
+  0% { transform: rotateY(-10deg) rotateX(3deg); }
+  100% { transform: rotateY(10deg) rotateX(-3deg); }
+}
+/* Téléphone : symboles des cartes à plat (ni tranche ni ombre floue à calculer) */
+@media (max-width: 639px) {
+  .illu-edge { display: none; }
+  .illu:not(.illu-xl) .illu-stage, .illu:not(.illu-xl) .illu-sway { transform-style: flat; }
+  .illu:not(.illu-xl) .illu-shadow, .illu:not(.illu-xl) .illu-accent-shadow { display: none; }
+}
+
+/* ---------- Section catégories ---------- */
+.cats-head { max-width: 760px; margin-bottom: 40px; }
+.cats-sub { font: 600 var(--fs-lead)/1.3 var(--f-text); letter-spacing: 0; color: var(--olive); margin: 56px 0 20px; }
+.cat-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: 1fr; perspective: 1200px; }
+/* Mobile : 2 colonnes compactes pour garder les 14 catégories à portée de pouce */
+@media (min-width: 340px) and (max-width: 639px) {
+  .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cat-card a { padding: 14px 14px 18px; gap: 8px; }
+  .cat-card .illu { width: 96px; }
+  .cat-label { font-size: var(--fs-body); }
+  .cat-short { font-size: var(--fs-xs); line-height: 1.45; }
+}
+@media (min-width: 640px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cat-grid { grid-template-columns: repeat(4, 1fr); } .cat-grid-3 { grid-template-columns: repeat(3, 1fr); } }
+.cat-card { position: relative; border-radius: var(--r-l); background: var(--white); box-shadow: var(--shadow-s); transform-style: preserve-3d; }
+/* Ombre de survol posée une fois, seule son opacité change */
+.cat-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 30px 60px -30px rgba(36, 60, 47, .45), 0 0 0 1px rgba(190, 155, 78, .35); opacity: 0; transition: opacity var(--dur-base) var(--ease-out); pointer-events: none; }
+.cat-card a { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; height: 100%; padding: 22px 22px 26px; color: var(--ink); text-decoration: none; border-radius: inherit; overflow: hidden; }
+@media (hover: hover) { .cat-card:hover::before { opacity: 1; } }
+.cat-card .illu { transition: transform var(--dur-base) var(--ease-out); }
+@media (hover: hover) { .cat-card:hover .illu { transform: scale(1.07); } }
+@media (hover: hover) { .cat-card:hover .illu-bg { transform: scale(1.06) rotate(-5deg); } }
+.cat-body { display: grid; gap: 6px; transform: translateZ(24px); }
+.cat-label { font: 600 var(--fs-lead)/1.2 var(--f-text); letter-spacing: -.005em; }
+.cat-short { color: var(--muted); font-size: var(--fs-sm); line-height: 1.55; }
+.cat-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-weight: 650; color: var(--forest); }
+.cat-go .ico { width: 18px; height: 18px; transition: transform var(--dur-base) var(--ease-out); }
+@media (hover: hover) { .cat-card:hover .cat-go .ico { transform: translateX(5px); } }
+.cat-card a:focus-visible { outline-offset: -3px; }

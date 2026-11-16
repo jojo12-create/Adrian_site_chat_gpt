@@ -1,0 +1,24 @@
+/* Apparitions, parallaxe et mouvement réduit (hors couche : doit toujours l'emporter) */
+
+/* ---------- Apparitions au défilement (état initial posé par JS uniquement) ---------- */
+/* Préparés par le script (classe .reveal), seulement sous la ligne de flottaison */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-enter) var(--ease-out), transform var(--dur-enter) var(--ease-out); }
+.reveal.is-in { opacity: 1; transform: none; }
+/* Cartes inclinables et calques du hero : lissage du suivi de la souris */
+[data-tilt]:not(.reveal) { transition: transform var(--dur-base) var(--ease-out); }
+[data-depth], [data-tilt-hero] { transition: transform var(--dur-slow) var(--ease-out); }
+/* Photos en léger décalage au défilement : animation pilotée par le défilement, en CSS, là où elle existe */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-parallax] img { animation: parallax linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes parallax { from { transform: scale(1.08) translateY(-3%); } to { transform: scale(1.08) translateY(3%); } }
+
+/* ---------- Mouvement réduit : plus de déplacement, mais les fondus courts restent (ils aident à comprendre) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition-property: opacity, color, background-color, border-color, visibility !important; transition-duration: var(--dur-fast) !important; transition-delay: 0s !important; }
+  .nav { clip-path: none !important; opacity: 0; }
+  .nav.is-open { opacity: 1; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

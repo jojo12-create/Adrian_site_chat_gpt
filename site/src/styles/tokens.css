@@ -1,0 +1,61 @@
+/* Tokens : couleurs, typographie, espacements, rayons, ombres, mouvement */
+
+/* ---------- Tokens ---------- */
+:root {
+  --forest: #243c2f;
+  --forest-2: #1b2e24;
+  --green: #3e5e42;
+  --green-2: #33503a;
+  --gold: #be9b4e;
+  --gold-2: #d4b56c;
+  --gold-tint: #f3ead6;
+  --olive: #5f5e34;
+  --ink: #161515;
+  --text: #2a2b2c;
+  --muted: #55575a;
+  --paper: #faf8f3;
+  --white: #ffffff;
+  --line: #e6e2d8;
+  --danger: #a3241c;
+
+  --f-title: 'Source Serif 4', 'Serif Fallback', Georgia, serif;
+  --f-text: 'Figtree', 'Sans Fallback', system-ui, sans-serif;
+
+  /* Échelle typographique fluide (390 → 1440 px), 7 niveaux.
+     La serif sert aux grands titres (≥ 24 px) ; en dessous, tout est en Figtree. */
+  --fs-xs: clamp(.8125rem, .789rem + .095vw, .875rem);      /* 13 → 14  étiquettes, mentions */
+  --fs-sm: clamp(.9375rem, .914rem + .095vw, 1rem);         /* 15 → 16  textes de carte, notes */
+  --fs-body: clamp(1.0625rem, 1.039rem + .095vw, 1.125rem); /* 17 → 18  texte courant */
+  --fs-lead: clamp(1.1875rem, 1.095rem + .381vw, 1.4375rem);/* 19 → 23  chapô, petits titres */
+  --fs-h3: clamp(1.5rem, 1.314rem + .762vw, 2rem);          /* 24 → 32 */
+  --fs-h2: clamp(2rem, 1.443rem + 2.286vw, 3.5rem);         /* 32 → 56 */
+  --fs-display: clamp(2.625rem, 1.557rem + 4.381vw, 5.5rem);/* 42 → 88  H1 */
+  --measure: 66ch;
+
+  /* Espacements (base 4) */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  --sp-7: clamp(2.5rem, 2.036rem + 1.905vw, 3.75rem);  /* 40 → 60 */
+  --sp-8: clamp(3rem, 2.443rem + 2.286vw, 4.5rem);     /* 48 → 72 */
+  --sp-9: clamp(4rem, 3.257rem + 3.048vw, 6rem);       /* 64 → 96 */
+
+  --r-s: 10px; --r-m: 22px; --r-l: 30px; --r-pill: 999px;
+  /* Mouvement : un seul jeu de courbes et de durées.
+     Interface (survol, appui, menus) : rapide, toujours sous 300 ms.
+     Entrées de contenu (vues une fois par page) : plus amples. */
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --ease-drawer: cubic-bezier(.32, .72, 0, 1); /* panneau qui s'ouvre (menu mobile) */
+  --dur-press: .12s;  /* appui */
+  --dur-fast: .16s;   /* survol, petits états */
+  --dur-base: .24s;   /* menus, volets, fermetures */
+  --dur-slow: .4s;    /* ouverture du menu mobile, décor */
+  --dur-enter: .6s;   /* entrées de contenu, une fois par page */
+  --shadow: 0 24px 48px -28px rgba(22, 21, 21, .35);
+  --shadow-s: 0 10px 24px -16px rgba(22, 21, 21, .35);
+
+  --gutter: 20px;
+  --section: clamp(4.5rem, 2.829rem + 6.857vw, 9rem); /* 72 → 144 */
+  --header: 72px;
+}
+@media (min-width: 768px) { :root { --gutter: 32px; } }
+@media (min-width: 1200px) { :root { --gutter: 56px; --header: 84px; } }
