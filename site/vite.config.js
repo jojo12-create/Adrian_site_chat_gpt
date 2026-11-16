@@ -11,13 +11,16 @@ const htmlFiles = (dir) => readdirSync(dir).flatMap((f) => {
   return statSync(p).isDirectory() ? htmlFiles(p) : f.endsWith('.html') ? [p] : [];
 });
 
-/* Précharge la serif droite (titres) et Figtree (texte), pas l'italique : évite le décalage au chargement
+/* Précharge la serif droite (titres) et Figtree (texte) ; l'italique seulement si le H1 en contient : évite le décalage au chargement
    de la police et accélère l'affichage du titre principal. */
 const preloadFonts = () => ({
   name: 'preload-fonts',
   transformIndexHtml: { order: 'post', handler(html, ctx) {
     if (!ctx.bundle) return html;
-    const files = Object.keys(ctx.bundle).filter((f) => /(source-serif-4-normal-fr|figtree-fr)-.*\.woff2$/.test(f));
+    // L'italique n'est préchargée que si le titre principal en contient (sinon elle arrive après, sans gêner)
+    const italic = /<h1[^>]*>(?:(?!<\/h1>)[\s\S])*<em/.test(html);
+    const wanted = italic ? /(source-serif-4-normal-fr|source-serif-4-italic-fr|figtree-fr)-.*\.woff2$/ : /(source-serif-4-normal-fr|figtree-fr)-.*\.woff2$/;
+    const files = Object.keys(ctx.bundle).filter((f) => wanted.test(f));
     return { html, tags: files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: (process.env.BASE || '/') + f, crossorigin: '' }, injectTo: 'head-prepend' })) };
   } },
 });
