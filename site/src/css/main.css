@@ -59,7 +59,7 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header) + 24px); }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; scroll-padding-top: calc(var(--header) + 24px); }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 body { margin: 0; background: var(--paper); color: var(--text); font: 400 1.0625rem/1.7 var(--f-text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
@@ -76,13 +76,17 @@ p { margin: 0 0 1em; max-width: 66ch; }
 a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: .22em; transition: color .2s; }
 a:hover { color: var(--forest); }
 ::selection { background: var(--gold); color: var(--ink); }
-:focus-visible { outline: 2.5px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+/* Focus : contour forêt (11:1 sur papier) et halo doré ; or clair sur les fonds sombres */
+:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; box-shadow: 0 0 0 6px rgba(190, 155, 78, .35); border-radius: 6px; }
+.footer :focus-visible, .cta-final :focus-visible, .marquee-sec :focus-visible, .spine-sec :focus-visible, .price-card :focus-visible, .way-main:focus-visible, .map-frame :focus-visible, .nav.is-open :focus-visible { outline-color: var(--gold-2); box-shadow: none; }
+a, button, summary, label, select { touch-action: manipulation; }
 main:focus { outline: none; }
 address { font-style: normal; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip { position: fixed; left: var(--gutter); top: -80px; z-index: 200; padding: 12px 18px; background: var(--ink); color: #fff; border-radius: var(--r-s); }
 .skip:focus { top: 12px; color: #fff; }
 mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.2 var(--f-text); letter-spacing: .02em; padding: .25em .5em; border-radius: 6px; outline: 1px dashed var(--olive); outline-offset: -1px; white-space: nowrap; }
+@media (max-width: 400px) { mark.tbc { white-space: normal; } }
 .lead { font-size: clamp(1.125rem, 1rem + .45vw, 1.35rem); line-height: 1.6; color: var(--muted); max-width: 52ch; }
 
 /* ---------- Mise en page ---------- */
@@ -132,7 +136,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .header { position: fixed; inset: 0 0 auto 0; z-index: 100; transition: background-color .4s, box-shadow .4s, transform .5s var(--ease); }
 .header.is-solid { background: rgba(250, 248, 243, .86); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 1px 0 var(--line); }
 .header.is-hidden { transform: translateY(-100%); }
-.header-in { display: flex; align-items: center; gap: 20px; min-height: var(--header); }
+.header-in { display: flex; align-items: center; gap: 20px; min-height: var(--header); padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; margin-right: auto; position: relative; z-index: 2; }
 .brand img { width: 44px; height: 44px; border-radius: 50%; }
 .brand span { display: flex; flex-direction: column; line-height: 1.1; }
@@ -173,7 +177,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
   .nav-top > li > .nav-link { display: block; transform: translateY(105%); transition: transform .7s var(--ease) calc(.25s + var(--i) * .06s); }
   .nav.is-open .nav-row, .nav.is-open .nav-top > li > .nav-link { transform: none; }
   .nav .nav-link { display: block; flex: 1; padding: 14px 0; color: #fff; font: 400 clamp(2rem, 8vw, 2.8rem)/1.1 var(--f-title); }
-  .nav .nav-link[aria-current="page"] { color: var(--gold-2); font-style: italic; }
+  .nav .nav-link[aria-current] { color: var(--gold-2); font-style: italic; }
   /* Bouton qui déplie la rubrique : cercle fin, flèche dorée */
   .nav-more { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); color: var(--gold-2); transition: background-color .3s, border-color .3s; }
   .nav-more .ico { width: 22px; height: 22px; }
@@ -207,7 +211,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
   .nav-row { gap: 2px; }
   .nav .nav-link { position: relative; display: inline-block; padding: 10px 0; font-weight: 550; font-size: .98rem; }
   .nav .nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 1.5px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
-  .nav .nav-link:hover::after, .nav .nav-link[aria-current="page"]::after, .has-menu.is-open .nav-link::after { transform: scaleX(1); transform-origin: left; }
+  .nav .nav-link:hover::after, .nav .nav-link[aria-current]::after, .has-menu.is-open .nav-link::after { transform: scaleX(1); transform-origin: left; }
   .nav-more { width: 28px; height: 40px; margin-right: -6px; color: var(--olive); border-radius: var(--r-s); }
   .nav-more .ico { width: 18px; height: 18px; }
   .nav-more:hover { color: var(--forest); }
@@ -351,7 +355,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .step-body h3 { font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); }
 .step-body p { color: var(--muted); font-size: 1.1rem; }
 @media (min-width: 1024px) {
-  .steps-sec.is-pinned { padding-block: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .steps-sec.is-pinned { padding-block: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; }
   .steps-sec.is-pinned .steps-track { display: flex; gap: 6vw; width: max-content; padding-right: 20vw; padding-left: max(var(--gutter), calc((100vw - 1320px) / 2 + var(--gutter))); }
   .steps-sec.is-pinned .step { width: 62vw; max-width: 980px; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 56px; }
   .steps-sec.is-pinned .step-media { max-width: none; height: 58vh; aspect-ratio: auto; }
@@ -360,18 +364,18 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 
 /* ---------- Chiffres ---------- */
 .numbers { padding-block: calc(var(--section) * .55); }
-.num-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px 24px; grid-template-columns: repeat(2, 1fr); }
+.num-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px 24px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 .num-list li { border-top: 1px solid var(--line); padding-top: 24px; }
 .num-list strong { display: block; font: 300 clamp(3.2rem, 2rem + 4vw, 6rem)/1 var(--f-title); color: var(--forest); letter-spacing: -.03em; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
 .num-list strong mark.tbc { font-size: .9rem; vertical-align: middle; }
 .num-list span { color: var(--muted); }
-@media (min-width: 1024px) { .num-list { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .num-list { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- Offre / tarif ---------- */
 .offer-grid { display: grid; gap: 48px; align-items: center; }
 @media (min-width: 1024px) { .offer-grid { grid-template-columns: 1.1fr .9fr; gap: 96px; } }
 .price-card { position: relative; padding: clamp(28px, 4vw, 48px); border-radius: var(--r-l); background: var(--forest); color: #fff; box-shadow: var(--shadow); transform-style: preserve-3d; will-change: transform; overflow: hidden; }
-.price-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 80%) var(--my, 0%), rgba(212, 181, 108, .28), transparent 55%); pointer-events: none; transition: opacity .3s; }
+.price-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 80%) var(--my, 0%), rgba(212, 181, 108, .14), transparent 55%); pointer-events: none; transition: opacity .3s; }
 .price-label { font-weight: 600; color: var(--gold-2); letter-spacing: .02em; margin-bottom: 8px; }
 .price { font: 300 clamp(3rem, 2rem + 3vw, 4.5rem)/1 var(--f-title); margin-bottom: 28px; }
 .price mark.tbc { font-size: 1.1rem; background: rgba(212,181,108,.15); color: var(--gold-2); outline-color: var(--gold-2); }
@@ -511,6 +515,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 /* ---------- Tarifs ---------- */
 .tarif-grid { display: grid; gap: 32px; }
 @media (min-width: 1024px) { .tarif-grid { grid-template-columns: .6fr 1.4fr; gap: 96px; } }
+.table-scroll { overflow-x: auto; }
 .tarif-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-bottom: 24px; }
 .tarif-table th, .tarif-table td { text-align: left; padding: 20px 12px 20px 0; border-bottom: 1px solid var(--line); }
 .tarif-table thead th { font: 650 .8rem/1 var(--f-text); letter-spacing: .1em; text-transform: uppercase; color: var(--olive); }
@@ -539,7 +544,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .field { display: grid; gap: 8px; }
 .field label { font-weight: 650; color: var(--ink); }
 .opt { font-weight: 400; color: var(--muted); }
-.field input[type="text"], .field select, .field textarea { width: 100%; min-height: 56px; padding: 14px 18px; font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid #c9c4b7; border-radius: var(--r-s); transition: border-color .25s, box-shadow .25s, background-color .25s; }
+.field input[type="text"], .field select, .field textarea { width: 100%; min-height: 56px; padding: 14px 18px; font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid #857f72; border-radius: var(--r-s); transition: border-color .25s, box-shadow .25s, background-color .25s; }
 .field textarea { min-height: 130px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green); background: #fff; box-shadow: 0 0 0 4px rgba(62, 94, 66, .16); }
 .field [aria-invalid="true"] { border-color: var(--danger); }
@@ -553,6 +558,9 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .form-status { margin: 0; min-height: 1.7em; font-weight: 650; }
 .form-status.ok { color: var(--green); }
 .form-status.ko { color: var(--danger); }
+/* Retour sans JavaScript : le PHP redirige vers #envoye ou #erreur */
+.form-fallback { display: none; }
+.form-fallback:target { display: block; }
 .contact-side .map-card { margin-top: 28px; }
 
 /* ---------- Légal ---------- */
@@ -563,12 +571,12 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 
 /* ---------- Pied de page ---------- */
 .footer { background: var(--forest-2); color: rgba(255,255,255,.75); padding-top: clamp(64px, 9vw, 120px); }
-.footer a { color: #fff; text-decoration-color: rgba(255,255,255,.3); }
-.footer a:hover { color: var(--gold-2); }
+.footer a:not(.btn) { color: #fff; text-decoration-color: rgba(255,255,255,.3); overflow-wrap: anywhere; }
+.footer a:not(.btn):hover { color: var(--gold-2); }
 .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 32px; padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,.12); }
 .footer-claim { margin: 0; font: 300 clamp(2rem, 1.2rem + 3vw, 3.6rem)/1.05 var(--f-title); color: #fff; letter-spacing: -.02em; }
 .footer-claim em { color: var(--gold-2); }
-.footer-grid { display: grid; gap: 36px; grid-template-columns: 1fr 1fr; padding-block: 56px; }
+.footer-grid { display: grid; gap: 36px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-block: 56px; }
 @media (min-width: 1024px) { .footer-grid { grid-template-columns: 1.3fr 1.3fr 1fr 1fr; } }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer li a { display: inline-block; padding: 8px 0; }
@@ -579,10 +587,11 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .footer-legal a { display: inline-block; padding: 10px 0; }
 
 /* ---------- Bouton flottant mobile ---------- */
-.fab { position: fixed; z-index: 90; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); display: flex; gap: 10px; align-items: center; transition: transform .5s var(--ease), opacity .3s; }
+.fab { position: fixed; z-index: 90; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; align-items: center; transition: transform .5s var(--ease), opacity .3s; }
 .fab-call { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--white); color: var(--forest); box-shadow: var(--shadow-s); border: 1.5px solid var(--line); }
 .fab-rdv { box-shadow: 0 14px 30px -12px rgba(36,60,47,.6); }
-.fab.is-hidden { transform: translateY(140%); opacity: 0; }
+/* Caché : hors du parcours clavier et des lecteurs d'écran (inert est posé par le script) */
+.fab.is-hidden { transform: translateY(140%); opacity: 0; visibility: hidden; transition: transform .3s var(--ease), opacity .2s, visibility 0s .3s; }
 @media (min-width: 1024px) { .fab { display: none; } }
 @media (max-width: 1023px) { .footer-legal { padding-bottom: 96px; } }
 
@@ -734,7 +743,7 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 .spine-grid { position: relative; display: grid; gap: 32px; }
 .spine-tabs { display: grid; gap: 10px; margin-top: 28px; }
 .spine-tabs button { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 56px; padding: 0 22px; border-radius: var(--r-m); border: 1px solid rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .04); color: #fff; font: 450 1.15rem/1 var(--f-title); cursor: pointer; text-align: left; transition: background-color .3s, border-color .3s, transform .4s var(--ease); }
-.spine-tabs button small { font: 600 .78rem/1 var(--f-text); letter-spacing: .06em; color: rgba(255, 255, 255, .6); }
+.spine-tabs button small { font: 600 .78rem/1 var(--f-text); letter-spacing: .06em; color: rgba(255, 255, 255, .75); }
 .spine-tabs button:hover { border-color: var(--gold-2); transform: translateX(4px); }
 .spine-tabs button[aria-selected="true"] { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 .spine-tabs button[aria-selected="true"] small { color: var(--forest); }

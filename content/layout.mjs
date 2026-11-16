@@ -169,7 +169,8 @@ const megaMenus = {
         <a class="mega-all" href="/conseils/">Tous les conseils ${icon('arrow')}</a>`,
 };
 const navItem = (n, i, p, isCurrent) => {
-  const cur = isCurrent(n.href, n.also) ? ' aria-current="page"' : '';
+  // « page » pour la page elle-même, « true » pour la rubrique qui contient la page affichée
+  const cur = isCurrent(n.href, n.also) ? ` aria-current="${p.path === n.href ? 'page' : 'true'}"` : '';
   if (!n.menu) return `<li style="--i:${i}"><a class="nav-link" href="${n.href}"${cur}>${n.label}</a></li>`;
   const id = `menu-${n.menu}`;
   return `<li class="has-menu" style="--i:${i}" data-menu>
@@ -188,12 +189,12 @@ export function render(p) {
 <html lang="fr" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.description)}">
 <link rel="canonical" href="${abs(p.path)}">
 <meta name="robots" content="${p.noindex || DEMO ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}">
-<meta name="theme-color" content="#243c2f">
+<meta name="theme-color" content="#faf8f3">
 <meta name="geo.region" content="FR-38"><meta name="geo.placename" content="Villefontaine"><meta name="geo.position" content="${a.geo.lat};${a.geo.lng}">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -218,7 +219,7 @@ export function render(p) {
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
       <ul class="nav-top">${nav.map((n, i) => navItem(n, i, p, isCurrent)).join('')}</ul>
-      <div class="nav-extra"><a href="${site.phone.href}">${icon('phone')} ${site.phone.display}</a><a href="${site.links.instagram}" target="_blank" rel="noopener">${icon('insta')} @adrianosteo</a></div>
+      <div class="nav-extra"><a href="${site.phone.href}">${icon('phone')} ${site.phone.display}</a><a href="${site.links.directions}" target="_blank" rel="noopener">${icon('pin')} Itinéraire vers le cabinet</a><a href="${site.links.instagram}" target="_blank" rel="noopener">${icon('insta')} @adrianosteo</a></div>
     </nav>
     ${rdv('Prendre RDV', 'btn btn-primary btn-sm header-cta')}
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav" data-burger><span class="sr-only">Ouvrir le menu</span><i></i><i></i></button>

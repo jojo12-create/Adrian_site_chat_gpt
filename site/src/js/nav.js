@@ -26,6 +26,7 @@ export function initHeader() {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
       fab.classList.toggle('is-hidden', visible.size > 0);
+      fab.inert = visible.size > 0; // caché = ni focus clavier ni lecture d'écran
     });
     watched.forEach((el) => io.observe(el));
   }

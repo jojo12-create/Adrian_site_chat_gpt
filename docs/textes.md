@@ -197,7 +197,7 @@ Tous les avis
 
 Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
 
-Glissez pour faire tourner · survolez une zone
+Glissez pour faire tourner, touchez ou survolez une zone
 
 Cervicales C1 – C7
 
@@ -282,13 +282,11 @@ Ostéopathie du sport
 
 - 7 profils accompagnés, du nouveau-né au senior
 
-- 24 vertèbres mobiles, une approche globale
-
 - [À CONFIRMER] années d'expérience
 
-### Un tarif clair , sans surprise
+### Ce que comprend la séance
 
-Le prix est affiché avant la réservation. Une facture vous est remise pour votre mutuelle, qui rembourse souvent une partie de la séance.
+Une facture vous est remise pour votre mutuelle, qui rembourse souvent une partie de la séance.
 Tous les tarifs et infos pratiques
 
 Consultation adulte
@@ -301,7 +299,7 @@ Consultation adulte
 
 - Sans ordonnance (sauf bébé de moins de 6 mois)
 
-Réserver ce créneau
+Voir les créneaux
 
 ### Plus proche que vous ne le pensez
 
@@ -436,7 +434,7 @@ Troubles digestifs Inconforts digestifs fonctionnels, ballonnements, ventre tend
 
 Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
 
-Glissez pour faire tourner · survolez une zone
+Glissez pour faire tourner, touchez ou survolez une zone
 
 Cervicales C1 – C7
 
@@ -1969,7 +1967,7 @@ Nom et prénom
 
 Téléphone ou e-mail
 
-Pour que je puisse vous répondre.
+Je vous rappelle ou vous écris, selon ce que vous indiquez.
 
 La séance concerne
 Choisir… Un adulte Un bébé ou un enfant Une femme enceinte Un sportif Une personne âgée Autre
@@ -1982,6 +1980,10 @@ Site web
 J'accepte que mes coordonnées soient utilisées pour me recontacter ( confidentialité ).
 
 Envoyer ma demande
+
+Merci, votre demande est bien envoyée. Je vous recontacte dès que possible.
+
+L'envoi n'a pas abouti. Vérifiez les champs, ou appelez le 06 09 22 49 38.
 
 ### Le cabinet
 

@@ -69,7 +69,7 @@ const spineSection = (h = 'h2') => `
     </div>
     <div class="spine-stage" data-spine-stage>
       <div class="spine-canvas" data-spine-canvas role="img" aria-label="Modèle 3D interactif de la colonne vertébrale : cervicales, dorsales, lombaires, sacrum, coccyx et bassin. Les zones sont aussi accessibles par les boutons ci-contre.">${spineFallback()}</div>
-      <p class="spine-hint" aria-hidden="true">${icon('arrow')} Glissez pour faire tourner · survolez une zone</p>
+      <p class="spine-hint" aria-hidden="true">${icon('arrow')} Glissez pour faire tourner, touchez ou survolez une zone</p>
     </div>
     <div class="spine-panels">
       ${spineZones.map((z, i) => `<div class="spine-panel" role="tabpanel" id="sp-${z.id}" aria-labelledby="sz-${z.id}" tabindex="0"${i === 2 ? '' : ' hidden'}>
@@ -190,7 +190,6 @@ ${spineSection()}
     <ul class="num-list">
       <li data-reveal><strong><span data-count="${reviewCount}">${reviewCount}</span></strong><span>avis Google 5 étoiles publiés</span></li>
       <li data-reveal><strong><span data-count="${patients.length}">${patients.length}</span></strong><span>profils accompagnés, du nouveau-né au senior</span></li>
-      <li data-reveal><strong><span data-count="24">24</span></strong><span>vertèbres mobiles, une approche globale</span></li>
       <li data-reveal><strong>${tbc(T.years)}</strong><span>années d'expérience</span></li>
     </ul>
   </div>
@@ -199,8 +198,8 @@ ${spineSection()}
 <section class="section offer" aria-labelledby="offer-t">
   <div class="wrap offer-grid">
     <div class="offer-text" data-reveal>
-      <h2 id="offer-t">Un tarif <em>clair</em>, sans surprise</h2>
-      <p class="lead">Le prix est affiché avant la réservation. Une facture vous est remise pour votre mutuelle, qui rembourse souvent une partie de la séance.</p>
+      <h2 id="offer-t">Ce que comprend <em>la séance</em></h2>
+      <p class="lead">Une facture vous est remise pour votre mutuelle, qui rembourse souvent une partie de la séance.</p>
       <a class="link" href="/tarifs/">Tous les tarifs et infos pratiques ${icon('arrow')}</a>
     </div>
     <div class="price-card" data-tilt data-reveal>
@@ -211,7 +210,7 @@ ${spineSection()}
         <li>${icon('euro')} Facture pour la mutuelle</li>
         <li>${icon('check')} Sans ordonnance (sauf bébé de moins de 6 mois)</li>
       </ul>
-      ${rdv('Réserver ce créneau', 'btn btn-primary btn-block')}
+      ${rdv('Voir les créneaux', 'btn btn-primary btn-block')}
     </div>
   </div>
 </section>
@@ -513,7 +512,7 @@ const pageTarifs = {
   <div class="wrap tarif-grid">
     <h2 id="prix-t" data-reveal>Les tarifs</h2>
     <div data-reveal>
-      <table class="tarif-table">
+      <div class="table-scroll" role="region" aria-label="Tarifs des consultations" tabindex="0"><table class="tarif-table">
         <caption class="sr-only">Tarifs des consultations</caption>
         <thead><tr><th scope="col">Consultation</th><th scope="col">Durée</th><th scope="col">Tarif</th></tr></thead>
         <tbody>
@@ -523,7 +522,7 @@ const pageTarifs = {
           <tr><th scope="row">Femme enceinte</th><td>${tbc(TBC)}</td><td>${tbc(TBC)}</td></tr>
           <tr><th scope="row">Sportif</th><td>${tbc(TBC)}</td><td>${tbc(TBC)}</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <ul class="checks">
         <li>${icon('euro')}<span><strong>Remboursement :</strong> pas par l'Assurance maladie, mais souvent par les mutuelles. Une facture vous est remise.</span></li>
         <li>${icon('check')}<span><strong>Sans ordonnance,</strong> sauf nourrisson de moins de 6 mois (attestation médicale).</span></li>
@@ -612,7 +611,7 @@ const pageContact = {
       <p>Quatre champs, une minute. Je vous recontacte pour fixer le rendez-vous.</p>
       <form class="form" action="/api/contact.php" method="post" novalidate data-form>
         <div class="field"><label for="f-name">Nom et prénom</label><input id="f-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="e-name"><p class="err" id="e-name" hidden></p></div>
-        <div class="field"><label for="f-contact">Téléphone ou e-mail</label><input id="f-contact" name="contact" type="text" autocomplete="tel" required maxlength="120" aria-describedby="h-contact e-contact"><p class="hint" id="h-contact">Pour que je puisse vous répondre.</p><p class="err" id="e-contact" hidden></p></div>
+        <div class="field"><label for="f-contact">Téléphone ou e-mail</label><input id="f-contact" name="contact" type="text" autocomplete="tel" required maxlength="120" aria-describedby="h-contact e-contact"><p class="hint" id="h-contact">Je vous rappelle ou vous écris, selon ce que vous indiquez.</p><p class="err" id="e-contact" hidden></p></div>
         <div class="field"><label for="f-for">La séance concerne</label>
           <select id="f-for" name="for" required aria-describedby="e-for"><option value="">Choisir…</option>${['Un adulte', 'Un bébé ou un enfant', 'Une femme enceinte', 'Un sportif', 'Une personne âgée', 'Autre'].map((o) => `<option>${o}</option>`).join('')}</select><p class="err" id="e-for" hidden></p></div>
         <div class="field"><label for="f-msg">Message <span class="opt">(facultatif)</span></label><textarea id="f-msg" name="message" rows="4" maxlength="1000" aria-describedby="h-msg"></textarea><p class="hint" id="h-msg">Vos disponibilités, par exemple. Évitez les informations médicales détaillées.</p></div>
@@ -621,6 +620,8 @@ const pageContact = {
         <div class="field check"><input id="f-ok" name="consent" type="checkbox" value="1" required aria-describedby="e-consent"><label for="f-ok">J'accepte que mes coordonnées soient utilisées pour me recontacter (<a href="/confidentialite/">confidentialité</a>).</label><p class="err" id="e-consent" hidden></p></div>
         <button class="btn btn-primary" type="submit" data-magnetic><span class="btn-label">Envoyer ma demande</span>${icon('arrow')}</button>
         <p class="form-status" role="status" aria-live="polite" data-status></p>
+        <p class="form-status ok form-fallback" id="envoye">Merci, votre demande est bien envoyée. Je vous recontacte dès que possible.</p>
+        <p class="form-status ko form-fallback" id="erreur">L'envoi n'a pas abouti. Vérifiez les champs, ou appelez le ${site.phone.display}.</p>
       </form>
     </div>
     <div class="contact-side" data-reveal>
