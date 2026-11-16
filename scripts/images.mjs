@@ -44,11 +44,11 @@ for (const [name, src] of Object.entries(photos)) {
 
 // Logo : PNG net + favicons (le logo officiel est un JPEG de 752 px)
 const logo = join(raw, 'officiel/images/1.jpg');
-await sharp(logo).resize(160).webp({ quality: 85 }).toFile(join(out, 'logo-160.webp'));
-await sharp(logo).resize(320).webp({ quality: 85 }).toFile(join(out, 'logo-320.webp'));
-await sharp(logo).resize(180).png().toFile(join(root, 'site/public/apple-touch-icon.png'));
-await sharp(logo).resize(32).png().toFile(join(root, 'site/public/favicon-32.png'));
-await sharp(logo).resize(512).png().toFile(join(root, 'site/public/icon-512.png'));
+const square = (n) => sharp(logo).resize(n, n, { fit: 'cover' }); // logo exactement carré
+await square(160).webp({ quality: 85 }).toFile(join(out, 'logo-160.webp'));
+await square(180).png({ palette: true, quality: 90 }).toFile(join(root, 'site/public/apple-touch-icon.png'));
+await square(32).png().toFile(join(root, 'site/public/favicon-32.png'));
+await square(512).png({ palette: true, quality: 90 }).toFile(join(root, 'site/public/icon-512.png'));
 
 // Image de partage Open Graph 1200×630 (JPEG : lu par tous les réseaux)
 await sharp(join(raw, 'demo/adrian-consultation-hq.png')).resize(1200, 630, { fit: 'cover', position: 'attention' })
