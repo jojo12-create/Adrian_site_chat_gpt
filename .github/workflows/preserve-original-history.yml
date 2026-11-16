@@ -1,0 +1,41 @@
+name: V2 — preserve original Git history independently
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/preserve-original-history.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  attach-source-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout V2 only
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Attach original source history without changing V2 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git remote add original https://github.com/jojo12-create/Adrianosteo.git
+          git fetch --no-tags original refs/heads/claude/audit-refonte-qualite:refs/remotes/original/audit
+          original_commit=$(git rev-parse refs/remotes/original/audit)
+          test "${original_commit}" = "5873c50d23f13c805cc3b9d31fa957b098f38768"
+          if git merge-base --is-ancestor "${original_commit}" HEAD; then
+            echo 'The original audit branch is already in V2 history.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # "ours" preserves the complete V2 tree, while recording the full original history.
+          git merge --allow-unrelated-histories --strategy=ours --no-ff \
+            -m 'Attach complete original Adrianosteo history to independent V2 [skip ci]' \
+            refs/remotes/original/audit
+          git diff --exit-code HEAD^1 HEAD -- .
+          git push origin HEAD:main
+          git log --max-count=1 --pretty='Merge parents: %p'
