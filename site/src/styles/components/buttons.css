@@ -1,0 +1,29 @@
+/* Boutons, liens fléchés, icônes */
+
+/* ---------- Boutons ---------- */
+.btn { --bg: var(--green); --fg: #fff; --bd: var(--green);
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 54px; padding: 0 28px; border-radius: var(--r-pill); border: 1.5px solid var(--bd);
+  background: var(--bg); color: var(--fg); font: 650 1rem/1 var(--f-text); letter-spacing: .005em; text-decoration: none; cursor: pointer;
+  overflow: hidden; isolation: isolate;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.btn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--fill, var(--forest)); border-radius: inherit; transform: translateY(101%); transition: transform var(--dur-base) var(--ease-out); }
+@media (hover: hover) { .btn:hover { color: var(--fg-h, #fff); box-shadow: var(--shadow-s); } }
+@media (hover: hover) { .btn:hover::before { transform: none; } }
+.btn:active { transform: scale(.97); }
+.btn .ico { width: 20px; height: 20px; transition: transform var(--dur-base) var(--ease-out); }
+@media (hover: hover) { .btn:hover .ico:last-of-type { transform: translateX(3px); } }
+.btn-ghost { --bg: transparent; --fg: var(--forest); --bd: rgba(36, 60, 47, .35); --fill: var(--forest); }
+.btn-gold { --bg: var(--gold); --fg: var(--ink); --bd: var(--gold); --fill: var(--gold-2); --fg-h: var(--ink); }
+.btn-light { --bg: transparent; --fg: #fff; --bd: rgba(255, 255, 255, .5); --fill: #fff; --fg-h: var(--forest); }
+.btn-sm { min-height: 46px; padding: 0 20px; font-size: var(--fs-sm); }
+.btn-lg { min-height: 62px; padding: 0 34px; font-size: var(--fs-sm); }
+.btn-block { width: 100%; }
+.btn[disabled] { opacity: .6; pointer-events: none; }
+.link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 650; color: var(--forest); text-decoration: none; background: linear-gradient(var(--gold), var(--gold)) 0 calc(100% - 8px) / 0 1.5px no-repeat; transition: background-size var(--dur-base) var(--ease-out), color var(--dur-fast); }
+@media (hover: hover) { .link:hover { background-size: calc(100% - 30px) 1.5px; } }
+.link .ico { width: 18px; height: 18px; transition: transform var(--dur-base) var(--ease-out); }
+@media (hover: hover) { .link:hover .ico { transform: translateX(5px); } }
+.ico { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.stars { display: inline-flex; gap: 2px; }
+.ico.star { width: 15px; height: 15px; fill: var(--gold); stroke: var(--gold); }
