@@ -517,6 +517,10 @@ mark.tbc { background: var(--gold-tint); color: var(--olive); font: 600 .78em/1.
 @media (min-width: 1024px) { .fab { display: none; } }
 @media (max-width: 1023px) { .footer-legal { padding-bottom: 96px; } }
 
+/* ---------- Badge « Maquette » (mode démo uniquement) ---------- */
+.demo-badge { position: fixed; z-index: 95; left: 12px; bottom: 12px; margin: 0; padding: 6px 12px; border-radius: var(--r-pill); background: var(--ink); color: #fff; font: 600 .75rem/1.2 var(--f-text); letter-spacing: .02em; opacity: .85; pointer-events: none; }
+@media (max-width: 1023px) { .demo-badge { bottom: auto; top: calc(var(--header) + 6px); left: 50%; transform: translateX(-50%); } }
+
 /* ---------- Curseur personnalisé (souris uniquement) ---------- */
 .cursor { position: fixed; z-index: 300; left: 0; top: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--gold); pointer-events: none; opacity: 0; mix-blend-mode: multiply; transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), opacity .3s, background-color .3s; display: grid; place-items: center; }
 .cursor-label { font: 700 .7rem/1 var(--f-text); letter-spacing: .08em; color: var(--ink); opacity: 0; transition: opacity .2s; }

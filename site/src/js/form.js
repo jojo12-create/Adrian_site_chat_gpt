@@ -46,6 +46,8 @@ export function initForm() {
     status.textContent = ''; status.className = 'form-status';
     const bad = Object.keys(rules).filter((n) => !check(n));
     if (bad.length) { form.elements[bad[0]].focus(); status.textContent = 'Merci de corriger les champs signalés.'; status.classList.add('ko'); return; }
+    // Maquette en ligne : aucune donnée n'est envoyée
+    if (document.body.hasAttribute('data-demo')) { status.textContent = 'Démonstration : le formulaire sera actif sur le site définitif. Aucune donnée n’a été envoyée.'; status.classList.add('ok'); return; }
     const label = btn.querySelector('.btn-label'); const original = label.textContent;
     btn.disabled = true; label.textContent = 'Envoi en cours…';
     try {

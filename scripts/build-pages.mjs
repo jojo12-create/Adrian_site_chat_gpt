@@ -7,18 +7,24 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pages } from '../content/pages.mjs';
-import { render } from '../content/layout.mjs';
+import { render, DEMO } from '../content/layout.mjs';
 import { site } from '../content/site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const siteDir = join(root, 'site');
 const len = (s) => [...s].length;
+const BASE = process.env.BASE || '/';
 const errors = [];
 const today = new Date().toISOString().slice(0, 10);
 const titles = new Set(), descs = new Set();
 
 for (const p of pages) {
-  const html = render(p);
+  let html = render(p);
+  // Mode démo hébergé dans un sous-dossier (GitHub Pages) : préfixe les liens internes.
+  // Les fichiers /src/… sont laissés à Vite, qui applique lui-même la base.
+  if (BASE !== '/') html = html
+    .replace(/(href|src|action)="\/(?!\/|src\/)/g, `$1="${BASE}`)
+    .replace(/srcset="([^"]*)"/g, (m, v) => `srcset="${v.replace(/(^|, )\/images\//g, `$1${BASE}images/`)}"`);
   if (len(p.title) > 60) errors.push(`${p.path} : title ${len(p.title)} car.`);
   if (len(p.description) > 155) errors.push(`${p.path} : description ${len(p.description)} car.`);
   if (titles.has(p.title) || descs.has(p.description)) errors.push(`${p.path} : title ou description en double`);
@@ -42,7 +48,7 @@ writeFileSync(join(pub, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 ${indexable.map((p) => `  <url><loc>${site.url}${p.path}</loc><lastmod>${today}</lastmod><priority>${p.path === '/' ? '1.0' : p.path.split('/').length > 3 ? '0.7' : '0.8'}</priority></url>`).join('\n')}
 </urlset>
 `);
-writeFileSync(join(pub, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${site.url}/sitemap.xml\n`);
+writeFileSync(join(pub, 'robots.txt'), DEMO ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${site.url}/sitemap.xml\n`);
 writeFileSync(join(pub, 'site.webmanifest'), JSON.stringify({
   name: site.name, short_name: 'Adrian Ostéo', lang: 'fr', start_url: '/', display: 'browser',
   background_color: '#faf8f3', theme_color: '#243c2f',

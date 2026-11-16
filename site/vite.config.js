@@ -18,12 +18,13 @@ const preloadFonts = () => ({
   transformIndexHtml: { order: 'post', handler(html, ctx) {
     if (!ctx.bundle) return html;
     const files = Object.keys(ctx.bundle).filter((f) => /(fraunces-latin-wght-normal|fraunces-latin-wght-italic|manrope-latin-wght-normal)-.*\.woff2$/.test(f));
-    return { html, tags: files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: '/' + f, crossorigin: '' }, injectTo: 'head-prepend' })) };
+    return { html, tags: files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: (process.env.BASE || '/') + f, crossorigin: '' }, injectTo: 'head-prepend' })) };
   } },
 });
 
 export default defineConfig({
   root,
+  base: process.env.BASE || '/',
   plugins: [preloadFonts()],
   appType: 'mpa', // pas de repli SPA : une URL inconnue donne une vraie 404
   build: {

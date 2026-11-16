@@ -4,6 +4,8 @@
 import { readFileSync } from 'node:fs';
 import { site, nav, photoAlt, TBC } from './site.mjs';
 
+/* Mode démo (DEMO=1) : maquette en ligne pour présentation au client, non indexée */
+export const DEMO = process.env.DEMO === '1';
 const manifest = JSON.parse(readFileSync(new URL('../site/public/images/manifest.json', import.meta.url)));
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const strip = (h) => String(h).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
@@ -124,7 +126,7 @@ export function render(p) {
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.description)}">
 <link rel="canonical" href="${abs(p.path)}">
-<meta name="robots" content="${p.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}">
+<meta name="robots" content="${p.noindex || DEMO ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}">
 <meta name="theme-color" content="#243c2f">
 <meta name="geo.region" content="FR-38"><meta name="geo.placename" content="Villefontaine"><meta name="geo.position" content="${a.geo.lat};${a.geo.lng}">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -139,7 +141,7 @@ export function render(p) {
 <script type="application/ld+json">${jsonLd(p)}</script>
 <script type="module" src="/src/main.js"></script>
 </head>
-<body data-page="${p.id}">
+<body data-page="${p.id}"${DEMO ? ' data-demo' : ''}>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="progress" aria-hidden="true"><span></span></div>
 <header class="header" data-header>
@@ -190,6 +192,7 @@ ${p.body}
     <p><a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a></p>
   </div>
 </footer>
+${DEMO ? '<p class="demo-badge">Maquette · version de démonstration</p>' : ''}
 <aside class="fab" aria-label="Prise de rendez-vous rapide">
   <a class="fab-call" href="${site.phone.href}" aria-label="Appeler le ${site.phone.display}">${icon('phone')}</a>
   ${rdv('Prendre RDV', 'btn btn-primary fab-rdv')}
