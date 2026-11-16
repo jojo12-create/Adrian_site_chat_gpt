@@ -204,7 +204,7 @@ export function render(p) {
 <meta property="og:image" content="${site.url}/images/og-adrian-rodriguez.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Adrian Rodriguez, ostéopathe à Villefontaine">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.description)}"><meta name="twitter:image" content="${site.url}/images/og-adrian-rodriguez.jpg">
 <script>document.documentElement.classList.replace('no-js','js')</script>
-<link rel="stylesheet" href="/src/css/main.css">
+<link rel="stylesheet" href="/src/styles/main.css">
 <script type="application/ld+json">${jsonLd(p)}</script>
 <script type="module" src="/src/scripts/main.js"></script>
 </head>

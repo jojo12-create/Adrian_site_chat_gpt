@@ -1,0 +1,31 @@
+/* Pied de page, bouton flottant, badge de démo */
+
+/* ---------- Pied de page ---------- */
+.footer { background: var(--forest-2); color: rgba(255,255,255,.75); padding-top: clamp(64px, 9vw, 120px); }
+.footer a:not(.btn) { color: #fff; text-decoration-color: rgba(255,255,255,.3); overflow-wrap: anywhere; }
+@media (hover: hover) { .footer a:not(.btn):hover { color: var(--gold-2); } }
+.footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 32px; padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.footer-claim { margin: 0; font: 400 var(--fs-h2)/1.08 var(--f-title); color: #fff; letter-spacing: -.02em; }
+.footer-claim em { color: var(--gold-2); }
+.footer-grid { display: grid; gap: 36px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-block: 56px; }
+@media (min-width: 1024px) { .footer-grid { grid-template-columns: 1.3fr 1.3fr 1fr 1fr; } }
+.footer ul { list-style: none; margin: 0; padding: 0; }
+.footer li a { display: inline-block; padding: 8px 0; }
+.f-title { font: 600 var(--fs-xs)/1.3 var(--f-text); letter-spacing: .01em; color: var(--gold-2); margin-bottom: 18px; }
+.footer mark.tbc { background: rgba(212,181,108,.15); color: var(--gold-2); outline-color: var(--gold-2); }
+.footer-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 24px 32px; border-top: 1px solid rgba(255,255,255,.12); font-size: var(--fs-sm); }
+.footer-legal p { margin: 0; }
+.footer-legal a { display: inline-block; padding: 10px 0; }
+
+/* ---------- Bouton flottant mobile ---------- */
+.fab { position: fixed; z-index: 90; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; align-items: center; transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base); }
+.fab-call { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--white); color: var(--forest); box-shadow: var(--shadow-s); border: 1.5px solid var(--line); }
+.fab-rdv { box-shadow: 0 14px 30px -12px rgba(36,60,47,.6); }
+/* Caché : hors du parcours clavier et des lecteurs d'écran (inert est posé par le script) */
+.fab.is-hidden { transform: translateY(140%); opacity: 0; visibility: hidden; transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-fast), visibility var(--dur-fast) .3s; }
+@media (min-width: 1024px) { .fab { display: none; } }
+@media (max-width: 1023px) { .footer-legal { padding-bottom: 96px; } }
+
+/* ---------- Badge « Maquette » (mode démo uniquement) ---------- */
+.demo-badge { position: fixed; z-index: 95; left: 12px; bottom: 12px; margin: 0; padding: 6px 12px; border-radius: var(--r-pill); background: var(--ink); color: #fff; font: 600 .75rem/1.2 var(--f-text); letter-spacing: .02em; opacity: .85; pointer-events: none; }
+@media (max-width: 1023px) { .demo-badge { bottom: auto; top: calc(var(--header) + 6px); left: 50%; transform: translateX(-50%); } }

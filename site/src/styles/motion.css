@@ -1,0 +1,22 @@
+/* Apparitions, parallaxe et mouvement réduit (hors couche : doit toujours l'emporter) */
+
+/* ---------- Apparitions au défilement (état initial posé par JS uniquement) ---------- */
+/* Préparés par le script (classe .reveal), seulement sous la ligne de flottaison */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-enter) var(--ease-out), transform var(--dur-enter) var(--ease-out); }
+.reveal.is-in { opacity: 1; transform: none; }
+/* Cartes inclinables et calques du hero : lissage du suivi de la souris */
+[data-tilt]:not(.reveal) { transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
+[data-depth], [data-tilt-hero] { transition: transform .4s var(--ease-out); }
+/* Photos en léger décalage au défilement : animation pilotée par le défilement, en CSS, là où elle existe */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-parallax] img { animation: parallax linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes parallax { from { transform: scale(1.08) translateY(-3%); } to { transform: scale(1.08) translateY(3%); } }
+
+/* ---------- Mouvement réduit : tout est immobile et visible ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
