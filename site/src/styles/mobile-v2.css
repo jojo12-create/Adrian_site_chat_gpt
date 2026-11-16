@@ -44,6 +44,13 @@
     transition-duration: .26s;
   }
 
+  /* Le bandeau « maquette » reste présent mais ne masque ni les avis ni les titres. */
+  body[data-demo] .demo-badge {
+    position: relative; inset: auto; transform: none; z-index: auto;
+    width: max-content; max-width: calc(100% - 2 * var(--gutter));
+    margin: 20px auto 100px; font-size: .68rem; opacity: .75;
+  }
+
   /* Hero d'accueil : photo d'abord, titre éditorial chevauchant le bas du portrait. */
   .hero { min-height: auto; padding-top: calc(var(--header) + 12px); padding-bottom: 66px; }
   .hero-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 0; align-items: stretch; }
