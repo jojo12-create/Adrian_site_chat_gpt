@@ -8,22 +8,22 @@ Compilation de production servie en local avec compression gzip, comme chez l'h�
 - Poids, LCP, CLS, INP et défilement : `node scripts/measure.mjs` (Playwright). Poids calculés sur les fichiers servis, en gzip (niveau 9) et brotli (qualité 11).
 - INP : mesuré sur une vraie interaction, l'ouverture puis la fermeture du menu.
 - Défilement : page parcourue en entier (molette sur ordinateur, pas de 500 px sur mobile), images comptées par `requestAnimationFrame`, compteurs de mise en page lus par le protocole de Chromium.
-- **Limite :** le navigateur de test n'a pas de carte graphique. Les valeurs absolues de fluidité sont pessimistes ; les écarts avant/après restent comparables. Les passages Lighthouse de départ ont tourné pendant que d'autres analyses occupaient la machine.
+- **Limite :** le navigateur de test n'a pas de carte graphique. Les valeurs absolues de fluidité sont pessimistes ; les écarts avant/après restent comparables.
 
 ## Lighthouse
 
 | Page | Format | Performance | Accessibilité | Bonnes pratiques | SEO | FCP | LCP | TBT | CLS |
 |---|---|---|---|---|---|---|---|---|---|
-| Accueil `/` | mobile | 95 (94–96) | 100 | 100 | 100 | 1,47 s | 2,62 s | 130 ms | 0,003 |
-| Accueil `/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,39 s | 0,58 s | 20 ms | 0,001 |
-| Catégorie `/osteopathie/lombalgie/` | mobile | 98 (98–99) | 100 | 100 | 100 | 1,31 s | 2,24 s | 40 ms | 0,015 |
-| Catégorie `/osteopathie/lombalgie/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,35 s | 0,48 s | 0 ms | 0,010 |
-| Contact `/contact/` | mobile | 99 (99–99) | 100 | 100 | 100 | 1,30 s | 2,06 s | 9 ms | 0,004 |
-| Contact `/contact/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,34 s | 0,47 s | 0 ms | 0,001 |
-| Mentions `/mentions-legales/` | mobile | 99 (98–99) | 100 | 100 | 100 | 1,33 s | 2,10 s | 6 ms | 0,011 |
+| Accueil `/` | mobile | 97 (97–97) | 100 | 100 | 100 | 1,42 s | 2,54 s | 54 ms | 0,003 |
+| Accueil `/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,38 s | 0,57 s | 9 ms | 0,001 |
+| Catégorie `/osteopathie/lombalgie/` | mobile | 99 (98–99) | 100 | 100 | 100 | 1,25 s | 2,16 s | 8 ms | 0,015 |
+| Catégorie `/osteopathie/lombalgie/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,34 s | 0,48 s | 0 ms | 0,010 |
+| Contact `/contact/` | mobile | 99 (99–99) | 100 | 100 | 100 | 1,31 s | 2,14 s | 6 ms | 0,004 |
+| Contact `/contact/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,33 s | 0,44 s | 0 ms | 0,001 |
+| Mentions `/mentions-legales/` | mobile | 99 (99–99) | 100 | 100 | 100 | 1,26 s | 2,08 s | 0 ms | 0,011 |
 | Mentions `/mentions-legales/` | ordinateur | 100 (100–100) | 100 | 100 | 100 | 0,34 s | 0,45 s | 0 ms | 0,001 |
 
-À noter : l'accueil sur mobile est sous les valeurs de `docs/checklist.md` (97–98, LCP < 2,5 s), mesure prise machine occupée.
+À noter : l'accueil sur mobile est à la limite du plancher annoncé dans `docs/checklist.md` (97–98, LCP < 2,5 s) : 97 et 2,54 s.
 
 ## Poids transférés par page (Ko, gzip / brotli)
 
