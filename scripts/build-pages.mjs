@@ -1,13 +1,14 @@
 /* ==========================================================================
    Génère les pages HTML (site/…/index.html), sitemap.xml, robots.txt,
-   site.webmanifest et docs/textes.md. Échoue si une règle SEO est violée.
+   site.webmanifest et docs/textes.md. Les trois fichiers de site/public sont
+   générés à chaque build et ignorés par git (la démo écrit un robots.txt fermé). Échoue si une règle SEO est violée.
    Usage : npm run pages (lancé automatiquement par dev et build)
    ========================================================================== */
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pages } from '../content/pages.mjs';
-import { render, DEMO } from '../content/layout.mjs';
+import { render, frTypo, DEMO } from '../content/layout.mjs';
 import { site } from '../content/site.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,7 +20,7 @@ const today = new Date().toISOString().slice(0, 10);
 const titles = new Set(), descs = new Set();
 
 for (const p of pages) {
-  let html = render(p);
+  let html = frTypo(render(p));
   // Mode démo hébergé dans un sous-dossier (GitHub Pages) : préfixe les liens internes.
   // Les fichiers /src/… sont laissés à Vite, qui applique lui-même la base.
   if (BASE !== '/') html = html
@@ -50,9 +51,9 @@ ${indexable.map((p) => `  <url><loc>${site.url}${p.path}</loc><lastmod>${today}<
 `);
 writeFileSync(join(pub, 'robots.txt'), DEMO ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${site.url}/sitemap.xml\n`);
 writeFileSync(join(pub, 'site.webmanifest'), JSON.stringify({
-  name: site.name, short_name: 'Adrian Ostéo', lang: 'fr', start_url: '/', display: 'browser',
+  name: site.name, short_name: 'Adrian Ostéo', lang: 'fr', start_url: BASE, display: 'browser',
   background_color: '#faf8f3', theme_color: '#243c2f',
-  icons: [{ src: '/icon-512.png', sizes: '512x512', type: 'image/png' }, { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  icons: [{ src: BASE + 'icon-512.png', sizes: '512x512', type: 'image/png' }, { src: BASE + 'apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
 }, null, 2));
 
 // Export texte de tous les contenus (livrable « textes »)

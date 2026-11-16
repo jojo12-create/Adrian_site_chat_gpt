@@ -361,7 +361,7 @@ Prendre rendez-vous 06 09 22 49 38
 - **Title** (48) : Ostéopathie à Villefontaine : patients et motifs
 - **Description** (144) : Nouveau-nés, enfants, grossesse, adultes, seniors, sportifs ; lombalgie, cervicalgie, sciatique : quand consulter un ostéopathe à Villefontaine.
 
-## L'ostéopathie, pour qui, pour quoi ?
+## L'ostéopathie, pour qui, pour quoi ?
 
 Une approche manuelle qui cherche à redonner de la mobilité là où le corps se crispe. Chaque séance s'adapte à votre âge, votre histoire et ce que vous ressentez.
 Prendre rendez-vous
@@ -513,7 +513,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Nouveau-nés : les premiers instants, avec douceur
+## Nouveau-nés : les premiers instants, avec douceur
 
 Un bébé découvre le monde à son rythme. L'accueil au cabinet commence par l'écoute des parents, dans le respect du tout-petit et de son suivi pédiatrique.
 Prendre rendez-vous 06 09 22 49 38
@@ -606,7 +606,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Enfants et ados : grandir, bouger, découvrir
+## Enfants et ados : grandir, bouger, découvrir
 
 De l'enfance à l'adolescence, les habitudes changent et le corps évolue vite. Une consultation attentive à l'âge, aux activités et à la parole de chacun.
 Prendre rendez-vous 06 09 22 49 38
@@ -697,7 +697,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Grossesse : accompagner les changements du corps
+## Grossesse : accompagner les changements du corps
 
 Le corps se transforme, les repères évoluent. Un temps d'écoute pour parler de votre confort, avec des précautions adaptées et dans le respect de votre suivi de grossesse.
 Prendre rendez-vous 06 09 22 49 38
@@ -788,7 +788,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Adultes : prendre soin de ses mouvements au quotidien
+## Adultes : prendre soin de ses mouvements au quotidien
 
 Au fil des journées, le corps s'adapte aux gestes répétés, aux heures assises et aux élans du quotidien. Une consultation pour faire le point, avec attention et sans précipitation.
 Prendre rendez-vous 06 09 22 49 38
@@ -879,7 +879,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Seniors : préserver le plaisir de bouger
+## Seniors : préserver le plaisir de bouger
 
 Chaque âge porte son expérience. La consultation prend en compte votre histoire, votre mobilité et ce qui vous permet de rester actif à votre rythme.
 Prendre rendez-vous 06 09 22 49 38
@@ -972,7 +972,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Sportifs : à l’écoute du mouvement
+## Sportifs : à l’écoute du mouvement
 
 Derrière chaque entraînement, il y a un rythme, une exigence, une histoire. La consultation tient compte de votre discipline, de vos sensations et de votre parcours.
 Prendre rendez-vous 06 09 22 49 38
@@ -1067,7 +1067,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour qui ?
 
-## Mobilité et équilibre : bouger avec plus de confiance
+## Mobilité et équilibre : bouger avec plus de confiance
 
 Marcher, se pencher, lever les bras : les gestes les plus simples méritent parfois qu'on s'y attarde. Explorons ensemble ce qui limite votre aisance et ce qui compte pour vous.
 Prendre rendez-vous 06 09 22 49 38
@@ -1158,7 +1158,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Lombalgie : retrouver un bas du dos plus libre
+## Lombalgie : retrouver un bas du dos plus libre
 
 Le mal de dos a de nombreuses causes. La séance cherche à comprendre d'où vient la gêne, pas seulement là où elle se fait sentir.
 Prendre rendez-vous 06 09 22 49 38
@@ -1249,7 +1249,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Cervicalgie : relâcher la nuque et les épaules
+## Cervicalgie : relâcher la nuque et les épaules
 
 Écran trop bas, nuit sur un mauvais oreiller, stress qui se loge dans les épaules : la nuque se raidit vite. Une séance aide à redonner de la mobilité au cou.
 Prendre rendez-vous 06 09 22 49 38
@@ -1340,7 +1340,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Dorsalgie : détendre le haut du dos
+## Dorsalgie : détendre le haut du dos
 
 Entre les omoplates, la tension s'installe souvent sans prévenir : posture penchée, port de sac, stress. La séance s'intéresse aux vertèbres dorsales, aux côtes et aux épaules.
 Prendre rendez-vous 06 09 22 49 38
@@ -1431,7 +1431,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Sciatique : soulager le bassin et la jambe
+## Sciatique : soulager le bassin et la jambe
 
 Quand la douleur descend dans la fesse ou la jambe, le bas du dos et le bassin sont souvent concernés. La séance s'adapte à l'intensité de la douleur du moment.
 Prendre rendez-vous 06 09 22 49 38
@@ -1522,7 +1522,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Articulations et tendons : retrouver de l’aisance
+## Articulations et tendons : retrouver de l’aisance
 
 Une entorse mal récupérée, une épaule qui coince, un genou capricieux : les articulations travaillent ensemble. La séance regarde la zone douloureuse et ce qui l'entoure.
 Prendre rendez-vous 06 09 22 49 38
@@ -1613,7 +1613,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Stress et tensions : relâcher ce que le corps retient
+## Stress et tensions : relâcher ce que le corps retient
 
 Le stress se loge souvent dans le corps : nuque, mâchoire, diaphragme, épaules. Une séance au rythme calme aide à relâcher ces tensions physiques.
 Prendre rendez-vous 06 09 22 49 38
@@ -1704,7 +1704,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Pour quoi ?
 
-## Troubles digestifs : une approche douce du ventre
+## Troubles digestifs : une approche douce du ventre
 
 Certaines gênes digestives liées au stress ou aux tensions du dos et du diaphragme peuvent être abordées en ostéopathie, toujours après un avis médical.
 Prendre rendez-vous 06 09 22 49 38
@@ -2076,7 +2076,7 @@ Prendre rendez-vous 06 09 22 49 38
 - **Title** (49) : Première consultation chez l'ostéopathe : déroulé
 - **Description** (133) : Comment se passe une première consultation chez l'ostéopathe à Villefontaine : entretien, examen, gestes expliqués, droit de refuser.
 
-## Première consultation : le temps de se rencontrer
+## Première consultation : le temps de se rencontrer
 
 ### Les points essentiels
 
@@ -2101,7 +2101,7 @@ Prendre rendez-vous 06 09 22 49 38
 - **Title** (53) : Mal de dos : quand consulter, quels signes surveiller
 - **Description** (141) : Mal de dos : rester actif, signes d'alerte qui imposent un avis médical rapide, et place de l'ostéopathie. Conseils généraux d'un ostéopathe.
 
-## Mal de dos : comprendre avant d'agir
+## Mal de dos : comprendre avant d'agir
 
 ### Les points essentiels
 

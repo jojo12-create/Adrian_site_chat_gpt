@@ -53,7 +53,26 @@ export function pic(name, { cls = '', sizes = '100vw', eager = false, alt } = {}
 /* --- Titre découpé en mots (révélation mot par mot, texte présent dès le HTML) --- */
 export const splitWords = (html) => {
   let i = 0;
-  return html.replace(/(<[^>]+>)|([^\s<]+)/g, (m, tag, word) => (tag ? tag : `<span class="w"><span style="--i:${i++}">${word}</span></span>`));
+  // La ponctuation haute reste collée au mot qui précède (espace insécable), sinon elle formerait un « mot » seul
+  return html.replace(/ ([:;?!»])/g, '\u00a0$1').replace(/« /g, '«\u00a0')
+    .replace(/(<[^>]+>)|([^ \t\n<]+)/g, (m, tag, word) => (tag ? tag : `<span class="w"><span style="--i:${i++}">${word}</span></span>`));
+};
+
+/* --- Typographie française, appliquée au texte du <body> à la génération ---
+   (jamais aux balises, aux scripts ni au JSON-LD ; <title> et <meta> ne sont pas touchés)
+   Espace insécable avant : ; ? ! et dans « », entre un nombre et son unité, dans le téléphone ;
+   apostrophe typographique. */
+const NBSP = '\u00a0';
+const UNITS = '€|%|h\\b|min\\b|km\\b|ans?\\b|mois\\b|jours?\\b|semaines?\\b|séances?\\b|vertèbres\\b|avis\\b|étoiles\\b|profils\\b|temps\\b|★';
+export const frTypo = (html) => {
+  const at = html.indexOf('<body');
+  if (at < 0) return html;
+  return html.slice(0, at) + html.slice(at).replace(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<textarea[\s\S]*?<\/textarea>|<[^>]+>)|([^<]+)/g, (m, tag, t) => tag ?? t
+    .replace(/(\p{L})'(\p{L})/gu, '$1’$2')
+    .replace(/ ([:;?!»])/g, NBSP + '$1')
+    .replace(/« /g, '«' + NBSP)
+    .replace(new RegExp(`(\\d) (?=${UNITS})`, 'g'), '$1' + NBSP)
+    .replace(/\b(0\d) (\d\d) (\d\d) (\d\d) (\d\d)\b/g, ['$1', '$2', '$3', '$4', '$5'].join(NBSP)));
 };
 
 /* --- Boutons --- */
