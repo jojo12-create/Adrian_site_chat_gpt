@@ -1,0 +1,74 @@
+name: V2 — complete independent archive and activate GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/complete-copy-enable-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  complete-independent-copy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout independent V2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recover all remaining original binary assets without writing upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          git remote add original https://github.com/jojo12-create/Adrianosteo.git
+          git fetch --no-tags --depth=1 original refs/heads/claude/audit-refonte-qualite:refs/remotes/original/audit
+          test "$(git rev-parse refs/remotes/original/audit)" = "5873c50d23f13c805cc3b9d31fa957b098f38768"
+          # These archival paths were not edited for V2. All active site sources were already copied independently.
+          git restore --source=refs/remotes/original/audit --staged --worktree -- \
+            assets/raw docs/audit/captures docs/audit/polices
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "Restore complete original raw asset and audit archive [skip ci]"
+            git push origin HEAD:main
+          fi
+          echo "Original repository untouched. Copy status:"
+          git status --short
+
+      - name: Activate GitHub Pages for gh-pages branch when possible
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
+          status=$(curl -sS -o /tmp/pages-get.json -w '%{http_code}' \
+            -H 'Accept: application/vnd.github+json' \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "${url}")
+          if [[ "${status}" == "200" ]]; then
+            echo 'GitHub Pages already enabled:'
+            cat /tmp/pages-get.json
+            exit 0
+          fi
+          if [[ "${status}" != "404" ]]; then
+            echo "Unable to check GitHub Pages: HTTP ${status}"
+            cat /tmp/pages-get.json
+            exit 1
+          fi
+          code=$(curl -sS -o /tmp/pages-post.json -w '%{http_code}' \
+            -X POST \
+            -H 'Accept: application/vnd.github+json' \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            -d '{"source":{"branch":"gh-pages","path":"/"}}' \
+            "${url}")
+          echo "GitHub Pages creation response: HTTP ${code}"
+          cat /tmp/pages-post.json
+          [[ "${code}" == "201" || "${code}" == "200" ]]
