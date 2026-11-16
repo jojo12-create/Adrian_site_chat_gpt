@@ -45,6 +45,7 @@ try {
     check(basics.h1 === 1, `${width}px: accueil sans H1 unique`);
     check(basics.heroImage === true, `${width}px: image principale non chargée`);
     check(basics.overflow <= 2, `${width}px: débordement horizontal ${basics.overflow}px`);
+    await page.screenshot({ path:join(shots, `accueil-${width}.png`) });
     if (width < 1024) {
       check(basics.titleRow === '1', `${width}px: titre principal non superposé à la photo`);
       const burger = page.locator('[data-burger]');
@@ -53,6 +54,8 @@ try {
       const mega = page.locator('.nav-more').first();
       await mega.click();
       check(await page.locator('#nav').evaluate(el => el.classList.contains('has-expanded')), `${width}px: menu clair non activé`);
+      await page.waitForTimeout(360); // attendre la transition de couleur CSS (.28 s)
+      if (width === 390 || width === 768) await page.screenshot({ path:join(shots, `menu-clair-${width}.png`) });
       const backdrop = await page.locator('#nav').evaluate(el => getComputedStyle(el).backgroundColor);
       check(backdrop !== 'rgb(36, 60, 47)', `${width}px: fond du menu non adapté`);
       await burger.click();
@@ -66,8 +69,8 @@ try {
       await page.waitForTimeout(160);
       const after = await page.locator('.steps-track').evaluate(el => getComputedStyle(el).transform);
       check(before !== after, `${width}px: animation des étapes ne progresse pas`);
+      if (width===390) await page.screenshot({ path:join(shots, 'quatre-temps-390.png') });
     }
-    await page.screenshot({ path:join(shots, `accueil-${width}.png`) });
     if (width === 390 || width === 1440) {
       for (const c of categories) {
         await visit(page, `osteopathie/${c.slug}/`);
