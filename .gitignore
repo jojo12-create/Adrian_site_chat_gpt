@@ -1,2 +1,6 @@
 node_modules/
+dist/
 .DS_Store
+site/**/*.html
+!site/vite.config.js
+qa-shots/
