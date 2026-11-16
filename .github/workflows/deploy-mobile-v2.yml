@@ -1,0 +1,73 @@
+name: Adrianosteo Mobile V2 — build, audit, preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: adrianosteo-mobile-v2-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-audit-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout V2 only
+        uses: actions/checkout@v4
+
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Build independent demo
+        run: npm run build:demo
+
+      - name: Verify generated Pages paths and assets
+        shell: bash
+        run: |
+          test -f dist/index.html
+          test -f dist/osteopathie/nourrissons/index.html
+          test -f dist/osteopathie/lombalgie/index.html
+          test -f dist/images/symboles.svg
+          test -f dist/images/adrian-bureau-800.webp
+          grep -q '/Adrian_site_chat_gpt/' dist/index.html
+          grep -q 'jojo12-create.github.io/Adrian_site_chat_gpt' dist/index.html
+          node --check site/src/scripts/core/menu.js
+          node --check site/src/scripts/animations/steps-pin.js
+          node --check scripts/qa-mobile-v2.mjs
+
+      - name: Install browser test runtime
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Test eight viewports and fourteen categories
+        run: node scripts/qa-mobile-v2.mjs
+
+      - name: Upload screenshots and QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: adrianosteo-mobile-v2-qa
+          path: qa-mobile-v2/
+          if-no-files-found: ignore
+
+      - name: Deploy independent gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
+          enable_jekyll: false
+          commit_message: 'Publish Adrianosteo Mobile V2 [skip ci]'
