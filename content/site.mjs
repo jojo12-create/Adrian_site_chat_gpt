@@ -64,20 +64,31 @@ export const nav = [
   { href: '/contact/', label: 'Contact' },
 ];
 
-/* Extraits d'avis Google réels (site officiel + démo) : phrases reprises telles
-   quelles, seules la ponctuation et l'orthographe ont été corrigées (« prends » → « prend »).
-   Les avis tronqués dans la démo ont été écartés plutôt que complétés. */
+/* Avis Google : textes ENTIERS, recopiés mot pour mot (fautes, ponctuation et émojis compris).
+   Aucun avis n'est raccourci, corrigé ni recomposé ; le nom est écrit comme sur Google.
+   Sources (archives du dépôt) :
+     - assets/raw/officiel/index.html  → rubrique « Retour des Patients » du site officiel
+     - assets/raw/demo/pages/avis.html → avis Google relevés pour la démo
+   Seuls les avis dont le texte complet est disponible sont repris (ceux coupés par « … » sont écartés).
+   Pour en ajouter : copier le texte exact depuis la fiche Google. */
 export const reviews = [
-  { a: 'Elodie Haon', t: "Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro." },
-  { a: 'Flavie Beal', t: "Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient." },
-  { a: 'Martin Jzql', t: 'Séance au top comme à chaque fois : déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation.' },
-  { a: 'Ophélie Robert', t: "Merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux, un ostéopathe vraiment sympathique qui sait vous mettre à l'aise." },
-  { a: 'Nozzha Hamouda', t: "Il est à l'écoute et prend le temps pour ses patients ! Je recommande à 1000 % Adrian !" },
-  { a: 'Quentin Vivancos', t: "Première fois qu'un ostéopathe me garde aussi longtemps ! Adrian est super tant humainement que professionnellement !" },
-  { a: 'Théo Reynard', t: "Très bonne expérience, ostéo à l'écoute et qui met à l'aise, je recommande." },
-  { a: 'Chloé de Fraiteur', t: "Super praticien, à l'écoute et efficace !" },
+  { a: 'elodie HAON', t: "Adrian est top! À l’écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l’aise et est très pro. Je le conseille vraiment :)" },
+  { a: 'Flavie Beal', t: "Je recommande Adrian sans aucun doute. Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient." },
+  { a: 'Martin Jzql', t: "Séance au top comme à chaque fois: déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation: foncez! 👌🏻" },
+  { a: 'Ophelie Robert', t: "Très bonne séance, merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux ^^, un ostéopathe vraiment sympathique qui sait vous mettre à l’aise ^^" },
+  { a: 'quentin vivancos', t: "Tombé par hasard dessus! Première fois qu’un ostéopathe me garde aussi longtemps! Adrian est super tant humainement que professionnellement! Je recommande!!" },
+  { a: 'Joris Asl', t: "Séance au top ! Je me sens comme neuf !" },
+  { a: 'Virginie Serroul', t: "Très bon praticien, prends le temps et à l écoute je recommande vivement" },
+  { a: 'Chloé de Fraiteur', t: "Super praticien, à l'écoute et efficace!" },
+  { a: 'Theo Reynard', t: "Très bonne expérience, Osteo a l’écoute et qui met à l’aise je recommande" },
+  { a: 'alexandre di noto', t: "Très professionnel à l’écoute du client Je recommande à 100%" },
+  { a: 'villard villard', t: "professionnel très attentif et efficace, et à l'écoute de ses patients. je le recommande." },
+  { a: 'Lucille Varraud', t: "Manipule bien, donne le sourire, mes les personnes alaise. Je le recommande totalement" },
 ];
-export const reviewCount = 11; // avis 5★ publiés sur le site officiel et la démo
+/* Nombre d'avis sur la fiche Google. 154 au dernier relevé archivé (assets/raw/demo/pages/avis.html) ;
+   affiché en « plus de 150 » pour rester vrai. À ACTUALISER avec le chiffre du jour sur la fiche Google. */
+export const reviewCount = 154;
+export const reviewCountLabel = '150+';
 
 /* Photos optimisées (voir scripts/images.mjs) : nom → texte alternatif */
 export const photoAlt = {

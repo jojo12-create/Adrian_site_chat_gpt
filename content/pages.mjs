@@ -4,7 +4,7 @@
    l'ostéopathie est présentée en complément du suivi médical.
    Chaque page : 1 mot-clé principal + 3 à 5 secondaires (commentaire « SEO »).
    ========================================================================== */
-import { site, reviews, reviewCount, TBC } from './site.mjs';
+import { site, reviews, reviewCountLabel, TBC } from './site.mjs';
 import { pic, rdv, call, faq, ctaFinal, icon, stars, tbc, splitWords, esc } from './layout.mjs';
 import { patients, troubles, categories, spineZones } from './categories.mjs';
 import { illu } from './illustrations.mjs';
@@ -121,7 +121,7 @@ const pageHome = {
       <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true"><ellipse cx="200" cy="200" rx="190" ry="70"/><ellipse cx="200" cy="200" rx="170" ry="60" transform="rotate(-24 200 200)"/></svg>
       <div class="arch" data-tilt-hero>${pic('adrian-bureau', { eager: true, sizes: '(min-width: 1024px) 38vw, 90vw' })}</div>
       <div class="hero-badge" data-depth="0.9"><img src="/images/logo-160.webp" width="80" height="80" alt=""><span>Ostéopathie<br><em>tous âges</em></span></div>
-      <div class="hero-chip" data-depth="1.2">${stars()}<span>${reviewCount} avis 5★</span></div>
+      <div class="hero-chip" data-depth="1.2">${stars()}<span>${reviewCountLabel} avis Google</span></div>
     </div>
   </div>
 </section>
@@ -151,7 +151,7 @@ ${catSection()}
     <h2 id="avis-t" data-reveal>Ils en parlent <em>mieux que moi</em></h2>
   </div>
   <ul class="reviews" tabindex="0" aria-label="Avis de patients, faites défiler horizontalement">
-    ${reviews.map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}
+    ${reviews.slice(0, 8).map((r) => `<li class="review"><blockquote><p>« ${esc(r.t)} »</p></blockquote><p class="review-by">${stars()} <span>${esc(r.a)}</span></p></li>`).join('')}
   </ul>
   <p class="wrap reviews-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
 </section>
@@ -189,7 +189,7 @@ ${spineSection()}
   <div class="wrap">
     <h2 id="num-t" class="sr-only">Le cabinet en chiffres</h2>
     <ul class="num-list">
-      <li data-reveal><strong>${reviewCount}</strong><span>avis Google 5 étoiles publiés</span></li>
+      <li data-reveal><strong>150+</strong><span>avis laissés par les patients sur Google</span></li>
       <li data-reveal><strong>${patients.length}</strong><span>profils accompagnés, du nouveau-né au senior</span></li>
       <li data-reveal><strong>${tbc(T.years)}</strong><span>années d'expérience</span></li>
     </ul>
@@ -405,7 +405,7 @@ const pageAvis = {
   description: "Avis Google de patients d'Adrian Rodriguez, ostéopathe à Villefontaine : écoute, explications, bienveillance. Lisez leurs retours et laissez le vôtre.",
   crumbs: [home, { href: '/avis/', label: 'Avis' }],
   body: `
-<section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Leurs mots <em>comptent le plus</em>')}</h1><p class="lead" data-reveal>Des avis laissés sur Google par des patients du cabinet (extraits).</p></div></section>
+<section class="page-hero" aria-labelledby="h1"><div class="wrap"><h1 id="h1" class="split display">${splitWords('Leurs mots <em>comptent le plus</em>')}</h1><p class="lead" data-reveal>Des avis laissés sur Google par des patients du cabinet, cités mot pour mot.</p></div></section>
 <section class="section"><div class="wrap"><div class="mosaic">${reviews.map((r, i) => `<figure class="quote" data-reveal style="--d:${i % 3}"><blockquote><p>« ${esc(r.t)} »</p></blockquote><figcaption>${stars()} ${esc(r.a)} · avis Google</figcaption></figure>`).join('')}</div>
 <div class="actions"><a class="btn btn-ghost" href="${L.google}" target="_blank" rel="noopener"><span class="btn-label">Lire et laisser un avis sur Google</span>${icon('arrow')}</a>${rdv()}</div></div></section>
 ${ctaFinal()}`,

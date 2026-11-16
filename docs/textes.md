@@ -25,7 +25,7 @@ Prendre rendez-vous 06 09 22 49 38
 
 Ostéopathie
 tous âges
-11 avis 5★
+150+ avis Google
 
 - I À l’écoute Une prise en charge adaptée à vos besoins
 
@@ -106,42 +106,42 @@ Troubles digestifs Inconforts digestifs fonctionnels, ballonnements, ventre tend
 
 -
 
-« Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro. »
+« Adrian est top! À l’écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l’aise et est très pro. Je le conseille vraiment :) »
 
-Elodie Haon
+elodie HAON
 -
 
-« Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. »
+« Je recommande Adrian sans aucun doute. Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. »
 
 Flavie Beal
 -
 
-« Séance au top comme à chaque fois : déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation. »
+« Séance au top comme à chaque fois: déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation: foncez! 👌🏻 »
 
 Martin Jzql
 -
 
-« Merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux, un ostéopathe vraiment sympathique qui sait vous mettre à l'aise. »
+« Très bonne séance, merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux ^^, un ostéopathe vraiment sympathique qui sait vous mettre à l’aise ^^ »
 
-Ophélie Robert
+Ophelie Robert
 -
 
-« Il est à l'écoute et prend le temps pour ses patients ! Je recommande à 1000 % Adrian ! »
+« Tombé par hasard dessus! Première fois qu’un ostéopathe me garde aussi longtemps! Adrian est super tant humainement que professionnellement! Je recommande!! »
 
-Nozzha Hamouda
+quentin vivancos
 -
 
-« Première fois qu'un ostéopathe me garde aussi longtemps ! Adrian est super tant humainement que professionnellement ! »
+« Séance au top ! Je me sens comme neuf ! »
 
-Quentin Vivancos
+Joris Asl
 -
 
-« Très bonne expérience, ostéo à l'écoute et qui met à l'aise, je recommande. »
+« Très bon praticien, prends le temps et à l écoute je recommande vivement »
 
-Théo Reynard
+Virginie Serroul
 -
 
-« Super praticien, à l'écoute et efficace ! »
+« Super praticien, à l'écoute et efficace! »
 
 Chloé de Fraiteur
 
@@ -236,7 +236,7 @@ Ostéopathie du sport
 
 ### Le cabinet en chiffres
 
-- 11 avis Google 5 étoiles publiés
+- 150+ avis laissés par les patients sur Google
 
 - 7 profils accompagnés, du nouveau-né au senior
 
@@ -1793,11 +1793,11 @@ Suivre @adrianosteo
 
 ### Ce que les patients retiennent
 
-« Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro. » Elodie Haon · avis Google
+« Adrian est top! À l’écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l’aise et est très pro. Je le conseille vraiment :) » elodie HAON · avis Google
 
-« Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. » Flavie Beal · avis Google
+« Je recommande Adrian sans aucun doute. Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. » Flavie Beal · avis Google
 
-« Merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux, un ostéopathe vraiment sympathique qui sait vous mettre à l'aise. » Ophélie Robert · avis Google
+« Très bonne séance, merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux ^^, un ostéopathe vraiment sympathique qui sait vous mettre à l’aise ^^ » Ophelie Robert · avis Google
 
 ### Faisons le point ensemble
 
@@ -1985,23 +1985,31 @@ Je vous recontacte pour fixer un rendez-vous. Le formulaire ne réserve pas de c
 
 ## Leurs mots comptent le plus
 
-Des avis laissés sur Google par des patients du cabinet (extraits).
+Des avis laissés sur Google par des patients du cabinet, cités mot pour mot.
 
-« Adrian est top ! À l'écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l'aise et est très pro. » Elodie Haon · avis Google
+« Adrian est top! À l’écoute et sait très bien expliquer la cause de vos douleurs et vous manipule que si vous êtes ok. Il sait mettre à l’aise et est très pro. Je le conseille vraiment :) » elodie HAON · avis Google
 
-« Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. » Flavie Beal · avis Google
+« Je recommande Adrian sans aucun doute. Des explications sur chaque manipulation, des conseils, de la bienveillance. Très pro. Enfin un ostéo à l'écoute du patient. » Flavie Beal · avis Google
 
-« Séance au top comme à chaque fois : déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation. » Martin Jzql · avis Google
+« Séance au top comme à chaque fois: déblocage des tensions cervicales et thoraco-lombaires ! Un professionnel à recommander sans aucune hésitation: foncez! 👌🏻 » Martin Jzql · avis Google
 
-« Merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux, un ostéopathe vraiment sympathique qui sait vous mettre à l'aise. » Ophélie Robert · avis Google
+« Très bonne séance, merci pour vos explications et le temps accordé à mon genou qui est plutôt capricieux ^^, un ostéopathe vraiment sympathique qui sait vous mettre à l’aise ^^ » Ophelie Robert · avis Google
 
-« Il est à l'écoute et prend le temps pour ses patients ! Je recommande à 1000 % Adrian ! » Nozzha Hamouda · avis Google
+« Tombé par hasard dessus! Première fois qu’un ostéopathe me garde aussi longtemps! Adrian est super tant humainement que professionnellement! Je recommande!! » quentin vivancos · avis Google
 
-« Première fois qu'un ostéopathe me garde aussi longtemps ! Adrian est super tant humainement que professionnellement ! » Quentin Vivancos · avis Google
+« Séance au top ! Je me sens comme neuf ! » Joris Asl · avis Google
 
-« Très bonne expérience, ostéo à l'écoute et qui met à l'aise, je recommande. » Théo Reynard · avis Google
+« Très bon praticien, prends le temps et à l écoute je recommande vivement » Virginie Serroul · avis Google
 
-« Super praticien, à l'écoute et efficace ! » Chloé de Fraiteur · avis Google
+« Super praticien, à l'écoute et efficace! » Chloé de Fraiteur · avis Google
+
+« Très bonne expérience, Osteo a l’écoute et qui met à l’aise je recommande » Theo Reynard · avis Google
+
+« Très professionnel à l’écoute du client Je recommande à 100% » alexandre di noto · avis Google
+
+« professionnel très attentif et efficace, et à l'écoute de ses patients. je le recommande. » villard villard · avis Google
+
+« Manipule bien, donne le sourire, mes les personnes alaise. Je le recommande totalement » Lucille Varraud · avis Google
 Lire et laisser un avis sur Google Prendre rendez-vous
 
 ### Prenez le temps d’aller mieux

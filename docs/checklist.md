@@ -63,7 +63,7 @@
 ## Contenus et déontologie
 - [x] Aucune promesse de guérison ; l'ostéopathie est présentée en complément du médecin, avec les signes d'alerte
 - [x] Nourrisson de moins de 6 mois : attestation médicale (décret 2007-435)
-- [x] Avis : extraits réels (11 avis Google 5★ publiés sur le site officiel et la démo) ; seule l'orthographe a été corrigée
+- [x] Avis : 12 avis Google entiers, recopiés mot pour mot depuis les archives du dépôt (aucune correction, aucun raccourci) ; compteur « plus de 150 avis » d'après le dernier relevé (154), à actualiser
 - [x] Chiffres réels uniquement ; tout le reste est en `[À CONFIRMER]`
 - [x] Mentions légales et RGPD (aucun cookie, aucun traceur ; carte Google chargée au clic)
 
