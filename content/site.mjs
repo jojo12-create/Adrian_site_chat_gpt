@@ -53,11 +53,13 @@ export const site = {
   ],
 };
 
-/* Navigation : 5 entrées maximum (le bouton RDV est à part) */
+/* Navigation : 5 entrées maximum (le bouton RDV est à part).
+   « menu » : la rubrique a plusieurs pages et ouvre un menu déroulant
+   (contenu construit dans content/layout.mjs, à partir des catégories et des articles). */
 export const nav = [
   { href: '/', label: 'Accueil' },
-  { href: '/osteopathie/', label: 'Ostéopathie' },
-  { href: '/cabinet/', label: 'Le cabinet' },
+  { href: '/osteopathie/', label: 'Ostéopathie', menu: 'osteo' },
+  { href: '/cabinet/', label: 'Le cabinet', menu: 'cabinet', also: ['/avis/', '/conseils/'] },
   { href: '/tarifs/', label: 'Tarifs & infos' },
   { href: '/contact/', label: 'Contact' },
 ];

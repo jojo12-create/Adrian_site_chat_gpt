@@ -23,4 +23,6 @@ export function illu(key, { size = '', tone = 'gold' } = {}) {
     layer(key, 'encre', 'illu-shadow')}${layer(key, 'encre', 'illu-edge illu-edge-1')}${layer(key, 'encre', 'illu-edge illu-edge-2')}${
     layer(key, 'encre', 'illu-ink')}${layer(key, 'accent', 'illu-accent-shadow')}${layer(key, 'accent', 'illu-accent')}</span></span></div>`;
 }
+/* Petit symbole à plat (menus) : encre + accent, couleurs réglées en CSS */
+export const symMini = (key) => `<svg class="sym" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><use class="sym-ink" href="${SPRITE}#${key}-encre"/><use class="sym-accent" href="${SPRITE}#${key}-accent"/></svg>`;
 export const illuKeys = Object.keys(symbolFiles);

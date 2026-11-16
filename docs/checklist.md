@@ -41,6 +41,11 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 - [x] `prefers-reduced-motion` : tout est immobile et visible
 - [x] Cibles de 44 px minimum (exception : lien dans le texte de la case de consentement, exempté par WCAG 2.5.8)
 
+## Menus déroulants
+- [x] Ostéopathie et Le cabinet : sous-pages listées dans un menu déroulant (ordinateur) et dans un volet (mobile) ; Avis et Conseils désormais accessibles depuis le menu principal
+- [x] Clavier : flèche = bouton `aria-expanded`, Échap referme et rend le focus, focus sorti referme ; le lien de rubrique mène toujours à sa page
+- [x] Volet fermé hors du parcours clavier (`visibility: hidden`), piège à focus du menu mobile mis à jour
+
 ## Mobile
 - [x] Aucun débordement horizontal à 320, 390 et 1440 px
 - [x] Bouton RDV visible sans défiler sur toutes les pages et tous les formats

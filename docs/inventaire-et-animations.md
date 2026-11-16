@@ -63,6 +63,7 @@ Les 14 symboles au pinceau fournis (`assets/raw/symboles/`, vert encre `#1d3526`
 | Conseils | Cartes illustrées inclinables | idem catégories |
 | FAQ | Ouverture animée en hauteur | GSAP |
 | Bandeau final | Dégradé qui dérive | CSS |
+| Menus déroulants | Ostéopathie (14 catégories avec leur symbole, en deux colonnes « Pour qui ? » / « Pour quoi ? ») et Le cabinet (approche, avis, tarifs, 3 conseils). Ordinateur : panneau papier sous l'en-tête, filet doré qui se trace, liens échelonnés, colonne d'aperçu qui décrit le lien survolé ; mobile : volet qui se déplie dans le menu plein écran | CSS + JS (motif « disclosure » : lien + bouton `aria-expanded`, Échap, clic ailleurs) |
 | Global | Défilement fluide, curseur personnalisé, boutons magnétiques, transitions de page, menu mobile en cercle, « axe » doré de progression | Lenis, GSAP, View Transitions, CSS |
 
 **Mouvement réduit :** symboles affichés d'emblée et immobiles (le relief reste visible), colonne 3D statique (toujours pilotable par les boutons), pas de Lenis, de curseur, de défilant ni de transitions.

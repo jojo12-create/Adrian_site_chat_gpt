@@ -3,6 +3,9 @@
    ========================================================================== */
 import { readFileSync } from 'node:fs';
 import { site, nav, photoAlt, TBC } from './site.mjs';
+import { patients, troubles } from './categories.mjs';
+import { articles } from './articles.mjs';
+import { symMini } from './illustrations.mjs';
 
 /* Mode démo (DEMO=1) : maquette en ligne pour présentation au client, non indexée */
 export const DEMO = process.env.DEMO === '1';
@@ -21,6 +24,7 @@ const I = {
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/>',
   clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   arrow: '<path d="M5 12h13M13 6l6 6-6 6"/>',
+  chevron: '<path d="m7 10 5 5 5-5"/>',
   check: '<path d="m5 12.5 4.2 4L19 7"/>',
   car: '<path d="M5 16.5V12l1.8-4.6A2 2 0 0 1 8.7 6h6.6a2 2 0 0 1 1.9 1.4L19 12v4.5M5 12h14M5 16.5h14v2H5z"/>',
   chat: '<path d="M4.5 18.5 6 15a7.5 7.5 0 1 1 3 2.6Z"/>',
@@ -112,11 +116,54 @@ function jsonLd(p) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 }
 
+/* ---------- Menus déroulants des rubriques à plusieurs pages ----------
+   Ordinateur : panneau sous l'en-tête, ouvert au survol ou au clic sur la flèche.
+   Mobile : volet qui se déplie dans le menu plein écran.
+   Accessibilité : motif « disclosure » (lien + bouton aria-expanded), Échap ferme. */
+const subLink = (href, label, path, extra = '') => `<li><a href="${href}"${path === href ? ' aria-current="page"' : ''}${extra}>${label}</a></li>`;
+const catLink = (c, path) => {
+  const href = `/osteopathie/${c.slug}/`;
+  return `<li><a class="mega-cat" href="${href}" data-preview="${esc(c.short)}"${path === href ? ' aria-current="page"' : ''}>${symMini(c.slug)}<span>${c.label}</span></a></li>`;
+};
+const megaMenus = {
+  osteo: (path) => `
+        <div class="mega-intro" aria-hidden="true">
+          <p class="mega-kicker">L'ostéopathie</p>
+          <p class="mega-preview" data-mega-preview data-default="Pour chaque âge et chaque gêne, une séance adaptée. Choisissez votre profil ou ce qui vous gêne.">Pour chaque âge et chaque gêne, une séance adaptée. Choisissez votre profil ou ce qui vous gêne.</p>
+        </div>
+        <div class="mega-group"><p class="mega-title" id="mt-qui">Pour qui ?</p><ul aria-labelledby="mt-qui">${patients.map((c) => catLink(c, path)).join('')}</ul></div>
+        <div class="mega-group"><p class="mega-title" id="mt-quoi">Pour quoi ?</p><ul aria-labelledby="mt-quoi">${troubles.map((c) => catLink(c, path)).join('')}</ul></div>
+        <a class="mega-all" href="/osteopathie/">Vue d'ensemble de l'ostéopathie ${icon('arrow')}</a>`,
+  cabinet: (path) => `
+        <div class="mega-intro" aria-hidden="true">
+          <p class="mega-kicker">Le cabinet</p>
+          <p class="mega-preview" data-mega-preview data-default="Un lieu calme à Villefontaine, une approche expliquée pas à pas, et des repères pour prendre soin de vous entre deux séances.">Un lieu calme à Villefontaine, une approche expliquée pas à pas, et des repères pour prendre soin de vous entre deux séances.</p>
+        </div>
+        <div class="mega-group"><p class="mega-title" id="mt-cab">Découvrir</p><ul class="mega-plain" aria-labelledby="mt-cab">${
+          subLink('/cabinet/', "L'approche et le cabinet", path, ' data-preview="Ma formation, ma façon de travailler et le cabinet en images."')}${
+          subLink('/avis/', 'Avis des patients', path, ' data-preview="Les avis Google laissés par les patients, cités tels quels."')}${
+          subLink('/tarifs/', 'Tarifs et déroulé de la séance', path, ' data-preview="Prix, durée, remboursement par la mutuelle et ce qu’il faut apporter."')}</ul></div>
+        <div class="mega-group"><p class="mega-title" id="mt-cons">Conseils</p><ul aria-labelledby="mt-cons">${articles.map((a) => {
+          const href = `/conseils/${a.slug}/`;
+          return `<li><a class="mega-cat" href="${href}" data-preview="${esc(a.description)}"${path === href ? ' aria-current="page"' : ''}>${symMini(a.illu)}<span>${a.h1.replace(/ :.*$/, '')}</span></a></li>`;
+        }).join('')}</ul></div>
+        <a class="mega-all" href="/conseils/">Tous les conseils ${icon('arrow')}</a>`,
+};
+const navItem = (n, i, p, isCurrent) => {
+  const cur = isCurrent(n.href, n.also) ? ' aria-current="page"' : '';
+  if (!n.menu) return `<li style="--i:${i}"><a class="nav-link" href="${n.href}"${cur}>${n.label}</a></li>`;
+  const id = `menu-${n.menu}`;
+  return `<li class="has-menu" style="--i:${i}" data-menu>
+        <span class="nav-row"><a class="nav-link" href="${n.href}"${cur}>${n.label}</a><button class="nav-more" type="button" aria-expanded="false" aria-controls="${id}"><span class="sr-only">Afficher les pages de la rubrique ${n.label}</span>${icon('chevron')}</button></span>
+        <div class="mega mega-${n.menu}" id="${id}"><div class="mega-in"><div class="mega-grid">${megaMenus[n.menu](p.path)}</div></div></div>
+      </li>`;
+};
+
 const crumbsHtml = (c) => `<nav class="crumbs wrap" aria-label="Fil d'Ariane"><ol>${c.map((x, i) => (i < c.length - 1 ? `<li><a href="${x.href}">${x.label}</a></li>` : `<li aria-current="page">${x.label}</li>`)).join('')}</ol></nav>`;
 
 /* --- Page complète --- */
 export function render(p) {
-  const isCurrent = (h) => (h === '/' ? p.path === '/' : p.path.startsWith(h));
+  const isCurrent = (h, also = []) => (h === '/' ? p.path === '/' : [h, ...also].some((x) => p.path.startsWith(x)));
   const a = site.address;
   return `<!doctype html>
 <html lang="fr" class="no-js">
@@ -151,7 +198,7 @@ export function render(p) {
       <span><strong>Adrian Rodriguez</strong><small>Ostéopathe · Villefontaine</small></span>
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
-      <ul>${nav.map((n, i) => `<li style="--i:${i}"><a href="${n.href}"${isCurrent(n.href) ? ' aria-current="page"' : ''}>${n.label}</a></li>`).join('')}</ul>
+      <ul class="nav-top">${nav.map((n, i) => navItem(n, i, p, isCurrent)).join('')}</ul>
       <div class="nav-extra"><a href="${site.phone.href}">${icon('phone')} ${site.phone.display}</a><a href="${site.links.instagram}" target="_blank" rel="noopener">${icon('insta')} @adrianosteo</a></div>
     </nav>
     ${rdv('Prendre RDV', 'btn btn-primary btn-sm header-cta')}

@@ -6,7 +6,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { initMenu, initHeader } from './js/nav.js';
+import { initMenu, initHeader, initMegaMenus } from './js/nav.js';
 import { initPointer } from './js/pointer.js';
 import { initReveals, initParallax, initCounters, initMorph, initStepsPin, initProgress } from './js/scroll.js';
 import { initTabs, initMarquee, initFaq, initMap, initHoverPreview } from './js/ui.js';
@@ -36,6 +36,7 @@ if (!reduced) {
 /* --- Modules communs à toutes les pages --- */
 initHeader();
 initMenu(lenis);
+initMegaMenus();      // menus déroulants des rubriques à plusieurs pages
 initProgress(reduced);
 initTabs();
 initMarquee();
