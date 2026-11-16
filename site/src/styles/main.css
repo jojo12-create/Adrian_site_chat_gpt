@@ -23,4 +23,5 @@
 @import './components/sections.css' layer(components);
 @import './components/pages.css' layer(components);
 @import './components/footer.css' layer(components);
+@import './mobile-v2.css' layer(components);
 @import './motion.css';
