@@ -12,7 +12,7 @@
    d'un coup de pinceau, puis l'accent vient se déposer.
    Styles : site/src/css/main.css (« Symboles en relief »). JS : site/src/js/v3.js.
    ========================================================================== */
-import { symbolFiles } from '../scripts/symbols.mjs';
+import { symbolFiles } from './symbols.mjs';
 
 const SPRITE = '/images/symboles.svg';
 const layer = (key, part, cls) => `<svg class="illu-l ${cls}" viewBox="0 0 240 240" focusable="false"><use href="${SPRITE}#${key}-${part}"/></svg>`;
@@ -25,4 +25,3 @@ export function illu(key, { size = '', tone = 'gold' } = {}) {
 }
 /* Petit symbole à plat (menus) : encre + accent, couleurs réglées en CSS */
 export const symMini = (key) => `<svg class="sym" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><use class="sym-ink" href="${SPRITE}#${key}-encre"/><use class="sym-accent" href="${SPRITE}#${key}-accent"/></svg>`;
-export const illuKeys = Object.keys(symbolFiles);

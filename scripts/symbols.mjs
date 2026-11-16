@@ -11,26 +11,10 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { symbolFiles } from '../content/symbols.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BOX = 240;
-/* fichier d'origine → adresse de la catégorie (content/categories.mjs) */
-export const symbolFiles = {
-  nourrissons: '01_nouveau_nes',
-  'enfants-adolescents': '02_enfants_adolescents',
-  'femme-enceinte': '03_femmes_enceintes',
-  adultes: '04_adultes_quotidien',
-  seniors: '05_seniors',
-  sportifs: '06_sportifs',
-  'mobilite-equilibre': '07_mobilite_equilibre',
-  lombalgie: '08_lombalgie',
-  cervicalgie: '09_cervicalgie',
-  dorsalgie: '10_dorsalgie',
-  sciatique: '11_sciatique',
-  articulations: '12_articulations_tendons',
-  'stress-tensions': '13_stress_tensions',
-  'troubles-digestifs': '14_troubles_digestifs',
-};
 
 const layer = (svg, id, file) => {
   const m = svg.match(new RegExp(`<g id="${id}"[^>]*>([\\s\\S]*?)</g>`));
