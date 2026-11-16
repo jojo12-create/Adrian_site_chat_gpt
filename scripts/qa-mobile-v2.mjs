@@ -23,7 +23,13 @@ const report = [];
 async function visit(page, path = '') {
   const url = origin + basePath + path;
   await page.goto(url, { waitUntil:'load' });
-  await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.querySelectorAll('img[fetchpriority="high"], .cat-hero img')]
+      .map(img => img.decode().catch(() => undefined)));
+  });
+  // Capturer l'état stabilisé après la révélation des images et illustrations.
+  await page.waitForTimeout(1100);
   return url;
 }
 function check(ok, message) { if (!ok) failures.push(message); }
@@ -38,7 +44,7 @@ try {
     const basics = await page.evaluate(() => ({
       h1: document.querySelectorAll('h1').length,
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      heroImage: document.querySelector('.hero-visual img')?.complete,
+      heroImage: !!document.querySelector('.hero-visual img')?.naturalWidth,
       heroGrid: getComputedStyle(document.querySelector('.hero-grid')).display,
       titleRow: getComputedStyle(document.querySelector('.hero h1')).gridRowStart
     }));
