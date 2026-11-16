@@ -13,7 +13,7 @@ Règle d'arbitrage : en cas de conflit, `impeccable` et `emil-design-eng` primen
 | `design-taste-frontend` | Contrôle anti « site générique », un système, une entrée et un ou deux moments par page | Audit typo et contrôle final |
 | `emil-design-eng` | Philosophie de finition : états, courbes, détails invisibles ; arbitre le mouvement | Audit animations et toute la mise en œuvre |
 | `improve-animations` | Audit complet du mouvement et plans de correction priorisés | Audit animations |
-| `review-animations` *(sur demande)* | Relecture stricte de chaque animation créée ou modifiée | Mise en œuvre, après chaque lot |
+| `review-animations` *(sur demande)* | Relecture stricte de chaque animation créée ou modifiée ; a donné le commit « passe de relecture » (rendu 3D à la demande, entrées uniques, durées sous 300 ms) | Mise en œuvre, après chaque lot |
 | `animation-performance` | Propriétés composites, budget d'image, cause des images perdues | Audit (mesures) et mise en œuvre |
 | `choreograph` | Ordre, décalages et immobilité du hero et de la grille des 14 catégories | Audit et mise en œuvre |
 | `find-animation-opportunities` | Repérer les rares endroits où le mouvement aiderait à comprendre | Audit animations |
@@ -25,9 +25,9 @@ Règle d'arbitrage : en cas de conflit, `impeccable` et `emil-design-eng` primen
 | `animation-vocabulary` | Nommer précisément les effets dans les constats | Audit |
 | `gestures` | Le glisser de la colonne vertébrale 3D (`spine3d.js`) doit suivre le doigt et rester interruptible | Audit animations et mise en œuvre |
 | `ask-emil` *(sur demande)* | Aiguillage : a fixé l'ordre audit (improve / find / remove) → construction (animate, choreograph, gestures) → vérification (break-ui, review, mobile-native, performance) → learn-taste | Étape 0 |
-| `pick-ui-library` *(sur demande)* | Vérifier le choix des dépendances (GSAP, Lenis, Three.js) face à la liste d'Emil Kowalski (`motion`) | Audit code |
-| `prototype` *(sur demande)* | Présenter les associations de polices comme des variantes réelles, côte à côte dans un sélecteur | Point d'étape (choix de police) |
-| `learn-taste` *(sur demande)* | Transformer en règles écrites les choix et corrections validés pendant la refonte | Fin de mission |
+| `pick-ui-library` *(sur demande)* | Vérifier les dépendances face à la liste d'Emil Kowalski. Verdict : aucun besoin de la liste (ni toasts, ni tiroirs, ni glisser-déposer) ; « un survol ou un fondu n'a pas besoin de bibliothèque », d'où le retrait de GSAP et Lenis | Audit code |
+| `prototype` *(sur demande)* | Sa méthode (variantes réellement différentes, jugées en contexte réel, coût de chacune dit franchement) a servi à comparer les 3 associations de polices sur de vraies pages compilées. Le sélecteur interactif n'a pas été monté : la consigne finale était d'aller au bout sans s'arrêter | Audit typo |
+| `learn-taste` *(sur demande)* | Lu et appliqué à la lettre : il n'écrit que des règles tirées de corrections du client. Aucune correction de goût n'a encore été donnée sur cette refonte, donc aucune règle écrite. À relancer après les premiers retours | Fin de mission |
 
 ### Déjà disponibles dans Claude Code
 

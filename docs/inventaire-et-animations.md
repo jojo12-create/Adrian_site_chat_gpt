@@ -1,5 +1,7 @@
 # Inventaire de la démo et plan d'animation (V3)
 
+> **Mise à jour (refonte qualité).** Le plan d'animation du § 2 décrit la V3 d'origine. Depuis, GSAP et Lenis ont été retirés, le défilant d'avis, le curseur, les boutons magnétiques, les compteurs et le morphing ont été supprimés, et la 3D se charge à la demande sur ordinateur. L'état actuel et ses raisons sont dans [audit/AUDIT.md](audit/AUDIT.md) et [audit/RESULTATS.md](audit/RESULTATS.md).
+
 Le brief « Brief Client Adrian Rodriguez Ostéopathe » est **introuvable** : il n'est ni dans les dépôts, ni sur le disque, ni dans les artifacts claude.ai. L'inventaire s'appuie sur la démo (16 pages relues) et sur le site officiel.
 
 ## 1. Inventaire exhaustif de la démo → couverture en V3

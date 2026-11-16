@@ -1,17 +1,6 @@
-# Checklist finale V3 (vérifiée le 16/11/2026)
+# Checklist finale (refonte qualité, vérifiée le 16/11/2026)
 
-**Outils :** `npm test` (Playwright, Chromium, desktop 1440×900, iPhone 13 et 320×640, axe-core WCAG 2.1 AA) et Lighthouse 12.6 (mobile bridé, servi avec gzip comme en production).
-
-## Résultats Lighthouse (mobile)
-
-| Page | Performance | Accessibilité | Bonnes pratiques | SEO | LCP | CLS | TBT |
-|---|---|---|---|---|---|---|---|
-| `/` | 97–98 | 100 | 100 | 100 | 2,39–2,44 s | 0,003 | 30–80 ms |
-| `/osteopathie/` | 99 | 100 | 100 | 100 | 1,96 s | 0,012 | 30 ms |
-| `/osteopathie/lombalgie/` | 99 | 100 | 100 | 100 | 2,13 s | 0,015 | 0 ms |
-| `/contact/` | 99 | 100 | 100 | 100 | 1,87 s | 0,004 | 0 ms |
-
-Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htaccess` active la compression sur l'hébergeur.
+**Outils :** `npm test` (Playwright, Chromium, desktop 1440×900, iPhone 13 et 320×640, axe-core WCAG 2.1 AA), `node scripts/measure.mjs` (poids, LCP, CLS, INP, fluidité) et Lighthouse 12.6. Mesures détaillées et comparaison avant/après : [audit/RESULTATS.md](audit/RESULTATS.md).
 
 ## SEO
 - [x] 26 pages indexables + 404 : title ≤ 60, description ≤ 155, toutes uniques (contrôlé à chaque build)
@@ -27,18 +16,20 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 ## Performance
 - [x] LCP < 2,5 s en mobile bridé (2,0 à 2,3 s), CLS 0 sur les 9 pages testées
 - [x] Images AVIF + WebP en 3–4 tailles (`srcset`/`sizes`), hors écran en `loading="lazy"`, photo du hero en `fetchpriority="high"`
-- [x] Polices auto-hébergées, latines préchargées, polices de secours ajustées (aucun décalage)
-- [x] Animations en transform/opacity uniquement ; JS 54 Ko gzip chargé en module (différé), CSS 9 Ko gzip
+- [x] Polices auto-hébergées (Source Serif 4, Figtree), réduites au français, 77,5 Ko ; préchargées selon la page ; polices de secours ajustées (CLS 0)
+- [x] Aucune bibliothèque d'animation : transitions CSS + JS natif. JS 2,8 Ko gzip sur toutes les pages (au lieu de 55), modules chargés seulement si la page en a besoin, CSS 11 Ko gzip
+- [x] Animations en transform/opacity (exceptions admises : volet du menu mobile, FAQ native) ; interface sous 300 ms ; jeu unique de courbes et durées
+- [x] `.htaccess` : cache longue durée réellement appliqué aux fichiers versionnés (à confirmer sur l'hébergeur)
 - [x] Carte Google chargée seulement au clic
 
 ## Accessibilité
 - [x] axe-core : **0 violation** sur 11 pages × 2 formats (22 tests)
-- [x] Contraste AA (l'or n'est jamais du texte sur fond clair)
+- [x] Contraste AA mesuré au pixel, y compris ce qu'axe ne tranche pas : bouton or du pied de page 6,9:1, focus 11:1, bordure des champs 3,9:1
 - [x] Lien d'évitement, focus visible, menu mobile (`aria-expanded`, Échap, focus piégé), onglets ARIA au clavier (flèches, Début, Fin)
-- [x] Défilant d'avis : bouton pause, pause au survol et au focus
+- [x] Avis : rangée fixe que l'on fait défiler soi-même (plus de contenu en mouvement automatique)
 - [x] Formulaire : labels visibles, erreurs sous chaque champ (`aria-invalid`, `aria-describedby`), statut annoncé
 - [x] Contenu révélé au défilement atteignable au clavier (opacité seule, révélé au focus)
-- [x] `prefers-reduced-motion` : tout est immobile et visible
+- [x] `prefers-reduced-motion` : plus aucun déplacement, les fondus courts restent ; bouton flottant caché hors du parcours clavier (`inert`)
 - [x] Cibles de 44 px minimum (exception : lien dans le texte de la case de consentement, exempté par WCAG 2.5.8)
 
 ## Menus déroulants
@@ -46,24 +37,28 @@ Sans compression (serveur PHP de test), le LCP monte à 3,0–3,3 s : le `.htacc
 - [x] Clavier : flèche = bouton `aria-expanded`, Échap referme et rend le focus, focus sorti referme ; le lien de rubrique mène toujours à sa page
 - [x] Volet fermé hors du parcours clavier (`visibility: hidden`), piège à focus du menu mobile mis à jour
 
+## Typographie
+- [x] Typographie française à la génération : espaces insécables avant `: ; ? ! »`, après `«`, entre nombre et unité, dans le téléphone ; apostrophes typographiques (0 cas restant sur 27 pages)
+- [x] Échelle fluide à 7 niveaux, un seul H1 par page, aucun intertitre plus petit que le texte
+
 ## Mobile
-- [x] Aucun débordement horizontal à 320, 390 et 1440 px
+- [x] Aucun contenu coupé à 320, 390 et 1440 px (pied de page et tableau des tarifs corrigés à 320 px)
 - [x] Bouton RDV visible sans défiler sur toutes les pages et tous les formats
 - [x] RDV répété : en-tête fixe, sections, bandeau final, pied de page, bouton flottant mobile (masqué quand un autre RDV est visible)
 - [x] Menu plein écran animé ; défilement horizontal remplacé par une pile verticale sous 1024 px
 
 ## Fonctionnel
 - [x] Formulaire PHP testé en vrai (`php -S`) : 4 erreurs affichées, envoi réussi, anti-robots (champ piège + délai de 3 s). E-mails capturés dans un fichier, **aucun envoi réel pendant les tests**
-- [x] Formulaire sans JS : envoi classique, puis redirection vers `/contact/?envoye=1`
+- [x] Formulaire sans JS : envoi classique, puis message affiché (`/contact/#envoye` ou `#erreur`)
 - [x] Aucune erreur JavaScript en console
 - [x] Vraie 404 (`node scripts/serve.mjs` et `.htaccess`)
 
 ## V3 : catégories, illustrations, 3D
-- [x] 7 catégories patients + 7 troubles : 14 pages, **14 symboles au pinceau fournis, mis en relief en 3D** (calques en profondeur, coup de pinceau à l'entrée, rotation lente, suivi de la souris), tracés d'origine non retouchés
+- [x] 7 catégories patients + 7 troubles : 14 pages, **14 symboles au pinceau fournis, mis en relief en 3D**, tracés d'origine non retouchés. Cartes : relief qui répond à la souris ; grand symbole de page : coup de pinceau à l'entrée et rotation lente ; à plat sur téléphone
 - [x] Cartes : inclinaison 3D, reflet doré, zoom doux ; 14 cartes sur l'accueil et le hub
-- [x] Colonne 3D Three.js procédurale : zones cervicales, dorsales, lombaires, sacrum ; synchronisée avec des onglets HTML accessibles ; chargée en différé (128 Ko gzip)
+- [x] Colonne : dessin SVG synchronisé avec des onglets HTML accessibles partout ; modèle 3D Three.js sur ordinateur, à la demande (bouton « Explorer en 3D », 125 Ko gzip), rendu seulement quand on le manipule
 - [x] Mouvement réduit : 3D statique, symboles immobiles, navigation clavier testée
-- [x] Mobile : 3D allégée, titre sans délai, 2 colonnes de cartes, aucun débordement à 320 px
+- [x] Mobile : aucune 3D téléchargée, titre sans délai, 2 colonnes de cartes
 
 ## Contenus et déontologie
 - [x] Aucune promesse de guérison ; l'ostéopathie est présentée en complément du médecin, avec les signes d'alerte
