@@ -11,13 +11,13 @@ const htmlFiles = (dir) => readdirSync(dir).flatMap((f) => {
   return statSync(p).isDirectory() ? htmlFiles(p) : f.endsWith('.html') ? [p] : [];
 });
 
-/* Précharge les polices latines (titres + texte) : évite le décalage au chargement
+/* Précharge la serif droite (titres) et Figtree (texte), pas l'italique : évite le décalage au chargement
    de la police et accélère l'affichage du titre principal. */
 const preloadFonts = () => ({
   name: 'preload-fonts',
   transformIndexHtml: { order: 'post', handler(html, ctx) {
     if (!ctx.bundle) return html;
-    const files = Object.keys(ctx.bundle).filter((f) => /(fraunces-latin-wght-normal|fraunces-latin-wght-italic)-.*\.woff2$/.test(f));
+    const files = Object.keys(ctx.bundle).filter((f) => /(source-serif-4-normal-fr|figtree-fr)-.*\.woff2$/.test(f));
     return { html, tags: files.map((f) => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: (process.env.BASE || '/') + f, crossorigin: '' }, injectTo: 'head-prepend' })) };
   } },
 });

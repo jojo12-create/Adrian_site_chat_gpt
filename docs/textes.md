@@ -2175,7 +2175,7 @@ L'ostéopathie est encadrée par le décret n° 2007-435 du 25 mars 2007. Les in
 
 ### Propriété intellectuelle
 
-Textes, logo et photographies : © Adrian Rodriguez, sauf mention contraire. Polices Fraunces et Manrope sous licence SIL Open Font License. Bibliothèques : GSAP (licence standard gratuite), Lenis (MIT).
+Textes, logo et photographies : © Adrian Rodriguez, sauf mention contraire. Polices Source Serif 4 et Figtree sous licence SIL Open Font License. Bibliothèque : Three.js (MIT).
 
 ### Données personnelles
 

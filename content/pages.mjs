@@ -657,7 +657,7 @@ const pageLegal = legal('legal', '/mentions-legales/', 'Mentions légales | Adri
 <p>N° ADELI / RPPS : ${tbc(T.adeli)}<br>SIRET : ${tbc(T.siret)}<br>Directeur de la publication : Adrian Rodriguez.</p>
 <h2>Hébergement</h2><p>${tbc(T.host)}</p>
 <h2>Activité</h2><p>L'ostéopathie est encadrée par le décret n° 2007-435 du 25 mars 2007. Les informations de ce site sont générales : elles ne remplacent ni une consultation ni un avis médical.</p>
-<h2>Propriété intellectuelle</h2><p>Textes, logo et photographies : © Adrian Rodriguez, sauf mention contraire. Polices Fraunces et Manrope sous licence SIL Open Font License. Bibliothèques : GSAP (licence standard gratuite), Lenis (MIT).</p>
+<h2>Propriété intellectuelle</h2><p>Textes, logo et photographies : © Adrian Rodriguez, sauf mention contraire. Polices Source Serif 4 et Figtree sous licence SIL Open Font License. Bibliothèque : Three.js (MIT).</p>
 <h2>Données personnelles</h2><p>Voir la page <a href="/confidentialite/">Confidentialité</a>.</p>`);
 
 const pagePrivacy = legal('privacy', '/confidentialite/', 'Confidentialité et données personnelles | Ostéopathe',
