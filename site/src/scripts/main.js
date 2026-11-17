@@ -2,7 +2,7 @@
    Point d'entrée. Le site fonctionne sans JS ; le JS ajoute confort et mouvement.
    Noyau (toutes les pages) : en-tête, menus, apparitions, progression.
    Le reste est chargé à la demande, seulement si la page contient l'élément :
-     formulaire, carte, colonne vertébrale, séance épinglée.
+     formulaire, carte, séance épinglée.
    Aucune bibliothèque d'animation : transitions CSS + un peu de JS natif.
    ========================================================================== */
 import { initHeader } from './core/header.js';
@@ -24,7 +24,6 @@ document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new 
 /* --- Modules à la demande --- */
 if (has('[data-form]')) import('./components/form.js').then((m) => m.initForm());
 if (has('[data-map]')) import('./components/map.js').then((m) => m.initMap());
-if (has('[data-spine-section]')) import('./components/spine.js').then((m) => m.initSpine(reduced));
 
 /* --- Mouvement : seulement si autorisé --- */
 if (!reduced) {

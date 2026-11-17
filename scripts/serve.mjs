@@ -16,6 +16,14 @@ createServer(async (req, res) => {
   try { body = await readFile(file); } catch { body = await readFile(join(dist, '404.html')); code = 404; file = '404.html'; }
   const ext = extname(file), type = types[ext] || 'application/octet-stream';
   const headers = { 'Content-Type': type, 'Cache-Control': p.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache' };
-  if (/text|javascript|json|xml|svg|manifest/.test(type) && /gzip/.test(req.headers['accept-encoding'] || '')) { body = gzipSync(body); headers['Content-Encoding'] = 'gzip'; }
+  if (/text|javascript|json|xml|svg|manifest|octet-stream/.test(type)) {
+    headers.Vary = 'Accept-Encoding';
+    const acceptsGzip = (req.headers['accept-encoding'] || '').split(',').some((item) => {
+      const [name, ...params] = item.trim().split(';');
+      const q = params.find((p) => p.trim().startsWith('q='));
+      return name === 'gzip' && (!q || Number(q.split('=')[1]) > 0);
+    });
+    if (acceptsGzip) { body = gzipSync(body); headers['Content-Encoding'] = 'gzip'; }
+  }
   res.writeHead(code, headers); res.end(body);
 }).listen(port, '127.0.0.1', () => console.log(`Site servi sur http://127.0.0.1:${port}`));

@@ -270,7 +270,8 @@ export const troubles = [
 
 export const categories = [...patients.map((c) => ({ ...c, family: 'patients' })), ...troubles.map((c) => ({ ...c, family: 'troubles' }))];
 
-/* Zones de la colonne 3D → troubles associés */
+/* Zones de l'ancienne section « colonne 3D » → troubles associés.
+   Plus affichées depuis que le visualiseur anatomique la remplace ; textes conservés pour réemploi. */
 export const spineZones = [
   { id: 'cervicales', label: 'Cervicales', range: 'C1 – C7', troubles: ['cervicalgie'], extra: ['Torticolis', 'Maux de tête de tension'], text: "Les 7 vertèbres du cou portent la tête et permettent de la tourner. Tensions d'écran, torticolis, nuque raide." },
   { id: 'dorsales', label: 'Dorsales', range: 'T1 – T12', troubles: ['dorsalgie'], extra: ['Douleur entre les omoplates', 'Raideur thoracique'], text: "Les 12 vertèbres dorsales s'articulent avec les côtes. Barre entre les omoplates, haut du dos tendu." },

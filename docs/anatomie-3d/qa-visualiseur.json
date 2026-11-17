@@ -1,0 +1,99 @@
+[
+  {
+    "name": "lazy-load",
+    "passed": true
+  },
+  {
+    "name": "lombalgie",
+    "layers": [
+      "ne",
+      "sk"
+    ],
+    "panel": true
+  },
+  {
+    "name": "cervicalgie",
+    "layers": [
+      "ne",
+      "sk"
+    ],
+    "panel": true
+  },
+  {
+    "name": "dorsalgie",
+    "layers": [
+      "ne",
+      "sk"
+    ],
+    "panel": true
+  },
+  {
+    "name": "sciatique",
+    "layers": [
+      "ne",
+      "sk"
+    ],
+    "panel": true
+  },
+  {
+    "name": "articulations",
+    "layers": [
+      "mu",
+      "sk"
+    ],
+    "panel": true
+  },
+  {
+    "name": "stress-tensions",
+    "layers": [
+      "mu"
+    ],
+    "panel": true
+  },
+  {
+    "name": "troubles-digestifs",
+    "layers": [
+      "sk",
+      "vi"
+    ],
+    "panel": true
+  },
+  {
+    "name": "couches",
+    "combinations": 15
+  },
+  {
+    "name": "desktop-reduced",
+    "axe": []
+  },
+  {
+    "name": "parcours-articulations",
+    "automatic": true,
+    "cancelledByInteraction": true
+  },
+  {
+    "name": "parcours-stress-tensions",
+    "automatic": true,
+    "cancelledByInteraction": true
+  },
+  {
+    "name": "mobile-390",
+    "axe": []
+  },
+  {
+    "name": "mobile-320",
+    "axe": []
+  },
+  {
+    "name": "repli-webgl",
+    "axe": []
+  },
+  {
+    "name": "repli-model",
+    "axe": []
+  },
+  {
+    "name": "javascript",
+    "errors": []
+  }
+]

@@ -72,6 +72,8 @@ Les 14 symboles au pinceau fournis (`assets/raw/symboles/`, vert encre `#1d3526`
 **Mobile :** symboles sans calques de tranche, 3D allégée (environ 2× moins de polygones, sans côtes, contours ni particules, densité de pixels limitée à 1,5), titre affiché sans délai.
 
 ## 3. Colonne vertébrale 3D : détails
+
+> Section remplacée par le visualiseur anatomique : voir [anatomie-3d.md](anatomie-3d.md). Ce qui suit décrit l'ancienne colonne, retirée du site.
 - **Anatomie :** 7 cervicales (épineuses bifides), 12 dorsales (épineuses très inclinées, côtes), 5 lombaires (épineuses horizontales), disques intervertébraux, sacrum (5 pièces soudées), coccyx (4 pièces), bassin (ailes iliaques, cotyles, anneau pubien), base du crâne (condyles + dôme filaire). Lordose cervicale, cyphose dorsale, lordose lombaire et cyphose sacrée respectées.
 - **Matériaux :** os ivoire, contours dorés fins, disques dorés lumineux, éléments holographiques filaires, lumière dorée ciblée sur la zone active.
 - **Performance :** géométrie procédurale (0 fichier modèle), fichier JS séparé de 128 Ko gzip chargé après `load` et à l'approche de la section, rendu suspendu hors écran ou onglet masqué.
