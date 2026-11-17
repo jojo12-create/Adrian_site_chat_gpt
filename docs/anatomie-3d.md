@@ -101,4 +101,36 @@ les [licences et sources](licences-3d.md).
 
 ## Captures de revue
 
-Les captures et les résultats mesurés sont ajoutés après la dernière suite QA.
+Suites rejouées sur le commit d'intégration (Chromium, WebGL logiciel) : `npm run build`,
+`npm test` (axe : 0 violation sur les 11 pages, 3 gabarits d'écran, aucune erreur JS)
+et `npm run test:anatomie` passent. Résultats détaillés : [`qa-visualiseur.json`](anatomie-3d/qa-visualiseur.json).
+
+Lighthouse mobile (performance), `main` → intégration, mêmes réglages :
+
+| Page | Score | LCP (ms) |
+|---|---|---|
+| `/` | 100 → 100 | 901 → 903 |
+| `/osteopathie/` | 100 → 100 | 756 → 760 |
+| `/osteopathie/lombalgie/` | 100 → 100 | 757 → 761 |
+| `/contact/` | 100 → 100 | 758 → 938 |
+| `/mentions-legales/` | 100 → 100 | 754 → 754 |
+
+Les écarts sont dans le bruit de mesure : l'accueil, répété quatre fois de chaque
+côté, donne 100 partout (une première mesure isolée avait donné 75 côté intégration,
+non reproduite). Aucune ressource du visualiseur n'est chargée par ces pages.
+
+| Contrôle | Capture |
+|---|---|
+| État initial | [desktop-initial](anatomie-3d/captures/desktop-initial.png) |
+| Sept motifs | [lombalgie](anatomie-3d/captures/motif-lombalgie.png) · [cervicalgie](anatomie-3d/captures/motif-cervicalgie.png) · [dorsalgie](anatomie-3d/captures/motif-dorsalgie.png) · [sciatique](anatomie-3d/captures/motif-sciatique.png) · [articulations](anatomie-3d/captures/motif-articulations.png) · [stress](anatomie-3d/captures/motif-stress-tensions.png) · [digestif](anatomie-3d/captures/motif-troubles-digestifs.png) |
+| Couches seules et combinées | [squelette](anatomie-3d/captures/couches-1.png) · [muscles](anatomie-3d/captures/couches-2.png) · [nerfs](anatomie-3d/captures/couches-4.png) · [viscères](anatomie-3d/captures/couches-8.png) · [les quatre](anatomie-3d/captures/couches-15.png) |
+| Contrôles après zoom | [motif choisi après zoom et rotation](anatomie-3d/captures/zoom-puis-motif.png) |
+| Clic sur le modèle | [choix entre motifs](anatomie-3d/captures/choix-sur-modele.png) |
+| Mobile, tiroir bas | [390 fermé](anatomie-3d/captures/mobile-390-ferme.png) · [390 ouvert](anatomie-3d/captures/mobile-390-ouvert.png) · [320 fermé](anatomie-3d/captures/mobile-320-ferme.png) · [320 ouvert](anatomie-3d/captures/mobile-320-ouvert.png) |
+| Replis | [sans WebGL](anatomie-3d/captures/repli-webgl.png) · [modèle indisponible](anatomie-3d/captures/repli-model.png) · [sans JavaScript](anatomie-3d/captures/sans-javascript.png) |
+| Défauts du modèle | [muscles du dos en gros plan](anatomie-3d/captures/muscles-dos-zoom.png) · [prototype d'origine](anatomie-3d/captures/prototype-muscles.png) |
+
+La capture « muscles du dos en gros plan » montre les deux écarts au cahier de
+recette, tous deux hérités du prototype (code et modèle identiques) : petits éclats
+sombres près des omoplates, et enveloppe de peau encore visible en bandes claires
+sur les hanches en gros plan au lieu de s'effacer complètement.
