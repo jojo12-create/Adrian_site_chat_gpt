@@ -1,0 +1,46 @@
+{
+  "views": {
+    "squelette_dos": {
+      "base": "squelette_dos.webp"
+    },
+    "squelette_face": {
+      "base": "squelette_face.webp"
+    },
+    "muscles_dos": {
+      "base": "muscles_dos.webp"
+    },
+    "muscles_face": {
+      "base": "muscles_face.webp"
+    }
+  },
+  "zones": {
+    "lombalgie": {
+      "view": "squelette_dos",
+      "glow": "lombalgie-glow.jpeg"
+    },
+    "cervicalgie": {
+      "view": "squelette_dos",
+      "glow": "cervicalgie-glow.jpeg"
+    },
+    "dorsalgie": {
+      "view": "squelette_dos",
+      "glow": "dorsalgie-glow.jpeg"
+    },
+    "sciatique": {
+      "view": "squelette_dos",
+      "glow": "sciatique-glow.jpeg"
+    },
+    "articulations": {
+      "view": "muscles_face",
+      "glow": "articulations-glow.jpeg"
+    },
+    "stress-tensions": {
+      "view": "muscles_dos",
+      "glow": "stress-tensions-glow.jpeg"
+    },
+    "troubles-digestifs": {
+      "view": "muscles_face",
+      "glow": "troubles-digestifs-glow.jpeg"
+    }
+  }
+}
