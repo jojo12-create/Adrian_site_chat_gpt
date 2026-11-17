@@ -21,7 +21,7 @@ async function start() {
 if (root && root.hasAttribute('data-anatomie-embedded')) {
   // Embedded in a scrolling page: nothing is downloaded and no gesture is
   // captured until the visitor asks. The first click on the button, a motif or
-  // the drawer handle starts the viewer, then is replayed on the live interface.
+  // (desktop) nothing else starts the viewer, then is replayed on the live interface.
   const button = root.querySelector('[data-anatomie-load]');
   button.hidden = false;
   const onFirstClick = async (event) => {

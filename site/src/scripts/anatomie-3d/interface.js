@@ -81,6 +81,10 @@ function select(z, { keepView = false } = {}) {
   closeChooser(); stopTour();
   state.sel = z; state.step = 0;
   legend.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(!!z && b.dataset.slug === z.slug)));
+  if (z && legend.scrollWidth > legend.clientWidth) {                    // rangée défilante (téléphone) : garder le motif choisi visible
+    const b = legend.querySelector('button[aria-pressed="true"]');
+    legend.scrollTo({ left: legend.scrollLeft + b.getBoundingClientRect().left - legend.getBoundingClientRect().left - (legend.clientWidth - b.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+  }
   if (z) { setDrawer(true); goStep(0, true); return; }
   renderPanel(null);
   if (api) { api.layers(); api.highlight(null); if (!keepView) api.reset(); }

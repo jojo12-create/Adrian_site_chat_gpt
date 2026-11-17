@@ -97,10 +97,6 @@
 .anatomie-app .credit a { color: inherit; }
 .anatomie-app [hidden] { display: none !important; }
 .anatomie-app .stage { min-width: 0; }
-@media (max-width: 899px) {
-  /* Preserve room for the model below the site's header when the drawer opens. */
-  .anatomie-app .drawer { max-height: min(62dvh, calc((100dvh - var(--header) - 66px) * .55)); }
-}
 /* Keep site-level mobile CTA clear of the drawer; header and footer still offer it. */
 body[data-page="anatomie-3d"] .fab { display: none; }
 .no-js .anatomie-app .body { display: block; }
@@ -115,20 +111,35 @@ body[data-page="anatomie-3d"] .fab { display: none; }
 .anatomie-sec-head .lead { color: rgba(255, 255, 255, .78); }
 .anatomie-sec-head :focus-visible { outline-color: var(--gold-2); }
 /* Plus basse que l'écran : il reste toujours une bande de page à saisir pour défiler. */
-.anatomie-app[data-anatomie-embedded] { height: min(84dvh, 780px); min-height: 520px; }
+@media (min-width: 900px) { .anatomie-app[data-anatomie-embedded] { height: min(84dvh, 780px); min-height: 520px; } }
 .anatomie-app[data-anatomie-embedded]:not(.is-started) .loading { display: none; }
 .anatomie-app[data-anatomie-embedded]:not(.is-started) .tools { visibility: hidden; }
-.anatomie-app .anatomie-load { position: absolute; z-index: 4; left: 50%; top: 50%; transform: translate(-50%, -50%);
+.anatomie-app .anatomie-load { position: absolute; z-index: 4; left: 50%; bottom: 92px; transform: translateX(-50%);
   border: 0; border-radius: 99px; min-height: 48px; padding: 0 24px; font-weight: 700; font-size: 1rem;
   background: var(--paper); color: var(--ink); box-shadow: 0 6px 24px rgba(0, 0, 0, .35); }
 .anatomie-app .anatomie-load:hover { background: #fff; }
 .anatomie-app .anatomie-load:disabled { cursor: progress; }
 .no-js .anatomie-app .anatomie-load { display: none; }
-@media (max-width: 899px) {
-  .anatomie-app[data-anatomie-embedded] .drawer { max-height: calc(max(min(84dvh, 780px), 520px) * .56); }
-}
 /* Avant le démarrage, les liens de la légende ont l'aspect des boutons qui les remplacent. */
 .anatomie-app .legend a { display: inline-flex; align-items: center; border: 1.5px solid var(--line); background: #fff; border-radius: 99px;
   min-height: 42px; padding: 0 15px; font-size: .9375rem; font-weight: 500; color: var(--ink); text-decoration: none; }
 .anatomie-app .legend a:hover { border-color: var(--ink); }
 @media (min-width: 900px) { .anatomie-app .legend a { display: flex; width: 100%; border-radius: 12px; } }
+
+/* ---------- Téléphone et tablette : pas de tiroir ----------
+   Motifs toujours visibles en une rangée à faire glisser, modèle dessous, texte du motif à la suite
+   dans la page. Un glissement vertical fait défiler la page ; horizontal, il fait tourner le modèle. */
+@media (max-width: 899px) {
+  .anatomie-app, .anatomie-app[data-anatomie-embedded] { display: flex; flex-direction: column; height: auto; min-height: 0; background: var(--paper); }
+  .anatomie-app .drawer, .anatomie-app .body, .anatomie-app .drawer.open .body { display: contents; }
+  .anatomie-app .handle { display: none; }
+  .anatomie-app .legend { order: -1; flex-wrap: nowrap; overflow-x: auto; margin: 0; padding: 12px 16px; gap: 8px;
+    scroll-snap-type: x proximity; scroll-padding-inline: 16px; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .anatomie-app .legend::-webkit-scrollbar { display: none; }
+  .anatomie-app .legend li { flex: none; scroll-snap-align: start; }
+  .anatomie-app .legend button, .anatomie-app .legend a { white-space: nowrap; }
+  .anatomie-app .stage { flex: none; height: min(64dvh, 560px); min-height: 360px; }
+  .anatomie-app .stage canvas { touch-action: pan-y !important; }
+  .anatomie-app .panel { border-top: 0; padding: 18px 18px 26px; }
+  .anatomie-app .credit { max-width: 78%; }
+}

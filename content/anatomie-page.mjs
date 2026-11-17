@@ -7,7 +7,7 @@ import { esc } from './layout.mjs';
 export const anatomieApp = ({ embedded = false } = {}) => `<div class="anatomie-app" data-anatomie${embedded ? ' data-anatomie-embedded' : ''}>
   <script type="application/json" data-anatomie-content>${JSON.stringify({ rdv: site.links.doctolib, troubles: troubles.map(({ slug, label, h1, short, lead }) => ({ slug, label, h1, short, lead })) }).replace(/</g, '\\u003c')}</script>
 <div class="stage" id="stage">
-    <img class="poster" id="poster" src="/anatomie-3d/squelette_face.webp" ${embedded ? 'loading="lazy"' : 'loading="eager" fetchpriority="high"'} decoding="async" alt="" width="842" height="1052">
+    <img class="poster" id="poster" src="/anatomie-3d/poster.webp" ${embedded ? 'loading="lazy"' : 'loading="eager" fetchpriority="high"'} decoding="async" alt="" width="842" height="1052">
     <p class="loading" id="loading" role="status">Vue anatomique</p>
     ${embedded ? '<button type="button" class="anatomie-load" data-anatomie-load hidden>Explorer en 3D</button>\n    ' : ''}<div class="tools">
       <div class="seg" role="group" aria-label="Couches affichées">

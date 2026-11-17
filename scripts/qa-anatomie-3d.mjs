@@ -136,10 +136,14 @@ try {
   for (const width of [390, 320]) {
     const mobile = await open({ viewport: { width, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
     await screenshot(mobile, `mobile-${width}-ferme`);
-    await mobile.click('#handle'); await mobile.click('[data-slug="articulations"]');
+    // Téléphone : pas de tiroir, les motifs sont visibles d'emblée au-dessus du modèle.
+    assert(await mobile.locator('#legend [data-slug="lombalgie"]').isVisible());
+    assert.equal(await mobile.locator('#handle').isVisible(), false);
+    assert.equal(await mobile.evaluate(() => getComputedStyle(document.querySelector('#stage canvas')).touchAction), 'pan-y');
+    await mobile.click('[data-slug="articulations"]');
     await screenshot(mobile, `mobile-${width}-ouvert`);
     assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth - innerWidth), 0);
-    assert.equal(await mobile.locator('#handle').getAttribute('aria-expanded'), 'true');
+    assert(await mobile.locator('#panel h2').isVisible());
     await axe(mobile, `mobile-${width}`); await mobile.close();
   }
   for (const failure of ['webgl', 'model']) {

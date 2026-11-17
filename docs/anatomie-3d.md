@@ -16,6 +16,14 @@ même balisage que la page dédiée). Différences avec la page `/anatomie-3d/` 
 - **Hauteur inférieure à l'écran** (84 % de la hauteur, 780 px au plus) pour qu'il
   reste une bande de page à saisir pour défiler, la 3D captant molette et glisser.
 - Les raccourcis flottants de RDV se masquent tant que le visualiseur est à l'écran.
+- **Téléphone et tablette (< 900 px), sur les trois pages** : plus de tiroir. Les motifs
+  sont une rangée toujours visible, à faire glisser, au-dessus du modèle ; le texte du
+  motif suit dans la page. Un glissement vertical sur le modèle fait défiler la page
+  (`touch-action: pan-y`) ; horizontal, il le fait tourner ; le pincement zoome.
+  L'inclinaison verticale au doigt n'est donc plus possible sur écran tactile.
+- **Image d'attente** : `poster.webp`, capture du modèle lui-même de face, squelette et
+  muscles actifs, fond transparent (remplace l'illustration `squelette_face.webp`, qui
+  ne sert plus qu'au repli 2D). À régénérer si le modèle ou les matériaux changent.
 - Titre et phrase d'introduction de la section : texte d'interface nouveau, **à valider**.
 - L'ancien code de la colonne (`spine.js`, `spine3d.js`, `spine.css`) est supprimé ;
   les textes `spineZones` restent dans `content/categories.mjs` mais ne sont plus
