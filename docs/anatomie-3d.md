@@ -3,6 +3,24 @@
 Page de validation : `/anatomie-3d/`, `noindex, nofollow`, exclue du sitemap.
 Base du portage : `main` au commit `cd96ca2b21573186458ab7046d88de7d11186388`.
 
+## Section de l'accueil et du hub Ostéopathie
+
+Le visualiseur remplace l'ancienne section « Votre colonne, vertèbre par vertèbre »
+sur `/` et `/osteopathie/` (`anatomieSection()` dans `content/anatomie-page.mjs`,
+même balisage que la page dédiée). Différences avec la page `/anatomie-3d/` :
+
+- **Démarrage au clic.** Rien n'est téléchargé (moteur, GSAP, modèle de 4,4 Mo gzip)
+  et aucun geste n'est capté tant que le visiteur n'a pas cliqué « Explorer en 3D »,
+  un motif ou la poignée du tiroir ; ce premier clic est rejoué une fois la 3D prête.
+  L'image de substitution est en `loading="lazy"`.
+- **Hauteur inférieure à l'écran** (84 % de la hauteur, 780 px au plus) pour qu'il
+  reste une bande de page à saisir pour défiler, la 3D captant molette et glisser.
+- Les raccourcis flottants de RDV se masquent tant que le visualiseur est à l'écran.
+- Titre et phrase d'introduction de la section : texte d'interface nouveau, **à valider**.
+- L'ancien code de la colonne (`spine.js`, `spine3d.js`, `spine.css`) est supprimé ;
+  les textes `spineZones` restent dans `content/categories.mjs` mais ne sont plus
+  affichés (quatre paragraphes et leurs liens internes en moins sur ces deux pages).
+
 ## Organisation
 
 - `content/anatomie-3d.mjs` : l'objet `ZONES3D` du prototype, inchangé.

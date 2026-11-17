@@ -48,9 +48,9 @@ scripts/serve.mjs       serveur local de production
 site/src/styles/        styles en couches (@layer) : tokens, base, layout, components/, motion
 site/src/scripts/main.js  point d'entrée JS : noyau + modules chargés à la demande
 site/src/scripts/core/        en-tête, menus, apparitions
-site/src/scripts/components/  formulaire, carte, défilant d'avis, colonne (onglets)
+site/src/scripts/components/  formulaire, carte, défilant d'avis
 site/src/scripts/animations/  profondeur à la souris, séance épinglée
-site/src/scripts/three/       colonne vertébrale 3D (ordinateur, sur demande)
+site/src/scripts/anatomie-3d/ visualiseur anatomique 3D (accueil et hub, démarré au clic)
 content/symbols.mjs     liste des 14 symboles (donnée)
 site/public/            images, favicons, .htaccess, api/contact.php
 assets/raw/             logo et photos d'origine (site officiel + démo)

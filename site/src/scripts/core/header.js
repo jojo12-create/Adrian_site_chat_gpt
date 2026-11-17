@@ -37,7 +37,7 @@ export function initHeader() {
   header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
 
   if (fab && 'IntersectionObserver' in window) {
-    const watched = [document.querySelector('main .actions'), document.querySelector('.footer')].filter(Boolean);
+    const watched = [document.querySelector('main .actions'), document.querySelector('.footer'), document.querySelector('[data-anatomie-embedded]')].filter(Boolean); // le visualiseur a son propre bouton de RDV
     const visible = new Set();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));

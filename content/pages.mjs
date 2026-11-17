@@ -6,7 +6,8 @@
    ========================================================================== */
 import { site, reviews, reviewCountLabel, TBC } from './site.mjs';
 import { pic, rdv, call, faq, ctaFinal, icon, stars, tbc, splitWords, esc } from './layout.mjs';
-import { patients, troubles, categories, spineZones } from './categories.mjs';
+import { patients, troubles, categories } from './categories.mjs';
+import { anatomieSection, anatomieAssets } from './anatomie-page.mjs';
 import { illu } from './illustrations.mjs';
 import { articles } from './articles.mjs';
 
@@ -43,46 +44,6 @@ const catSection = (h = 'h2') => `
 </section>`;
 
 /* =====================================================================
-   COLONNE VERTÉBRALE 3D (Three.js, chargée en différé)
-   Le texte (zones, troubles, liens) est en HTML : indexable et accessible.
-   ===================================================================== */
-const spineFallback = () => {
-  let v = '';
-  for (let i = 0; i < 24; i++) {
-    const y = 18 + i * 19.5, x = 110 + Math.sin((i / 23) * Math.PI * 2) * 14, w = 26 + Math.min(i, 18) * 1.6;
-    const zone = i < 7 ? 'cervicales' : i < 19 ? 'dorsales' : 'lombaires';
-    v += `<rect class="vert" data-zone="${zone}" x="${(x - w / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="14" rx="7"/>`;
-  }
-  v += `<path class="vert" data-zone="sacrum" d="M86 492 Q110 470 134 492 L120 540 Q110 552 100 540 Z"/>`;
-  return `<svg class="spine-fallback" viewBox="0 0 220 560" aria-hidden="true"><path class="spine-cord" d="M110 10 C 128 120, 92 250, 110 380 S 104 470, 110 540"/>${v}</svg>`;
-};
-const spineSection = (h = 'h2') => `
-<section class="spine-sec" id="colonne" aria-labelledby="spine-t" data-spine-section>
-  <div class="spine-glow" aria-hidden="true"></div>
-  <div class="wrap spine-grid">
-    <div class="spine-intro">
-      <${h} id="spine-t" data-reveal>Votre colonne, <em>vertèbre par vertèbre</em></${h}>
-      <p class="lead" data-reveal>24 vertèbres mobiles, des disques, le sacrum et le bassin : faites tourner la colonne et choisissez une zone pour voir les troubles qui s'y rattachent.</p>
-      <div class="spine-tabs" role="tablist" aria-label="Zones de la colonne vertébrale" data-spine-tabs>
-        ${spineZones.map((z, i) => `<button role="tab" type="button" id="sz-${z.id}" aria-controls="sp-${z.id}" aria-selected="${i === 2}" tabindex="${i === 2 ? 0 : -1}" data-zone="${z.id}"><span>${z.label}</span><small>${z.range}</small></button>`).join('')}
-      </div>
-    </div>
-    <div class="spine-stage" data-spine-stage>
-      <div class="spine-canvas" data-spine-canvas role="img" aria-label="Modèle 3D interactif de la colonne vertébrale : cervicales, dorsales, lombaires, sacrum, coccyx et bassin. Les zones sont aussi accessibles par les boutons ci-contre.">${spineFallback()}</div>
-      <button class="btn btn-light btn-sm spine-load" type="button" data-spine-load hidden><span class="btn-label">Explorer en 3D</span>${icon('arrow')}</button>
-      <p class="spine-hint" aria-hidden="true" data-spine-hint>Choisissez une zone dans la liste</p>
-    </div>
-    <div class="spine-panels">
-      ${spineZones.map((z, i) => `<div class="spine-panel" role="tabpanel" id="sp-${z.id}" aria-labelledby="sz-${z.id}" tabindex="0"${i === 2 ? '' : ' hidden'}>
-        <p class="spine-panel-title">${z.label} <small>${z.range}</small></p>
-        <p>${z.text}</p>
-        <ul class="spine-troubles">${z.troubles.map((s) => `<li><a href="${catHref(bySlug[s])}">${bySlug[s].label} ${icon('arrow')}</a></li>`).join('')}${z.extra.map((e) => `<li><span>${e}</span></li>`).join('')}</ul>
-      </div>`).join('')}
-    </div>
-  </div>
-</section>`;
-
-/* =====================================================================
    ACCUEIL
    ===================================================================== */
 const homeFaq = [
@@ -94,7 +55,7 @@ const homeFaq = [
 ];
 
 const pageHome = {
-  id: 'accueil', path: '/', file: 'index.html',
+  id: 'accueil', path: '/', file: 'index.html', ...anatomieAssets,
   // SEO : « ostéopathe Villefontaine » · ostéopathe Nord-Isère · ostéopathe L'Isle-d'Abeau · cabinet ostéopathie 38090 · ostéopathe Bourgoin-Jallieu
   title: 'Ostéopathe à Villefontaine (38090) | Adrian Rodriguez',
   description: "Adrian Rodriguez, ostéopathe diplômé de l'ATSA à Villefontaine : bébés, enfants, grossesse, adultes, seniors, sportifs. Rendez-vous sur Doctolib.",
@@ -156,7 +117,7 @@ ${catSection()}
   <p class="wrap reviews-foot"><a class="link" href="/avis/">Tous les avis ${icon('arrow')}</a></p>
 </section>
 
-${spineSection()}
+${anatomieSection()}
 
 <section class="steps-sec" aria-labelledby="steps-t" data-pin-steps>
   <div class="steps-sticky">
@@ -266,7 +227,7 @@ const osteoFaq = [
 ];
 
 const pageOsteo = {
-  id: 'osteopathie', path: '/osteopathie/', file: 'osteopathie/index.html',
+  id: 'osteopathie', path: '/osteopathie/', file: 'osteopathie/index.html', ...anatomieAssets,
   // SEO : « ostéopathie Villefontaine » · motifs de consultation ostéopathe · quand consulter un ostéopathe · ostéopathe Nord-Isère
   title: 'Ostéopathie à Villefontaine : patients et motifs',
   description: "Nouveau-nés, enfants, grossesse, adultes, seniors, sportifs ; lombalgie, cervicalgie, sciatique : quand consulter un ostéopathe à Villefontaine.",
@@ -282,7 +243,7 @@ const pageOsteo = {
   </div>
 </section>
 ${catSection()}
-${spineSection()}
+${anatomieSection()}
 <section class="section alert-sec" aria-labelledby="alert-t">
   <div class="wrap alert-grid">
     <h2 id="alert-t" data-reveal>Quand voir <em>d'abord un médecin</em></h2>

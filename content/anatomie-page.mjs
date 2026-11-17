@@ -2,18 +2,14 @@ import { troubles } from './categories.mjs';
 import { site } from './site.mjs';
 import { esc } from './layout.mjs';
 
-export const anatomiePage = {
-  id: 'anatomie-3d', path: '/anatomie-3d/', file: 'anatomie-3d/index.html', noindex: true,
-  title: 'Anatomie 3D | Adrian Rodriguez, ostéopathe',
-  description: 'Explorez les structures anatomiques et les motifs de consultation du cabinet d’ostéopathie d’Adrian Rodriguez à Villefontaine.',
-  styles: ['/src/styles/anatomie-3d.css'], scripts: ['/src/scripts/anatomie-3d/load.js'],
-  body: `<div class="anatomie-heading wrap"><h1>Anatomie 3D</h1></div>
-<div class="anatomie-app" data-anatomie>
+/* Visualiseur : même balisage sur la page dédiée et dans les sections de l'accueil et du hub.
+   embedded : image différée et démarrage au clic (« Explorer en 3D »), pour ne rien charger au défilement. */
+export const anatomieApp = ({ embedded = false } = {}) => `<div class="anatomie-app" data-anatomie${embedded ? ' data-anatomie-embedded' : ''}>
   <script type="application/json" data-anatomie-content>${JSON.stringify({ rdv: site.links.doctolib, troubles: troubles.map(({ slug, label, h1, short, lead }) => ({ slug, label, h1, short, lead })) }).replace(/</g, '\\u003c')}</script>
 <div class="stage" id="stage">
-    <img class="poster" id="poster" src="/anatomie-3d/squelette_face.webp" loading="eager" fetchpriority="high" decoding="async" alt="" width="842" height="1052">
+    <img class="poster" id="poster" src="/anatomie-3d/squelette_face.webp" ${embedded ? 'loading="lazy"' : 'loading="eager" fetchpriority="high"'} decoding="async" alt="" width="842" height="1052">
     <p class="loading" id="loading" role="status">Vue anatomique</p>
-    <div class="tools">
+    ${embedded ? '<button type="button" class="anatomie-load" data-anatomie-load hidden>Explorer en 3D</button>\n    ' : ''}<div class="tools">
       <div class="seg" role="group" aria-label="Couches affichées">
         <button type="button" id="l-sk" aria-pressed="true">Squelette</button>
         <button type="button" id="l-mu" aria-pressed="false">Muscles</button>
@@ -38,6 +34,24 @@ export const anatomiePage = {
       </div>
     </div>
   </section>
-</div>
+</div>`;
+
+export const anatomieSection = () => `
+<section class="anatomie-sec" id="anatomie" aria-labelledby="anatomie-t">
+  <div class="wrap anatomie-sec-head">
+    <h2 id="anatomie-t" data-reveal>Le corps, <em>zone par zone</em></h2>
+    <p class="lead" data-reveal>Faites tourner le modèle et choisissez un motif de consultation pour voir les structures concernées.</p>
+  </div>
+  ${anatomieApp({ embedded: true })}
+</section>`;
+export const anatomieAssets = { styles: ['/src/styles/anatomie-3d.css'], scripts: ['/src/scripts/anatomie-3d/load.js'] };
+
+export const anatomiePage = {
+  id: 'anatomie-3d', path: '/anatomie-3d/', file: 'anatomie-3d/index.html', noindex: true,
+  title: 'Anatomie 3D | Adrian Rodriguez, ostéopathe',
+  description: 'Explorez les structures anatomiques et les motifs de consultation du cabinet d’ostéopathie d’Adrian Rodriguez à Villefontaine.',
+  styles: ['/src/styles/anatomie-3d.css'], scripts: ['/src/scripts/anatomie-3d/load.js'],
+  body: `<div class="anatomie-heading wrap"><h1>Anatomie 3D</h1></div>
+${anatomieApp()}
 `,
 };

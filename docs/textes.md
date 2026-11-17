@@ -147,47 +147,34 @@ Chloé de Fraiteur
 
 Tous les avis
 
-### Votre colonne, vertèbre par vertèbre
+### Le corps, zone par zone
 
-24 vertèbres mobiles, des disques, le sacrum et le bassin : faites tourner la colonne et choisissez une zone pour voir les troubles qui s'y rattachent.
+Faites tourner le modèle et choisissez un motif de consultation pour voir les structures concernées.
 
-Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
-
+Vue anatomique
 Explorer en 3D
 
-Choisissez une zone dans la liste
+Squelette
+Muscles
+Nerfs
+Viscères
 
-Cervicales C1 – C7
+Réinitialiser la vue
 
-Les 7 vertèbres du cou portent la tête et permettent de la tourner. Tensions d'écran, torticolis, nuque raide.
+Modèle anatomique : Z-Anatomy , d’après BodyParts3D © DBCLS, CC BY-SA 4.0 , adapté. Zones illustratives, pas une carte diagnostique.
 
-- Cervicalgie
-- Torticolis
-- Maux de tête de tension
-
-Dorsales T1 – T12
-
-Les 12 vertèbres dorsales s'articulent avec les côtes. Barre entre les omoplates, haut du dos tendu.
-
-- Dorsalgie
-- Douleur entre les omoplates
-- Raideur thoracique
-
-Lombaires L1 – L5
-
-Les 5 vertèbres lombaires, les plus massives, portent le poids du haut du corps. Lombalgie, dos bloqué, raideur du matin.
+Motifs de consultation
+Choisissez une zone
 
 - Lombalgie
-- Lumbago
-- Dos bloqué
-
-Sacrum & bassin S1 – coccyx
-
-Le sacrum relie la colonne au bassin. Sciatique, douleur de fesse ou de hanche, bassin pendant la grossesse.
-
+- Cervicalgie
+- Dorsalgie
 - Sciatique
-- Douleur de fesse
-- Bassin pendant la grossesse
+- Articulations & tendons
+- Stress & tensions
+- Troubles digestifs
+
+Sélectionnez un motif dans la liste, ou touchez une zone du corps. Faites glisser pour tourner, pincez ou utilisez la molette pour zoomer.
 
 ### Une séance en quatre temps
 
@@ -386,47 +373,34 @@ Stress & tensions Tensions qui s’installent avec le stress, la fatigue, un som
 
 Troubles digestifs Inconforts digestifs fonctionnels, ballonnements, ventre tendu. Découvrir
 
-### Votre colonne, vertèbre par vertèbre
+### Le corps, zone par zone
 
-24 vertèbres mobiles, des disques, le sacrum et le bassin : faites tourner la colonne et choisissez une zone pour voir les troubles qui s'y rattachent.
+Faites tourner le modèle et choisissez un motif de consultation pour voir les structures concernées.
 
-Cervicales C1 – C7 Dorsales T1 – T12 Lombaires L1 – L5 Sacrum & bassin S1 – coccyx
-
+Vue anatomique
 Explorer en 3D
 
-Choisissez une zone dans la liste
+Squelette
+Muscles
+Nerfs
+Viscères
 
-Cervicales C1 – C7
+Réinitialiser la vue
 
-Les 7 vertèbres du cou portent la tête et permettent de la tourner. Tensions d'écran, torticolis, nuque raide.
+Modèle anatomique : Z-Anatomy , d’après BodyParts3D © DBCLS, CC BY-SA 4.0 , adapté. Zones illustratives, pas une carte diagnostique.
 
-- Cervicalgie
-- Torticolis
-- Maux de tête de tension
-
-Dorsales T1 – T12
-
-Les 12 vertèbres dorsales s'articulent avec les côtes. Barre entre les omoplates, haut du dos tendu.
-
-- Dorsalgie
-- Douleur entre les omoplates
-- Raideur thoracique
-
-Lombaires L1 – L5
-
-Les 5 vertèbres lombaires, les plus massives, portent le poids du haut du corps. Lombalgie, dos bloqué, raideur du matin.
+Motifs de consultation
+Choisissez une zone
 
 - Lombalgie
-- Lumbago
-- Dos bloqué
-
-Sacrum & bassin S1 – coccyx
-
-Le sacrum relie la colonne au bassin. Sciatique, douleur de fesse ou de hanche, bassin pendant la grossesse.
-
+- Cervicalgie
+- Dorsalgie
 - Sciatique
-- Douleur de fesse
-- Bassin pendant la grossesse
+- Articulations & tendons
+- Stress & tensions
+- Troubles digestifs
+
+Sélectionnez un motif dans la liste, ou touchez une zone du corps. Faites glisser pour tourner, pincez ou utilisez la molette pour zoomer.
 
 ### Quand voir d'abord un médecin
 

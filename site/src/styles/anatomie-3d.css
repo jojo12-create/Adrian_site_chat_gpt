@@ -105,3 +105,30 @@
 body[data-page="anatomie-3d"] .fab { display: none; }
 .no-js .anatomie-app .body { display: block; }
 .no-js .anatomie-app .tools, .no-js .anatomie-app .loading { display: none; }
+
+/* ---------- Section intégrée (accueil, hub ostéopathie) ---------- */
+.anatomie-sec { position: relative; padding-top: var(--section); color: rgba(255, 255, 255, .85);
+  background: radial-gradient(120% 90% at 70% 40%, #2c4a38 0%, var(--forest) 45%, var(--forest-2) 100%); }
+.anatomie-sec-head { padding-bottom: 32px; }
+.anatomie-sec-head h2 { color: #fff; }
+.anatomie-sec-head h2 em { color: var(--gold-2); }
+.anatomie-sec-head .lead { color: rgba(255, 255, 255, .78); }
+.anatomie-sec-head :focus-visible { outline-color: var(--gold-2); }
+/* Plus basse que l'écran : il reste toujours une bande de page à saisir pour défiler. */
+.anatomie-app[data-anatomie-embedded] { height: min(84dvh, 780px); min-height: 520px; }
+.anatomie-app[data-anatomie-embedded]:not(.is-started) .loading { display: none; }
+.anatomie-app[data-anatomie-embedded]:not(.is-started) .tools { visibility: hidden; }
+.anatomie-app .anatomie-load { position: absolute; z-index: 4; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  border: 0; border-radius: 99px; min-height: 48px; padding: 0 24px; font-weight: 700; font-size: 1rem;
+  background: var(--paper); color: var(--ink); box-shadow: 0 6px 24px rgba(0, 0, 0, .35); }
+.anatomie-app .anatomie-load:hover { background: #fff; }
+.anatomie-app .anatomie-load:disabled { cursor: progress; }
+.no-js .anatomie-app .anatomie-load { display: none; }
+@media (max-width: 899px) {
+  .anatomie-app[data-anatomie-embedded] .drawer { max-height: calc(max(min(84dvh, 780px), 520px) * .56); }
+}
+/* Avant le démarrage, les liens de la légende ont l'aspect des boutons qui les remplacent. */
+.anatomie-app .legend a { display: inline-flex; align-items: center; border: 1.5px solid var(--line); background: #fff; border-radius: 99px;
+  min-height: 42px; padding: 0 15px; font-size: .9375rem; font-weight: 500; color: var(--ink); text-decoration: none; }
+.anatomie-app .legend a:hover { border-color: var(--ink); }
+@media (min-width: 900px) { .anatomie-app .legend a { display: flex; width: 100%; border-radius: 12px; } }

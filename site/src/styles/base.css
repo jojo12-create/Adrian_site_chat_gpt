@@ -27,7 +27,7 @@ a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: 
 ::selection { background: var(--gold); color: var(--ink); }
 /* Focus : contour forêt (11:1 sur papier) et halo doré ; or clair sur les fonds sombres */
 :focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; box-shadow: 0 0 0 6px rgba(190, 155, 78, .35); border-radius: 6px; }
-.footer :focus-visible, .cta-final :focus-visible, .marquee-sec :focus-visible, .spine-sec :focus-visible, .price-card :focus-visible, .way-main:focus-visible, .map-frame :focus-visible, .nav.is-open :focus-visible { outline-color: var(--gold-2); box-shadow: none; }
+.footer :focus-visible, .cta-final :focus-visible, .marquee-sec :focus-visible, .price-card :focus-visible, .way-main:focus-visible, .map-frame :focus-visible, .nav.is-open :focus-visible { outline-color: var(--gold-2); box-shadow: none; }
 a, button, summary, label, select { touch-action: manipulation; }
 main:focus { outline: none; }
 address { font-style: normal; }
