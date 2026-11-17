@@ -7,7 +7,8 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { pages } from '../content/pages.mjs';
+import { pages as existingPages } from '../content/pages.mjs';
+import { anatomiePage } from '../content/anatomie-page.mjs';
 import { render, frTypo, DEMO } from '../content/layout.mjs';
 import { site } from '../content/site.mjs';
 
@@ -16,6 +17,7 @@ const siteDir = join(root, 'site');
 const len = (s) => [...s].length;
 const BASE = process.env.BASE || '/';
 const errors = [];
+const pages = [...existingPages, anatomiePage];
 const today = new Date().toISOString().slice(0, 10);
 const titles = new Set(), descs = new Set();
 

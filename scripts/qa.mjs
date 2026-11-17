@@ -21,12 +21,12 @@ const PORT = 8765, base = `http://127.0.0.1:${PORT}`;
 // Le mail() de PHP est redirigé vers un fichier : aucun e-mail réel n'est envoyé pendant les tests.
 const mailLog = join(root, 'qa-shots', 'mails.log');
 writeFileSync(mailLog, '');
-const php = spawn('php', ['-d', `sendmail_path=tee -a ${mailLog} > /dev/null`, '-S', `127.0.0.1:${PORT}`, '-t', join(root, 'dist')], { stdio: 'ignore' });
+const php = spawn('php', ['-d', `sendmail_path=tee -a ${mailLog} > /dev/null`, '-S', `127.0.0.1:${PORT}`, '-t', join(root, 'dist'), join(root, 'scripts/qa-router.php')], { stdio: 'ignore' });
 await new Promise((r) => setTimeout(r, 800));
 
 const pages = ['/', '/osteopathie/', '/osteopathie/nourrissons/', '/osteopathie/lombalgie/', '/osteopathie/mobilite-equilibre/', '/cabinet/', '/tarifs/', '/contact/', '/avis/', '/conseils/mal-de-dos/', '/mentions-legales/'];
 const axeSrc = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
-const browser = await chromium.launch();
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const report = [];
 
 const probe = () => new Promise((res) => {
@@ -113,4 +113,14 @@ for (const x of report) {
   if (x.axe) console.log(`${x.vp.padEnd(13)} ${x.p.padEnd(28)} axe: ${x.axe.length ? x.axe.join(' ; ') : '0 violation'}`);
   else if (x.p) console.log(`${x.vp.padEnd(13)} ${x.p.padEnd(28)} LCP ${x.lcp} ms (${x.lcpEl}) · CLS ${x.cls} · H1 ${x.h1} · débord ${x.overflow} · RDV visibles ${x.rdvVisible}${x.small.length ? ' · petites cibles: ' + x.small.join(', ') : ''}`);
   else console.log(JSON.stringify(x));
+}
+
+// A generated report alone is not a passing check: fail on broken pages,
+// JavaScript errors, accessibility regressions or an invalid 404 response.
+const failures = report.filter((x) => x.axe?.length || x.jsErrors?.length ||
+  (x.p && x.h1 !== undefined && (x.h1 !== 1 || x.overflow > 0)) ||
+  (x.http404 !== undefined && x.http404 !== 404));
+if (failures.length) {
+  console.error(`${failures.length} contrôle(s) QA en échec ; voir qa-shots/report.json`);
+  process.exitCode = 1;
 }

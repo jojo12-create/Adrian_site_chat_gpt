@@ -204,16 +204,16 @@ export function render(p) {
 <meta property="og:image" content="${site.url}/images/og-adrian-rodriguez.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Adrian Rodriguez, ostéopathe à Villefontaine">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.description)}"><meta name="twitter:image" content="${site.url}/images/og-adrian-rodriguez.jpg">
 <script>document.documentElement.classList.replace('no-js','js')</script>
-<link rel="stylesheet" href="/src/styles/main.css">
+<link rel="stylesheet" href="/src/styles/main.css">${(p.styles || []).map((src) => `\n<link rel="stylesheet" href="${esc(src)}">`).join('')}
 <script type="application/ld+json">${jsonLd(p)}</script>
-<script type="module" src="/src/scripts/main.js"></script>
+<script type="module" src="/src/scripts/main.js"></script>${(p.scripts || []).map((src) => `\n<script type="module" src="${esc(src)}"></script>`).join('')}
 </head>
 <body data-page="${p.id}"${DEMO ? ' data-demo' : ''}>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="progress" aria-hidden="true"><span></span></div>
 <header class="header" data-header>
   <div class="wrap header-in">
-    <a class="brand" href="/" aria-label="Adrian Rodriguez, ostéopathe à Villefontaine : accueil">
+    <a class="brand" href="/" title="Accueil">
       <img src="/images/logo-160.webp" width="44" height="44" alt="">
       <span><strong>Adrian Rodriguez</strong><small>Ostéopathe · Villefontaine</small></span>
     </a>

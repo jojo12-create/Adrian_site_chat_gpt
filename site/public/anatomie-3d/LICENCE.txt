@@ -1,0 +1,20 @@
+model.bin — Z-Anatomy, d'après BodyParts3D © DBCLS, adapté.
+Licence : Creative Commons Attribution – Partage dans les mêmes conditions
+4.0 International (CC BY-SA 4.0).
+https://creativecommons.org/licenses/by-sa/4.0/
+https://creativecommons.org/licenses/by-sa/4.0/legalcode.fr
+
+Sources : https://www.z-anatomy.com/ — https://github.com/Z-Anatomy/Models
+BodyParts3D : https://lifesciencedb.jp/bp3d/
+
+Adaptations du prototype : sélection, simplification et regroupement anatomique,
+conversion de courbes en tubes, changement de repère, occlusion par sommet,
+quantification 16 bits et codage différentiel. Portage web : décodage du conteneur
+base64 sans modification des octets du modèle, compression HTTP.
+
+SHA-256 : 9abdf4d1670e0cd6c774d0a5df81231a8067fdc8c0cf191f8215e785109010cf
+
+Le modèle et ses adaptations restent redistribuables sous CC BY-SA 4.0 avec ce
+crédit, le lien de licence et l'indication des modifications. Cette licence ne
+s'applique pas au reste du site ni aux illustrations 2D de provenance distincte.
+Les détails sont conservés dans docs/licences-3d.md du dépôt.

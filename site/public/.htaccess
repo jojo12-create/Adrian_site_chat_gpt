@@ -31,7 +31,7 @@ ErrorDocument 404 /404.html
 
 # Compression
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml text/plain
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml text/plain application/octet-stream
 </IfModule>
 
 # Cache : fichiers versionnés par Vite (assets/) = 1 an ; images = 30 jours ; HTML = revalidé
@@ -61,3 +61,4 @@ ErrorDocument 404 /404.html
 
 AddType image/avif .avif
 AddType application/manifest+json .webmanifest
+AddType application/octet-stream .bin

@@ -1,7 +1,7 @@
 # Adrian Rodriguez, ostéopathe à Villefontaine : site web
 
 Site vitrine en code pur (HTML, CSS, JavaScript), sans framework ni plateforme. Il tourne en local et s'héberge n'importe où : le dossier `dist/` est un site statique, et le formulaire tourne avec un script PHP.
-**100 % gratuit :** Vite (MIT), Three.js (MIT, chargé à la demande), sharp (Apache-2.0), polices Source Serif 4 et Figtree (OFL), `mail()` de PHP. Aucune bibliothèque d'animation : transitions CSS et JavaScript natif.
+**Sans service payant :** Vite (MIT), Three.js (MIT, chargé à la demande), sharp (Apache-2.0), polices Source Serif 4 et Figtree (OFL), `mail()` de PHP. Le visualiseur `/anatomie-3d/` utilise aussi le cœur gratuit de GSAP 3.12.5, chargé uniquement à son apparition ; les autres pages conservent leurs animations CSS et JavaScript natif. Voir [les licences 3D](docs/licences-3d.md).
 
 ## Démarrer
 
@@ -11,12 +11,21 @@ npm run dev          # serveur local http://127.0.0.1:5173 (rechargement à chau
 npm run build        # version de production dans dist/
 node scripts/serve.mjs 4173   # sert dist/ comme l'hébergeur (gzip, vraie 404)
 npm test             # tests réels : Playwright desktop/mobile, axe, LCP, formulaire PHP
+npm run test:anatomie # modèle, chargement différé, interactions 3D/2D et captures
 node scripts/measure.mjs http://127.0.0.1:4173 mesures   # poids, LCP/CLS/INP, fluidité du défilement, captures
 npm run images       # ré-optimise les photos (assets/raw → site/public/images)
 npm run symbols      # regroupe les 14 symboles (assets/raw/symboles → site/public/images/symboles.svg)
 ```
 
 Pour tester le formulaire en local : `php -S 127.0.0.1:8000 -t dist`.
+Pour les tests : PHP CLI dans le PATH et `npx playwright install chromium` (ou
+`CHROMIUM_PATH=/chemin/vers/chromium`). Les outils de test sont des dépendances
+de développement, jamais chargées par le site.
+
+Le visualiseur est une page de validation en **noindex**, absente du sitemap.
+Ses textes viennent de `content/categories.mjs`, ses associations et parcours de
+`content/anatomie-3d.mjs`. Le modèle reste téléchargeable sous CC BY-SA 4.0.
+Voir [reconstruction du modèle](scripts/anatomie-3d/README.md).
 
 ## Mettre en ligne (n'importe quel hébergeur)
 1. `npm run build`

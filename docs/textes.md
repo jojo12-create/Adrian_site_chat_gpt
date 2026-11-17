@@ -2200,3 +2200,37 @@ Le site a été refait : l'adresse a peut-être changé.
 - Ostéopathie
 - Tarifs
 - Contact Prendre rendez-vous
+
+
+---
+
+## /anatomie-3d/
+
+- **Title** (42) : Anatomie 3D | Adrian Rodriguez, ostéopathe
+- **Description** (126) : Explorez les structures anatomiques et les motifs de consultation du cabinet d’ostéopathie d’Adrian Rodriguez à Villefontaine.
+
+## Anatomie 3D
+
+Vue anatomique
+
+Squelette
+Muscles
+Nerfs
+Viscères
+
+Réinitialiser la vue
+
+Modèle anatomique : Z-Anatomy , d’après BodyParts3D © DBCLS, CC BY-SA 4.0 , adapté. Zones illustratives, pas une carte diagnostique.
+
+Motifs de consultation
+Choisissez une zone
+
+- Lombalgie
+- Cervicalgie
+- Dorsalgie
+- Sciatique
+- Articulations & tendons
+- Stress & tensions
+- Troubles digestifs
+
+Sélectionnez un motif dans la liste, ou touchez une zone du corps. Faites glisser pour tourner, pincez ou utilisez la molette pour zoomer.

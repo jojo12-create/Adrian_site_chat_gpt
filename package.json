@@ -12,14 +12,18 @@
     "build": "npm run pages && vite build site --emptyOutDir",
     "preview": "vite preview site --host 127.0.0.1 --port 4173",
     "test": "node scripts/qa.mjs",
+    "test:anatomie": "node scripts/anatomie-3d/check-model.mjs && node scripts/qa-anatomie-3d.mjs",
     "build:demo": "DEMO=1 BASE=/Adrian_site_chat_gpt/ DEMO_URL=https://jojo12-create.github.io/Adrian_site_chat_gpt npm run build"
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "gsap": "3.12.5",
     "three": "^0.171.0"
   },
   "devDependencies": {
     "axe-core": "^4.10.2",
+    "lighthouse": "^13.6.0",
+    "playwright": "^1.65.1",
     "sharp": "^0.34.2",
     "vite": "^6.3.5"
   }

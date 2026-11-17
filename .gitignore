@@ -4,6 +4,7 @@ dist/
 site/**/*.html
 !site/vite.config.js
 qa-shots/
+__pycache__/
 
 # Skills Claude (copiés depuis jojo12-create/skills, non versionnés ici)
 .claude/skills/
